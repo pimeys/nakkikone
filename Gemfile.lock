@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/blowmage/minitest-rails.git
+  revision: 7733031f2a40996a15d35379b43e1fe23e74869d
+  specs:
+    minitest-rails (0.1.0.alpha.20120525143907)
+      minitest (~> 3.0)
+      rails (~> 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -31,6 +39,7 @@ GEM
     arel (3.0.2)
     bcrypt-ruby (3.0.1)
     builder (3.0.0)
+    coderay (1.0.6)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -38,9 +47,22 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.3.3)
+    columnize (0.3.6)
+    debugger (1.1.3)
+      columnize (>= 0.3.1)
+      debugger-linecache (~> 1.1.1)
+      debugger-ruby_core_source (~> 1.1.2)
+    debugger-linecache (1.1.1)
+      debugger-ruby_core_source (>= 1.1.1)
+    debugger-ruby_core_source (1.1.3)
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    factory_girl (3.4.1)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (3.4.0)
+      factory_girl (~> 3.4.0)
+      railties (>= 3.0.0)
     hike (1.2.1)
     i18n (0.6.0)
     journey (1.0.4)
@@ -53,10 +75,21 @@ GEM
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    metaclass (0.0.1)
+    method_source (0.7.1)
     mime-types (1.18)
+    minitest (3.1.0)
+    mocha (0.11.4)
+      metaclass (~> 0.0.1)
     multi_json (1.3.6)
     mysql2 (0.3.11)
     polyglot (0.3.3)
+    pry (0.9.9.6)
+      coderay (~> 1.0.5)
+      method_source (~> 0.7.1)
+      slop (>= 2.4.4, < 3)
+    pry-rails (0.1.6)
+      pry
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -87,6 +120,7 @@ GEM
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)
+    slop (2.4.4)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -109,9 +143,14 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   coffee-rails (~> 3.2.1)
+  debugger
+  factory_girl_rails
   jquery-rails
   json
+  minitest-rails!
+  mocha
   mysql2
+  pry-rails
   rails (= 3.2.6)
   sass-rails (~> 3.2.3)
   therubyracer

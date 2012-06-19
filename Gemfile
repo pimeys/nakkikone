@@ -12,3 +12,11 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer'
 end
+
+group :test, :development do
+  gem 'minitest-rails', :git => 'https://github.com/blowmage/minitest-rails.git'
+  gem 'mocha'
+  gem 'factory_girl_rails'
+  gem 'debugger'
+  gem 'pry-rails'
+end
