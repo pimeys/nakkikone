@@ -1,6 +1,3 @@
 language: ruby
 rvm:
-  - 1.9.3-p194
-before_script:
-  - echo 'test:\n adapter: mysql2\n database: nakkikone_test\n username: root\n' > config/database.yml
-  - rake db:create db:migrate
+  - 1.9.3
