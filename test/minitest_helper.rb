@@ -4,6 +4,7 @@ require File.expand_path('../../config/environment', __FILE__)
 require "minitest/autorun"
 require "minitest/rails"
 require "minitest/pride"
+require "minitest/spec"
 
 # Do you want all existing Rails tests to use MiniTest::Rails?
 # Comment out the following and either:
