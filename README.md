@@ -18,3 +18,20 @@ Tästä tulee superhieno uusi nakkikone teknoklubeille.
 
 Tee tästä projektista Githubissa oma forkki ja luo tekemääsi ominaisuutta varten
 oma branch. Kun koet olevasi valmis, lähetä minulle pull request.
+
+## Testaaminen
+
+Kirjoitetaan mahdollisimman kattavat yksikkötestit. Noottia tulee, jos testit
+puuttuvat.
+
+Projekti käyttää CI-ohjelmana travisia, jonka voi ja joka myös kannattaa
+virittää omaan forkiin käyttöön. Pitäisi onnistua helposti osoitteessa
+http://travis-ci.org.
+
+Masterin travis build löytyy täältä:
+
+http://travis-ci.org/#!/pimeys/nakkikone
+
+Testien tila:
+
+[![Testien tila](https://secure.travis-ci.org/pimeys/nakkikone.png?branch=master)](http://travis-ci.org/pimeys/nakkikone)
