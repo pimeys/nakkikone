@@ -1,23 +1,7 @@
-define(['jquery','backbone','collections'], function($,bb,collections) {
+define(['jquery','backbone','collections','views/admin'], function($,bb,collections,admin) {
     
-    users = new collections.Users();
-
-    parties = new collections.Parties();
-
-    nakit = new collections.Nakit();
-
-    var dev_catch = {
-	success: function(co,resp) {
-	    alert(JSON.stringify(co) + resp);
-	},
-	error: function(co,resp) {
-	    alert("whaat... "+ JSON.stringify(resp));
-	}};
-
     var initialize = function(){
-	nakit.fetch(dev_catch);
-	parties.fetch(dev_catch);
-	users.fetch(dev_catch);
+	new admin.View({el:$("#content")});
     };
 
     return {initialize: initialize};
