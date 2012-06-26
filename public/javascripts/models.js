@@ -1,6 +1,8 @@
 define(['jquery','backbone'],function($,bb){
 
     var Person = bb.Model.extend({
+	idAttribute: "email",
+
 	defaults: {
 	    name: "nakkilainen",
 	    email: "nakki@email.com",
@@ -10,16 +12,19 @@ define(['jquery','backbone'],function($,bb){
 
     var Nakki = bb.Model.extend({
 	defaults: {
-	    description: "Bile kuvaus tarvitaan",
-	    nakit: [] //List or collection of nakkis??
+	    type: undefined, //string?
+	    start: undefined, //date or slot ?
+	    assign: undefined //Person id?
 	}
     });
 
     var Party = bb.Model.extend({
+	idAttribute: "title",
+
 	defaults: {
-	    type: undefined, //string?
-	    start: undefined, //date or slot ?
-	    assign: undefined //Person
+	    title: "bileennimet",
+	    description: "Bile kuvaus tarvitaan",
+	    nakit: [] //List or collection of nakkis??
 	}
     });
 

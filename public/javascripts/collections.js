@@ -5,5 +5,17 @@ define(['jquery','backbone','models'],function($, bb, models){
 	url: '/mock-data/users.json'
     });
 
-    return {Users:Users};
+    var Parties = bb.Collection.extend({
+	model: models.party,
+	url: '/mock-data/parties.json'
+    });
+
+    var Nakit = bb.Collection.extend({
+	model: models.nakki,
+	url: '/mock-data/nakit.json'
+    })
+
+    return {Users:Users,
+	    Parties:Parties,
+	    Nakit:Nakit};
 });
