@@ -1,4 +1,4 @@
-define(['query','backbone'],function($,bb){
+define(['jquery','backbone'],function($,bb){
 
     var Person = bb.Model.extend({
 	defaults: {
@@ -10,7 +10,7 @@ define(['query','backbone'],function($,bb){
 
     var Nakki = bb.Model.extend({
 	defaults: {
-	    description: "Bile kuvaus tarvitaan"
+	    description: "Bile kuvaus tarvitaan",
 	    nakit: [] //List or collection of nakkis??
 	}
     });
@@ -22,7 +22,6 @@ define(['query','backbone'],function($,bb){
 	    assign: undefined //Person
 	}
     });
-
 
     return {person:Person, 
 	    nakki:Nakki, 

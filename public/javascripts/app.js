@@ -1,6 +1,17 @@
-define(['jquery','backbone'], function($,bb) {
+define(['jquery','backbone','collections'], function($,bb,collections) {
     
-    var initialize = function(){alert("tadaa!")};
+    var users = new collections.Users();
+
+    var initialize = function(){
+	users.fetch({
+	    success: function(co,resp) {
+		alert(JSON.stringify(co) + resp);
+	    },
+	    error: function(co,resp) {
+		alert("whaat... "+ JSON.stringify(resp));
+	    }
+	});
+    };
 
     return {initialize: initialize};
 });
