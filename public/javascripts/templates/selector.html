@@ -1,0 +1,5 @@
+<form method="post">
+  <select name="parties">
+    <% _.each(data, function(party){ %> <option value="<%= party.id %>"><%= party.title %></option> <% }); %>
+  </select>
+</form>
