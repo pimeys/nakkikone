@@ -4,17 +4,14 @@ define(['jquery',
 	'collections',
 	'models',
 	'libs/text!templates/users.html',
-	'libs/text!templates/selector.html',
-	'libs/text!templates/input.html'], 
-       function($, _, bb, collections, models, usr_tmpl, slctr_tmpl, input_tmpl) {
+	'libs/text!templates/selector.html'],
+       function($, _, bb, collections, models, usr_tmpl, slctr_tmpl) {
 
 	   var selector_template = _.template(slctr_tmpl);
 	   var parties = new collections.Parties();
 
 	   var userlist_template = _.template(usr_tmpl);
 	   var users = new collections.Users();
-
-	   var input_template = _.template(input_tmpl);
 
 	   var party_selector = bb.View.extend({
 	       initialize: function() {
