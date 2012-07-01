@@ -7,6 +7,10 @@ define(['jquery','backbone'],function($,bb){
 	    name: "nakkilainen",
 	    email: "nakki@email.com",
 	    number: "0401234567"
+	},
+	
+	save: function(data){
+	    alert(data.name + "\n" + data.email + "\n" +data.number);
 	}
     });
 
