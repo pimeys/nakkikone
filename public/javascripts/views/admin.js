@@ -17,8 +17,10 @@ define(['jquery',
 	   var party_description_template = _.template(party_tmpl);
 
 	   var party_selector = bb.View.extend({
-	       events: {"click .selector" : "select",
-		        "click .creator"  : "create"},
+	       events: {
+		   "change .selector" : "select",
+		   "click .creator"  : "create"
+	       },
 
 	       initialize: function() {
 		   _.bindAll(this);
@@ -30,8 +32,11 @@ define(['jquery',
 		   return this.$el;
 	       },
 	       
-	       select: function() {
-		   alert("select triggered!");
+	       select: function(target) {
+		   var optionIndex = target.currentTarget.options.selectedIndex;
+		   var partyIndex = target.currentTarget.options[optionIndex].value;
+		   var party = parties.get(partyIndex).toJSON();
+		   alert(party.title + "\n" + party.description);
 	       },
 
 	       create: function() {
@@ -87,8 +92,7 @@ define(['jquery',
 	       }
 	   });
 
-	   return { Parcipitants: user_list,
-		    Selector: party_selector,
+	   return { Selector: party_selector,
 		    Assign_Form: assign_form,
 		    Party_Viewer: party_viewer
 		  };

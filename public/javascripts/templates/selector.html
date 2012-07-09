@@ -1,8 +1,6 @@
 <form method="post">
-  <select name="parties">
-    <% _.each(data, function(party){ %> <option value="<%= party.id %>"><%= party.title %></option> <% }); %>
+  <select name="parties" class="selector">
+    <% _.each(data, function(party){ %> <option value="<%= party.title %>"><%= party.title %></option> <% }); %>
   </select>
 </form>
-<button class="selector">Select Party</button>
 <button class="creator">New Party</button>
-

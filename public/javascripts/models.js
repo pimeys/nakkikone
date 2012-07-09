@@ -23,7 +23,7 @@ define(['jquery','backbone'],function($,bb){
     });
 
     var Party = bb.Model.extend({
-	idAttribute: "title",
+	idAttribute: 'title',
 
 	defaults: {
 	    title: "bileennimet",
