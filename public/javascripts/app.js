@@ -2,8 +2,8 @@ define(['jquery','backbone','models','collections','views/admin'], function($,bb
     
     var initialize = function(){
 	new admin.Selector({el:$('#partyselector')});
-	new admin.Parcipitants({el:$('#parcipitants')});
 	new admin.Assign_Form({el:$('#assign'), model:new models.person()});
+	new admin.Party_Viewer({el:$('#content'), model:new models.party()});
     };
 
     return {initialize: initialize};

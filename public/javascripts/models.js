@@ -28,7 +28,8 @@ define(['jquery','backbone'],function($,bb){
 	defaults: {
 	    title: "bileennimet",
 	    description: "Bile kuvaus tarvitaan",
-	    nakit: [] //List or collection of nakkis??
+	    nakit: [], //List or collection of nakkis??
+	    date: "someday"
 	}
     });
 
