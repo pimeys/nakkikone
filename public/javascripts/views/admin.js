@@ -15,9 +15,17 @@ define(['jquery',
 	   var parties = new collections.Parties();
 
 	   var userlist_template = _.template(usr_tmpl);
-	   var users = new collections.Users();
 
 	   var party_description_template = _.template(party_tmpl);
+
+	   // mocking purposes
+	   var Parcipitants = bb.Model.extend({
+	       defaults: {partyURL:'nopartes'},
+	       url: function() {
+		   return '/mock-data/' + this.get('partyURL') + '/parcipitants';
+	       },
+	       users: new collections.Users()
+	   });
 
 	   var party_selector = bb.View.extend({
 	       events: {
@@ -50,11 +58,12 @@ define(['jquery',
 	   var user_list = bb.View.extend({
 	       initialize: function(){
 		   _.bindAll(this);
-		   users.fetch({success:this.render});
+		   this.model.users.url = this.model.url();
+		   this.model.users.fetch({success:this.render});
 	       },
 	       
 	       render: function(){
-		   this.$el.html(userlist_template({data:users.toJSON()}));
+		   this.$el.html(userlist_template({data:this.model.users.toJSON()}));
 		   return this.$el;
 	       }
 	   });
@@ -73,7 +82,7 @@ define(['jquery',
 	       
 	       render: function(){
 		   this.$el.html(party_description_template({party:this.model.toJSON()}));
-		   new user_list({el: this.$('#parcipitants')});
+		   new user_list({el: this.$('#parcipitants'), model: new Parcipitants({partyURL: this.model.get('title')})});
 		   return this.$el;
 	       },
 
