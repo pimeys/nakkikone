@@ -8,6 +8,9 @@ define(['jquery',
 	'libs/text!templates/party-description.html'],
        function($, _, bb, collections, models, usr_tmpl, slctr_tmpl, party_tmpl) {
 
+	   var vent = {};
+	   _.extend(vent, bb.Events);
+
 	   var selector_template = _.template(slctr_tmpl);
 	   var parties = new collections.Parties();
 
@@ -25,6 +28,7 @@ define(['jquery',
 	       initialize: function() {
 		   _.bindAll(this);
 		   parties.fetch({success:this.render});
+		   parties.on('add',this.render);
 	       },
 
 	       render: function(){
@@ -34,14 +38,12 @@ define(['jquery',
 	       
 	       select: function(target) {
 		   var optionIndex = target.currentTarget.options.selectedIndex;
-		   var partyIndex = target.currentTarget.options[optionIndex].value;
-		   var party = parties.get(partyIndex).toJSON();
-		   alert(party.title + "\n" + party.description);
+		   var partyId = target.currentTarget.options[optionIndex].value;
+		   vent.trigger('changeParty',partyId);
 	       },
 
 	       create: function() {
 		   parties.add({title:"uudet bileet"});
-		   this.render();
 	       }
 	   });
 
@@ -58,15 +60,31 @@ define(['jquery',
 	   });
 
 	   var party_viewer = bb.View.extend({
+	       events: {
+		   "change .selector" : "select",
+		   "click .creator"  : "create"
+	       },
+	       
 	       initialize: function(){
 		   _.bindAll(this);
-		   this.render();
+		   vent.on('changeParty',this.select);
+		   parties.fetch({success:this.render});
 	       },
 	       
 	       render: function(){
 		   this.$el.html(party_description_template({party:this.model.toJSON()}));
 		   new user_list({el: this.$('#parcipitants')});
 		   return this.$el;
+	       },
+
+	       select: function(partyId) {
+		   this.model = parties.get(partyId);
+		   this.render();
+	       },
+
+	       create: function() {
+		   parties.add({title:"uudet bileet"});
+		   this.render();
 	       }
 	   });
 

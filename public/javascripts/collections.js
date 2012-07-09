@@ -6,17 +6,9 @@ define(['backbone','underscore','models'],function(bb, _, models){
     });
 
     var Parties = bb.Collection.extend({
-	initialize: function() {
-	    this.on("add",this.notify);
-	},
-
 	model: models.party,
 	
 	url: '/mock-data/parties.json',
-
-	notify: function(){
-	    alert("new party created!");
-	}
     });
 
     var Nakit = bb.Collection.extend({
