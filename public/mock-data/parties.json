@@ -1,2 +1,4 @@
-[{"title":"bileet1","description":"do something", "nakit":["1","2","3"],"id":"1"},
-{"title":"bileet2","description":"do something more", "nakit":["4","5","6"],"id":"2", "date":"everyday"}]
+[
+{"id":"bileet1", "title":"bileet1", "description":"do something", "date":"everyday"},
+{"id":"bileet2", "title":"bileet2", "description":"do something more", "date":"someday"}
+]

@@ -71,6 +71,7 @@ define(['jquery',
 		       success: this.render, 
 		   
 		       error: function(){
+			   users.reset();
 			   self.$el.html('none');
 		       }
 		   });
@@ -105,7 +106,8 @@ define(['jquery',
 		       success: this.render, 
 		   
 		       error: function(){
-			   self.$el.html('none');
+			   nakit.reset();
+			   self.$el.html(nakkilist_template({data:{}}));
 		       }
 		   });
 	       },
@@ -128,7 +130,7 @@ define(['jquery',
 	   
 	   var Party_Viewer = bb.View.extend({
 	       events: {
-		   "change .selector"   : "select",
+		   "change .selector" : "select",
 		   "click .editor"    : "save"
 	       },
 	       
