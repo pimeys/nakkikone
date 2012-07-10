@@ -14,11 +14,13 @@ define(['jquery','backbone'],function($,bb){
 	}
     });
 
-    var Nakki = bb.Model.extend({
+    var NakkiType = bb.Model.extend({
+	idAttribute: 'type',
+
 	defaults: {
-	    type: 'geneerinen nakki', //string?
-	    start: 'milloin?', //date or slot ?
-	    assign: 'kuka?' //Person id?
+	    type: 'nakin tyyppi',
+	    start: 'alkaa milloin?', 
+	    end: 'loppuu koska?'
 	}
     });
 
@@ -33,6 +35,6 @@ define(['jquery','backbone'],function($,bb){
     });
 
     return {person:Person, 
-	    nakki:Nakki, 
+	    nakki:NakkiType, 
 	    party:Party};
 });
