@@ -16,9 +16,9 @@ define(['jquery','backbone'],function($,bb){
 
     var Nakki = bb.Model.extend({
 	defaults: {
-	    type: undefined, //string?
-	    start: undefined, //date or slot ?
-	    assign: undefined //Person id?
+	    type: 'geneerinen nakki', //string?
+	    start: 'milloin?', //date or slot ?
+	    assign: 'kuka?' //Person id?
 	}
     });
 
@@ -28,7 +28,6 @@ define(['jquery','backbone'],function($,bb){
 	defaults: {
 	    title: "bileennimet",
 	    description: "Bile kuvaus tarvitaan",
-	    nakit: [], //List or collection of nakkis??
 	    date: "someday"
 	}
     });
