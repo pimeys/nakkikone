@@ -1,3 +1,4 @@
+"use strict";
 define(['jquery',
 	'underscore',
 	'backbone',
@@ -82,7 +83,10 @@ define(['jquery',
 	       
 	       render: function(){
 		   this.$el.html(party_description_template({party:this.model.toJSON()}));
-		   new user_list({el: this.$('#parcipitants'), model: new Parcipitants({partyURL: this.model.get('title')})});
+		   new user_list({
+		       el: this.$('#parcipitants'), 
+		       model: new Parcipitants({partyURL: this.model.get('title')})
+		   });
 		   return this.$el;
 	       },
 
@@ -96,31 +100,9 @@ define(['jquery',
 		   this.render();
 	       }
 	   });
-
-	   var assign_form = bb.View.extend({
-	       events: {'submit': 'save'},
-
-	       initialize: function() {
-		   _.bindAll(this, 'save');
-	       },
-	       
-	       render: function() {
-		   return this.$el;
-	       },
-
-	       save: function() {
-		   var arr = this.$el.serializeArray();
-		   var data = _(arr).reduce(function(acc, field) {
-		       acc[field.name] = field.value;
-		       return acc;
-		   }, {});
-		   this.model.save(data);
-		   return false;
-	       }
-	   });
-
-	   return { Selector: party_selector,
-		    Assign_Form: assign_form,
-		    Party_Viewer: party_viewer
-		  };
-});
+	   
+	   return { 
+	       Selector: party_selector,
+	       Party_Viewer: party_viewer
+	   };
+       });
