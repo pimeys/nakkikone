@@ -13,22 +13,16 @@ define(['jquery',
 	   _.extend(vent, bb.Events);
 
 	   var selector_template = _.template(slctr_tmpl);
-	   var parties = new collections.Parties();
-
-	   var userlist_template = _.template(usr_tmpl);
 
 	   var party_description_template = _.template(party_tmpl);
 
-	   // mocking purposes
-	   var Parcipitants = bb.Model.extend({
-	       defaults: {partyURL:'nopartes'},
-	       url: function() {
-		   return '/mock-data/' + this.get('partyURL') + '/parcipitants';
-	       },
-	       users: new collections.Users()
-	   });
+	   var userlist_template = _.template(usr_tmpl);
 
-	   var party_selector = bb.View.extend({
+	   var parties = new collections.Parties();
+	   
+	   var users = new collections.Users();
+
+	   var Party_Selector = bb.View.extend({
 	       events: {
 		   "change .selector" : "select",
 		   "click .creator"  : "create"
@@ -36,8 +30,8 @@ define(['jquery',
 
 	       initialize: function() {
 		   _.bindAll(this);
-		   parties.fetch({success:this.render});
-		   parties.on('add',this.render);
+		   parties.on('add', this.render);
+		   this.render();
 	       },
 
 	       render: function(){
@@ -56,37 +50,48 @@ define(['jquery',
 	       }
 	   });
 
-	   var user_list = bb.View.extend({
+	   var User_List = bb.View.extend({
 	       initialize: function(){
 		   _.bindAll(this);
-		   this.model.users.url = this.model.url();
-		   this.model.users.fetch({success:this.render});
+		   vent.on('changeParty', this.refresh);
+		   this.render();
 	       },
 	       
+	       refresh: function(partyId) {
+		   var self = this;
+		   var party = parties.get(partyId);
+
+		   users.partyId = party.get('title');
+		   users.fetch({
+		       success: this.render, 
+		   
+		       error: function(){
+			   self.$el.html('none');
+		       }
+		   });
+	       },
+
 	       render: function(){
-		   this.$el.html(userlist_template({data:this.model.users.toJSON()}));
+		   this.$el.html(userlist_template({data:users.toJSON()}));
 		   return this.$el;
 	       }
 	   });
 
-	   var party_viewer = bb.View.extend({
+	   var Party_Viewer = bb.View.extend({
 	       events: {
-		   "change .selector" : "select",
-		   "click .creator"  : "create"
+		   "change .selector"   : "select",
+		   "click .creator"     : "create",
+		   "click .editor"    : "save"
 	       },
 	       
 	       initialize: function(){
 		   _.bindAll(this);
-		   vent.on('changeParty',this.select);
-		   parties.fetch({success:this.render});
+		   vent.on('changeParty', this.select);
+		   this.render();
 	       },
 	       
 	       render: function(){
 		   this.$el.html(party_description_template({party:this.model.toJSON()}));
-		   new user_list({
-		       el: this.$('#parcipitants'), 
-		       model: new Parcipitants({partyURL: this.model.get('title')})
-		   });
 		   return this.$el;
 	       },
 
@@ -98,11 +103,27 @@ define(['jquery',
 	       create: function() {
 		   parties.add({title:"uudet bileet"});
 		   this.render();
+	       },
+
+	       save: function() {
+		   var arr = this.$el.serializeArray();
+		   alert(arr);
 	       }
 	   });
 	   
-	   return { 
-	       Selector: party_selector,
-	       Party_Viewer: party_viewer
+	   var initialize = function() {
+	       var latestParty;
+
+	       parties.fetch({success:function(){
+		   latestParty = parties.at(0);
+		   users.partyId = latestParty.get('title');
+		   users.fetch({success:function(){
+		       new Party_Selector({el:$('#partyselector')});
+		       new Party_Viewer({el:$('#party'), model: latestParty});
+		       new User_List({el:$('#users')});
+		   }});
+	       }});	       
 	   };
+
+	   return { initialize: initialize };
        });

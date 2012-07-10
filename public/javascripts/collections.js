@@ -1,8 +1,13 @@
 define(['backbone','underscore','models'],function(bb, _, models){
 
     var Users = bb.Collection.extend({
+	partyId: 'noparties',
+
 	model: models.person,
-	url: '/mock-data/users.json'
+
+	url: function() {
+	    return '/mock-data/' + this.partyId + '/parcipitants';
+	}
     });
 
     var Parties = bb.Collection.extend({
