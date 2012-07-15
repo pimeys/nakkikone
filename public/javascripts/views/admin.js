@@ -7,8 +7,9 @@ define(['jquery',
 	'libs/text!templates/users.html',
 	'libs/text!templates/nakit.html',
 	'libs/text!templates/selector.html',
-	'libs/text!templates/party-description.html'],
-       function($, _, bb, collections, models, usr_tmpl, nakit_tmpl, slctr_tmpl, party_tmpl) {
+	'libs/text!templates/party-description.html',
+	'libs/text!templates/party-editor-form.html'],
+       function($, _, bb, collections, models, usr_tmpl, nakit_tmpl, slctr_tmpl, party_tmpl, party_edit_tmpl) {
 
 	   var vent = {};
 	   _.extend(vent, bb.Events);
@@ -16,6 +17,8 @@ define(['jquery',
 	   var selector_template = _.template(slctr_tmpl);
 
 	   var party_description_template = _.template(party_tmpl);
+
+	   var party_edit_template = _.template(party_edit_tmpl);
 
 	   var userlist_template = _.template(usr_tmpl);
 
@@ -130,8 +133,9 @@ define(['jquery',
 	   
 	   var Party_Viewer = bb.View.extend({
 	       events: {
-		   "change .selector" : "select",
-		   "click .editor"    : "save"
+		   'change .selector' : 'select',
+		   'click .editor'    : 'edit',
+		   'submit'           : 'save'
 	       },
 	       
 	       initialize: function(){
@@ -150,9 +154,18 @@ define(['jquery',
 		   this.render();
 	       },
 
+	       edit: function() {
+		   this.$el.html(party_edit_template({party:this.model.toJSON()}))
+	       },
+	       
 	       save: function() {
 		   var arr = this.$el.serializeArray();
-		   alert(arr);
+		   var data = _(arr).reduce(function(acc, field) {
+		       acc[field.name] = field.value;
+		       return acc;
+		   }, {});
+		   this.model.save(data,{sucess:this.render,error:this.render});
+		   return false;
 	       }
 	   });
 
