@@ -159,7 +159,7 @@ define(['jquery',
 	       },
 	       
 	       save: function() {
-		   var arr = this.$el.serializeArray();
+		   var arr = this.$("#edit_party").serializeArray();
 		   var data = _(arr).reduce(function(acc, field) {
 		       acc[field.name] = field.value;
 		       return acc;
