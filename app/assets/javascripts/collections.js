@@ -6,14 +6,14 @@ define(['backbone','underscore','models'],function(bb, _, models){
 	model: models.Person,
 
 	url: function() {
-	    return '/mock-data/' + this.partyId + '/parcipitants';
+	    return '/parties/' + this.partyId + '/parcipitants';
 	}
     });
 
     var Parties = bb.Collection.extend({
 	model: models.Party,
 	
-	url: '/mock-data/parties',
+	url: '/parties',
     });
 
     var Nakit = bb.Collection.extend({
@@ -22,7 +22,7 @@ define(['backbone','underscore','models'],function(bb, _, models){
 	model: models.Nakki,
 
 	url: function() {
-	    return '/mock-data/' + this.partyId + '/nakit';
+	    return '/parties/' + this.partyId + '/nakit';
 	}
     });
 
