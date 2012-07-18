@@ -39,6 +39,7 @@ define(['jquery',
 	       initialize: function() {
 		   _.bindAll(this);
 		   parties.on('add', this.render);
+		   vent.on('partyEdited', this.render);
 		   this.render();
 	       },
 
@@ -165,6 +166,7 @@ define(['jquery',
 		       return acc;
 		   }, {});
 		   this.model.save(data,{sucess:this.render,error:this.render});
+		   vent.trigger('partyEdited');
 		   return false;
 	       }
 	   });
