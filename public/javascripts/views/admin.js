@@ -28,7 +28,7 @@ define(['jquery',
 	   
 	   var users = new collections.Users();
 
-	   var nakit = new collections.Nakit();
+	   var nakkitypes = new collections.Nakkitypes();
 
 	   var Party_Selector = bb.View.extend({
 	       events: {
@@ -96,8 +96,8 @@ define(['jquery',
 	       initialize: function(){
 		   _.bindAll(this);
 		   vent.on('changeParty', this.refresh);
-		   nakit.on('add', this.render);
-		   nakit.on('remove', this.render);
+		   nakkitypes.on('add', this.render);
+		   nakkitypes.on('remove', this.render);
 		   this.render();
 	       },
 	       
@@ -105,30 +105,30 @@ define(['jquery',
 		   var self = this;
 		   var party = parties.get(partyId);
 
-		   nakit.partyId = party.get('title');
-		   nakit.fetch({
+		   nakkitypes.partyId = party.get('title');
+		   nakkitypes.fetch({
 		       success: this.render, 
 		   
 		       error: function(){
-			   nakit.reset();
+			   nakkitypes.reset();
 			   self.$el.html(nakkilist_template({data:{}}));
 		       }
 		   });
 	       },
 
 	       render: function(){
-		   this.$el.html(nakkilist_template({data:nakit.toJSON()}));
+		   this.$el.html(nakkilist_template({data:nakkitypes.toJSON()}));
 		   return this.$el;
 	       },
 
 	       create: function(){
-		   nakit.add(new models.nakki());
+		   nakkitypes.add(new models.Nakkitype());
 	       },
 
 	       //TODO not work if created model, which doesn't have id yet(maybe disable delete for tehm...).
 	       remove: function(target){
 		   var removeId = target.currentTarget.attributes['value'].nodeValue;
-		   nakit.remove(removeId);
+		   nakkitypes.remove(removeId);
 	       }
 	   });
 	   
@@ -177,7 +177,7 @@ define(['jquery',
 	       parties.fetch({success:function(){
 		   latestParty = parties.at(0);
 		   users.partyId = latestParty.get('title');
-		   nakit.partyId = latestParty.get('title');
+		   nakkitypes.partyId = latestParty.get('title');
 		   
 		   var _ready = _.after(2, function(){
 		       new Party_Selector({el:$('#partyselector')});
@@ -186,7 +186,7 @@ define(['jquery',
 		       new User_List({el:$('#users')});
 		   });
 		   users.fetch({success: _ready}); 
-		   nakit.fetch({success: _ready}); 
+		   nakkitypes.fetch({success: _ready}); 
 	       }});
 	   };
 

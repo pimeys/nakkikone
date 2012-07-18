@@ -14,6 +14,14 @@ define(['jquery','backbone'],function($,bb){
 	}
     });
 
+    var Nakki = bb.Model.extend({
+	defaults: {
+	    assign: null,
+	    type: null,
+	    slot: null
+	}
+    });
+
     var NakkiType = bb.Model.extend({
 	idAttribute: 'type',
 
@@ -34,7 +42,10 @@ define(['jquery','backbone'],function($,bb){
 	}
     });
 
-    return {person:Person, 
-	    nakki:NakkiType, 
-	    party:Party};
+    return {
+	Person: Person, 
+	Nakkitype: NakkiType,
+	Nakki: Nakki,
+	Party: Party
+    };
 });

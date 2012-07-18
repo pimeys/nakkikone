@@ -3,7 +3,7 @@ define(['backbone','underscore','models'],function(bb, _, models){
     var Users = bb.Collection.extend({
 	partyId: 'noparties',
 
-	model: models.person,
+	model: models.Person,
 
 	url: function() {
 	    return '/mock-data/' + this.partyId + '/parcipitants';
@@ -11,7 +11,7 @@ define(['backbone','underscore','models'],function(bb, _, models){
     });
 
     var Parties = bb.Collection.extend({
-	model: models.party,
+	model: models.Party,
 	
 	url: '/mock-data/parties.json',
     });
@@ -19,14 +19,27 @@ define(['backbone','underscore','models'],function(bb, _, models){
     var Nakit = bb.Collection.extend({
 	partyId: 'noparties',
 
-	model: models.nakki,
+	model: models.Nakki,
 
 	url: function() {
 	    return '/mock-data/' + this.partyId + '/nakit';
 	}
-    })
+    });
 
-    return {Users:Users,
-	    Parties:Parties,
-	    Nakit:Nakit};
+    var NakkiTypes = bb.Collection.extend({
+	partyId: 'noparties',
+
+	model: models.Nakkitype,
+
+	url: function() {
+	    return '/mock-data/' + this.partyId + '/nakkitypes';
+	}
+    });
+
+    return {
+	Users: Users,
+	Parties: Parties,
+	Nakit: Nakit,
+	Nakkitypes: NakkiTypes 
+    };
 });
