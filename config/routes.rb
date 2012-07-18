@@ -6,8 +6,18 @@ RailStrap::Application.routes.draw do
   get "log_in" => "sessions#new", :as => "log_in"
   post "sessions" => "sessions#create"
   get "sign_up" => "users#new", :as => "sign_up"
-  
+
   resources :users
+
+  # get "parties" => "mockdata#show", :as => "show_mock_data"
+  # get "parties/:id" => "mockdata#index"
+
+  # get "parties/:id/parcipitants" => "mockdata#parcipitants"
+  # get "parties/:id/nakit" => "mockdata#nakit"
+
+  resources :parties do
+    resources :nakit, :parcipitants
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
