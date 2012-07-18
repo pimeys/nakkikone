@@ -16,7 +16,7 @@ RailStrap::Application.routes.draw do
   # get "parties/:id/nakit" => "mockdata#nakit"
 
   resources :parties do
-    resources :nakit, :parcipitants
+    resources :parcipitants, :nakkitypes, :nakit
   end
   
   # The priority is based upon order of creation:

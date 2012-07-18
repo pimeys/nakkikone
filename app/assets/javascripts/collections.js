@@ -32,7 +32,7 @@ define(['backbone','underscore','models'],function(bb, _, models){
 	model: models.Nakkitype,
 
 	url: function() {
-	    return '/mock-data/' + this.partyId + '/nakkitypes';
+	    return '/parties/' + this.partyId + '/nakkitypes';
 	}
     });
 
