@@ -7,7 +7,7 @@
   </head>
 
   <body>
-    <article>
+    <article id="admin">
       <heading>
 	<h1>Admin Screen</h1>
       </heading>
@@ -34,6 +34,29 @@
 	  <h1>List of parcipitants</h1>
 	</heading>
 	<div id="users"></div>
+      </section>
+    </article>
+    <article id="public">
+      <heading>
+	<h1>NakkiKone</h1>
+      </heading>
+      <section>
+	<div id="party-description"></div>
+      </section>
+      <section>
+	<heading>
+	  <h1>Select your nakki</h1>
+	</heading>
+	<div id="nakkiTable"></div>
+      </section>
+      <section id="input">
+	<!-- TODO move to template... -->
+	<form id="assign">
+	  Nimi: <input type="text" name="name" value="your name" /><br/>
+	  Email: <input type="text" name="email" value="your email" /><br/>
+	  Puhelin: <input type="text" name="number" value="your phone" /><br/>
+	  <input type="submit" value="Submit"></input>
+	</form>
       </section>
     </article>
   </body>

@@ -171,8 +171,9 @@ define(['jquery',
 	       }
 	   });
 
-	   var initialize = function() {
+	   var initialize = function(options) {
 	       var latestParty;
+	       var rootel = options.el;
 
 	       parties.fetch({success:function(){
 		   latestParty = parties.at(0);
@@ -180,10 +181,10 @@ define(['jquery',
 		   nakkitypes.partyId = latestParty.get('title');
 		   
 		   var _ready = _.after(2, function(){
-		       new Party_Selector({el:$('#partyselector')});
-		       new Party_Viewer({el:$('#party'), model: latestParty});
-		       new Nakki_List({el:$('#nakit')});
-		       new User_List({el:$('#users')});
+		       new Party_Selector({el:$('#partyselector',rootel)});
+		       new Party_Viewer({el:$('#party',rootel), model: latestParty});
+		       new Nakki_List({el:$('#nakit',rootel)});
+		       new User_List({el:$('#users',rootel)});
 		   });
 		   users.fetch({success: _ready}); 
 		   nakkitypes.fetch({success: _ready}); 

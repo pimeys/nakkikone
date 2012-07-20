@@ -4,16 +4,35 @@ define(['jquery',
 	'backbone',
 	'collections',
 	'models',
-	'libs/text!templates/party-description.html'],
-       function($, _, bb, collections, models, party_tmpl) {
+	'libs/text!templates/party-description.html',
+	'libs/text!templates/nakki-table.html'],
+       function($, _, bb, collections, models, party_tmpl, nakki_tbl_tmpl) {
+
+	   var vent = {};
+	   _.extend(vent, bb.Events);
 
 	   var party_description_template = _.template(party_tmpl);
+	   var nakki_table_template = _.template(nakki_tbl_tmpl);
+
+	   var party = new models.Party();
+	   var nakit = new collections.Nakit();
+
+	   var Nakki_Table = bb.View.extend({
+	       initialize: function() {
+	   	   _.bindAll(this);
+	   	   this.render();
+	       },
+
+	       render: function(){
+	   	   this.$el.html(nakki_table_template({data:nakit.toJSON()}));
+	       }
+	   });
 	   
-	   var assign_form = bb.View.extend({
+	   var Assign_Form = bb.View.extend({
 	       events: {'submit': 'save'},
 
 	       initialize: function() {
-		   _.bindAll(this, 'save');
+	       	   _.bindAll(this, 'save');
 	       },
 	       
 	       render: function() {
@@ -31,5 +50,21 @@ define(['jquery',
 	       }
 	   });
 
-	   return {Assign_Form:assign_form};
+	   var initialize = function(options){
+	       var rootel = options.el;
+	       var partyId = options.partyId;
+	       
+	       party.fetch({url:'/mock-data/' + partyId + '/details', success:function(){
+		   nakit.partyId = party.get('id');
+	       	   nakit.fetch({success:function(){
+	       // 	       new Party_Viewer({el:$('#party',rootel), model: party}); //TODO PartyViewer needs to be pulled up
+		       new Nakki_Table({el:$('#nakkiTable',rootel)});
+	               new Assign_Form({el:$('#assign',rootel), model: new models.Person()});
+	       	   },error:function(col,resp){
+		       alert('wat? : ' + resp);
+		   }});
+	       }});
+	   };
+
+	   return {initialize:initialize};
        });
