@@ -17,6 +17,17 @@ define(['jquery',
 	   var party = new models.Party();
 	   var nakit = new collections.Nakit();
 
+	   var Party_Viewer = bb.View.extend({
+	       initialize: function(){
+		   this.render();
+	       },
+	       
+	       render: function(){
+		   this.$el.html(party_description_template({party:this.model.toJSON(), editable:false}));
+		   return this.$el;
+	       },
+	   });
+
 	   var Nakki_Table = bb.View.extend({
 	       initialize: function() {
 	   	   _.bindAll(this);
@@ -57,7 +68,7 @@ define(['jquery',
 	       party.fetch({url:'/mock-data/' + partyId + '/details', success:function(){
 		   nakit.partyId = party.get('id');
 	       	   nakit.fetch({success:function(){
-	       // 	       new Party_Viewer({el:$('#party',rootel), model: party}); //TODO PartyViewer needs to be pulled up
+	               new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		       new Nakki_Table({el:$('#nakkiTable',rootel)});
 	               new Assign_Form({el:$('#assign',rootel), model: new models.Person()});
 	       	   },error:function(col,resp){

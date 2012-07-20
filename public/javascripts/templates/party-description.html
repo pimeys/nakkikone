@@ -4,5 +4,5 @@
     <h3 name="date"><%= party.date %></h3>
   </heading>
   <p name="description"><%= party.description %></p>
-  <button class="editor">EDIT</button>
+  <% if (editable) { %> <button class="editor">EDIT</button> <% }; %>
 </section>

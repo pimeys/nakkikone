@@ -146,7 +146,7 @@ define(['jquery',
 	       },
 	       
 	       render: function(){
-		   this.$el.html(party_description_template({party:this.model.toJSON()}));
+		   this.$el.html(party_description_template({party:this.model.toJSON(), editable:true}));
 		   return this.$el;
 	       },
 
