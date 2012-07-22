@@ -1,6 +1,8 @@
 define(['jquery','backbone'],function($,bb){
 
     var Person = bb.Model.extend({
+	partyId: 'noperties',
+
 	idAttribute: "email",
 
 	defaults: {
@@ -8,9 +10,9 @@ define(['jquery','backbone'],function($,bb){
 	    email: "nakki@email.com",
 	    number: "0401234567"
 	},
-	
-	save: function(data){
-	    alert(data.name + "\n" + data.email + "\n" +data.number);
+
+	urlRoot: function(){
+	    return 'mock-data/' + this.partyId + '/parciptants';
 	}
     });
 

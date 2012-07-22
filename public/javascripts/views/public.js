@@ -29,8 +29,10 @@ define(['jquery',
 	   });
 
 	   var Nakki_Table = bb.View.extend({
+
 	       initialize: function() {
-	   	   _.bindAll(this);
+	   	   _.bindAll(this,'save');
+		   vent.on('assignPerson',this.save)
 	   	   this.render();
 	       },
 
@@ -40,6 +42,17 @@ define(['jquery',
 		       return current.type;
 		   });
 	   	   this.$el.html(nakki_table_template({types: titles, data: data}));
+	       },
+
+	       save: function(assignedPerson){
+		   var ids = _.reduce(this.$('input'), function(memo,el) {
+		       return el.checked ? _.union(memo,el.value) : memo;
+		   }, []);
+		   
+		   _.each(ids, function(current){
+		       var model = nakit.get(current);
+		       model.save({assign:assignedPerson.get('email')});
+		   });
 	       }
 	   });
 	   
@@ -61,6 +74,7 @@ define(['jquery',
 		       return acc;
 		   }, {});
 		   this.model.save(data);
+		   vent.trigger('assignPerson',this.model);
 		   return false;
 	       }
 	   });
@@ -71,10 +85,15 @@ define(['jquery',
 	       
 	       party.fetch({url:'/mock-data/' + partyId + '/details', success:function(){
 		   nakit.partyId = party.get('id');
+
 	       	   nakit.fetch({success:function(){
 	               new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		       new Nakki_Table({el:$('#nakkiTable',rootel)});
-	               new Assign_Form({el:$('#assign',rootel), model: new models.Person()});
+
+		       var potentialPerson = new models.Person();
+		       potentialPerson.partyId = party.get('id');
+
+	               new Assign_Form({el:$('#assign',rootel), model: potentialPerson});
 	       	   },error:function(col,resp){
 		       alert('wat? : ' + resp);
 		   }});
