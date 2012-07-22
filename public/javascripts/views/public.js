@@ -35,7 +35,11 @@ define(['jquery',
 	       },
 
 	       render: function(){
-	   	   this.$el.html(nakki_table_template({data:_.groupBy(nakit.toJSON(),'slot')}));
+		   var data = _.groupBy(nakit.toJSON(),'slot');
+		   var titles = _.map(_.sortBy(data[0],'type'), function(current){
+		       return current.type;
+		   });
+	   	   this.$el.html(nakki_table_template({types: titles, data: data}));
 	       }
 	   });
 	   

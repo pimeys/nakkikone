@@ -4,7 +4,7 @@
 {"id":"3","assign":"nakkeja12@vmp.fi","type":"myynti","slot":"2"},
 {"id":"4","assign":"nakkeja12@vmp.fi","type":"myynti","slot":"3"},
 {"id":"5","assign":"nakkeja12@vmp.fi","type":"myynti","slot":"4"},
-{"id":"6","assign":"nakkeja12@vmp.fi","type":"myynti","slot":"5"},
+{"id":"6","assign":null,"type":"myynti","slot":"5"},
 {"id":"25","assign":"nakkeja12@vmp.fi","type":"myynti2","slot":"0"},
 {"id":"26","assign":"nakkeja12@vmp.fi","type":"myynti2","slot":"1"},
 {"id":"27","assign":"nakkeja12@vmp.fi","type":"myynti2","slot":"2"},

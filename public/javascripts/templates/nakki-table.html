@@ -1,14 +1,12 @@
 <table>
-  <tr><td>Time Slot</td><% _.each(_.sortBy(data[0],'type'), function(name) {
-			   %><td><%= name.type %></td> <%
-			   }); %> </tr>
+  <tr><td>Time Slot</td><% _.each(types, function(name) { %><td><%= name %></td> <% }); %></tr>
   <% _.each(data, function(nakkiSlot){ 
      %><tr>
      <% var sortedByType = _.sortBy(nakkiSlot,'type');
 	%><td><%= sortedByType[0].slot %></td><%
      _.each(sortedByType, function(nakki) {
      %>
-     <td><%= nakki.assign %></td><% }); %>
+     <td><% if (!!nakki.assign) { %><%= nakki.assign %><% } else { %><input type="checkbox" name="selection" value="<%= nakki.id %>" >Take</input><% } %></td><% }); %>
   </tr>
   <% });%>
 </table>
