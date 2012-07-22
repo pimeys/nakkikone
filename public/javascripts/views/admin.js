@@ -6,10 +6,11 @@ define(['jquery',
 	'models',
 	'libs/text!templates/users.html',
 	'libs/text!templates/nakit.html',
+	'libs/text!templates/edit-nakkis.html',
 	'libs/text!templates/selector.html',
 	'libs/text!templates/party-description.html',
 	'libs/text!templates/party-editor-form.html'],
-       function($, _, bb, collections, models, usr_tmpl, nakit_tmpl, slctr_tmpl, party_tmpl, party_edit_tmpl) {
+       function($, _, bb, collections, models, usr_tmpl, nakit_tmpl, edit_nakki_tmpl, slctr_tmpl, party_tmpl, party_edit_tmpl) {
 
 	   var vent = {};
 	   _.extend(vent, bb.Events);
@@ -23,6 +24,8 @@ define(['jquery',
 	   var userlist_template = _.template(usr_tmpl);
 
 	   var nakkilist_template = _.template(nakit_tmpl);
+
+	   var nakkilist_edit_template = _.template(edit_nakki_tmpl);
 
 	   var parties = new collections.Parties();
 	   
@@ -89,7 +92,7 @@ define(['jquery',
 
 	   var Nakki_List = bb.View.extend({
 	       events: {
-		   'click .creator' : 'create',
+		   'click .editor' : 'edit',
 		   'click .deletor' : 'remove'
 	       },
 
@@ -123,6 +126,11 @@ define(['jquery',
 
 	       create: function(){
 		   nakkitypes.add(new models.Nakkitype());
+	       },
+
+	       edit: function(){
+		   this.$el.html(nakkilist_edit_template({data:nakkitypes.toJSON()}));
+		   return this.$el;
 	       },
 
 	       //TODO not work if created model, which doesn't have id yet(maybe disable delete for tehm...).
