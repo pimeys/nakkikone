@@ -1,5 +1,14 @@
 <table>
-  <tr><td>Type</td><td>Assigned person</td><td>slot</td></tr>
-  <% _.each(data, function(nakki){ %> 
-  <tr><td><%= nakki.type %></td><td><%= nakki.assign %></td><td><%= nakki.slot %></td></tr><% }); %>
+  <tr><td>Time Slot</td><% _.each(_.sortBy(data[0],'type'), function(name) {
+			   %><td><%= name.type %></td> <%
+			   }); %> </tr>
+  <% _.each(data, function(nakkiSlot){ 
+     %><tr>
+     <% var sortedByType = _.sortBy(nakkiSlot,'type');
+	%><td><%= sortedByType[0].slot %></td><%
+     _.each(sortedByType, function(nakki) {
+     %>
+     <td><%= nakki.assign %></td><% }); %>
+  </tr>
+  <% });%>
 </table>

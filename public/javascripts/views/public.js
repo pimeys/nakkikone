@@ -35,7 +35,7 @@ define(['jquery',
 	       },
 
 	       render: function(){
-	   	   this.$el.html(nakki_table_template({data:nakit.toJSON()}));
+	   	   this.$el.html(nakki_table_template({data:_.groupBy(nakit.toJSON(),'slot')}));
 	       }
 	   });
 	   
