@@ -1,4 +1,5 @@
 <button class="creator">Create new nakkiType</button>
-<% _.each(data, function(nakki){ %> <list contentEditable="true"><li>Type: <%= nakki.type %></li><li>Start: <%= nakki.start %></li><li>End: <%= nakki.end %></li>
-<button class="deletor" value="<%= nakki.id %>">delete</button>
-</list> <% }); %>
+<table>
+<% _.each(data, function(nakki){ %> <tr><td><%= nakki.type %></td><td><%= nakki.start %></td><td><%= nakki.end %></td>
+<td><button class="deletor" value="<%= nakki.id %>">delete</button></td></tr><% }); %>
+</table>
