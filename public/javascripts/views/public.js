@@ -45,9 +45,9 @@ define(['jquery',
 	       },
 
 	       save: function(assignedPerson){
-		   var ids = _.reduce(this.$('input'), function(memo,el) {
-		       return el.checked ? _.union(memo,el.value) : memo;
-		   }, []);
+		   var ids = _.map(this.$('form').serializeArray(), function(el) {
+		       return el.value;
+		   });
 		   
 		   _.each(ids, function(current){
 		       var model = nakit.get(current);
