@@ -16,6 +16,7 @@ define(['jquery',
 
 	   var party = new models.Party();
 	   var nakit = new collections.Nakit();
+	   var persons = new collections.Users();
 
 	   var Party_Viewer = bb.View.extend({
 	       initialize: function(){
@@ -41,7 +42,7 @@ define(['jquery',
 		   var titles = _.map(_.sortBy(data[0],'type'), function(current){
 		       return current.type;
 		   });
-	   	   this.$el.html(nakki_table_template({types: titles, data: data}));
+	   	   this.$el.html(nakki_table_template({types: titles, data: data, persons:persons}));
 	       },
 
 	       save: function(assignedPerson){
@@ -85,8 +86,9 @@ define(['jquery',
 	       
 	       party.fetch({url:'/mock-data/' + partyId + '/details', success:function(){
 		   nakit.partyId = party.get('id');
-
-	       	   nakit.fetch({success:function(){
+		   persons.partyId = party.get('id');
+		   
+		   var _ready = _.after(2,function(){
 	               new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		       new Nakki_Table({el:$('#nakkiTable',rootel)});
 
@@ -94,9 +96,10 @@ define(['jquery',
 		       potentialPerson.partyId = party.get('id');
 
 	               new Assign_Form({el:$('#assign',rootel), model: potentialPerson});
-	       	   },error:function(col,resp){
-		       alert('wat? : ' + resp);
-		   }});
+	       	   });
+
+		   persons.fetch({success:_ready});
+	       	   nakit.fetch({success:_ready});
 	       }});
 	   };
 

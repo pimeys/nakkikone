@@ -7,7 +7,7 @@
 	%><td><%= sortedByType[0].slot %></td><%
      _.each(sortedByType, function(nakki) {
      %>
-     <td><% if (!!nakki.assign) { %><%= nakki.assign %><% } else { %><input type="checkbox" name="selection" value="<%= nakki.id %>" />Take<% } %></td><% }); %>
+     <td><% if (!!nakki.assign) { %><%= persons.get(nakki.assign).get('name') %><% } else { %><input type="checkbox" name="selection" value="<%= nakki.id %>" />Take<% } %></td><% }); %>
   </tr>
   <% });%>
 </table>
