@@ -38,7 +38,8 @@ define(['jquery',
 	   var Party_Selector = bb.View.extend({
 	       events: {
 		   "change .selector" : "select",
-		   "click .creator"  : "create"
+		   "click .creator"  : "create",
+		   "click .deletor"  : "destroy"
 	       },
 
 	       initialize: function() {
@@ -48,19 +49,29 @@ define(['jquery',
 		   this.render();
 	       },
 
-	       render: function(){
-		   this.$el.html(selector_template({data:parties.toJSON()}));
+	       render: function(partyTitle){
+		   
+		   this.$el.html(selector_template({data:parties.toJSON(), selected:partyTitle}));
 		   return this.$el;
 	       },
 	       
 	       select: function(target) {
-		   var optionIndex = target.currentTarget.options.selectedIndex;
-		   var partyId = target.currentTarget.options[optionIndex].value;
+		   var partyId = this.$('form').serializeArray()[0].value;
 		   vent.trigger('changeParty',partyId);
 	       },
 
 	       create: function() {
-		   parties.add({title:"uudet bileet"});
+		   var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
+		   parties.add({title:partyTitle});
+		   vent.trigger('changeParty',partyTitle);
+		   this.render(partyTitle);
+	       },
+
+	       destroy: function(){
+		   var partyId = this.$('form').serializeArray()[0].value;
+		   parties.remove(partyId);
+		   vent.trigger('changeParty',parties.at(0));
+		   this.render();
 	       }
 	   });
 
@@ -207,7 +218,7 @@ define(['jquery',
 		   nakkitypes.partyId = latestParty.get('title');
 		   
 		   var _ready = _.after(2, function(){
-		       new Party_Selector({el:$('#partyselector',rootel)});
+		       new Party_Selector({el:$('#partyselector',rootel), selected: latestParty.title});
 		       new Party_Viewer({el:$('#party',rootel), model: latestParty});
 		       new Nakki_List({el:$('#nakit',rootel)});
 		       new User_List({el:$('#users',rootel)});

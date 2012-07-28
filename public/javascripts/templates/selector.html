@@ -1,6 +1,7 @@
 <form method="post">
   <select name="parties" class="selector">
-    <% _.each(data, function(party){ %> <option value="<%= party.title %>"><%= party.title %></option> <% }); %>
+    <% _.each(data, function(party){ %> <option value="<%= party.title %>" <% if (selected === party.title) { %>selected="true"<% }; %>><%= party.title %></option> <% }); %>
   </select>
 </form>
 <button class="creator">New Party</button>
+<button class="deletor">Delete selected</button>
