@@ -152,7 +152,7 @@ define(['jquery',
 		       }, {});
 		       var model = nakkitypes.getByCid(data["cid"]);
 		       delete data['cid'];
-		       model.save(data); //TODO handling new nakki type cases?
+		       model.save(data);
 		   });
 		   this.render();
 	       }

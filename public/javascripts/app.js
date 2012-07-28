@@ -40,7 +40,6 @@ define([
 	var initialize = function(){
 	    var router = new Router();
 	    bb.history.start({pushState: true});
-	    router.showLatestParty();
 	};
 
 	return {initialize: initialize};
