@@ -1,9 +1,9 @@
 class Nakki < ActiveRecord::Base
   attr_accessible :slot, :assign, :type
 
-  has_many :nakkis
-  has_many :users
-  has_many :nakkitypes
+  belongs :user
+  belongs :nakkitypes
+  belongs :party
   
   def as_json(options={})
     {
