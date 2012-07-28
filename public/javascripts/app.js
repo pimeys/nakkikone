@@ -4,12 +4,38 @@ define([
     'models',
     'collections',
     'views/admin',
-    'views/public'], function($,bb,models,collections,admin, pub) {
+    'views/public',
+    'libs/text!templates/admin-screen.html',
+    'libs/text!templates/public-screen.html'
+], function($, bb, models, collections, admin, pub, adminScreen, publicScreen) {
 
-    var initialize = function(){
-	admin.initialize({el:$('#admin')});
-	pub.initialize({el:$('#public'), partyId:'latest'});
-    };
+	var adminScreen_template = _.template(adminScreen);
 
-    return {initialize: initialize};
-});
+	var publicScreen_template = _.template(publicScreen);
+
+	var Router = bb.Router.extend({
+	    routes: {
+		'admin' : 'showAdminScreen',
+		'public' : 'showPublicScreen'
+	    },
+	    
+	    showAdminScreen: function(){
+		var contentEl = $('#content');
+		contentEl.html(adminScreen_template);
+		admin.initialize({el:contentEl});
+	    },
+
+	    showPublicScreen: function(){
+		var contentEl = $('#content');
+		contentEl.html(publicScreen_template);
+		pub.initialize({el:contentEl, partyId:'latest'});
+	    }
+	});
+
+	var initialize = function(){
+	    new Router();
+	    bb.history.start({pushState: true});
+	};
+
+	return {initialize: initialize};
+    });

@@ -137,7 +137,6 @@ define(['jquery',
 		   return this.$el;
 	       },
 
-	       //TODO not work if created model, which doesn't have id yet(maybe disable delete for tehm...).
 	       remove: function(target){
 		   var removeId = target.currentTarget.attributes['value'].nodeValue;
 		   nakkitypes.remove(removeId);
