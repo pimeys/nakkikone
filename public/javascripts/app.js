@@ -16,7 +16,8 @@ define([
 	var Router = bb.Router.extend({
 	    routes: {
 		'admin' : 'showAdminScreen',
-		'public' : 'showPublicScreen'
+		'public' : 'showLatestParty',
+		'public/:partydId' : 'showPublicScreen'
 	    },
 	    
 	    showAdminScreen: function(){
@@ -25,16 +26,21 @@ define([
 		admin.initialize({el:contentEl});
 	    },
 
-	    showPublicScreen: function(){
+	    showLatestParty: function() {
+		this.showPublicScreen('latest');
+	    },
+
+	    showPublicScreen: function(partyId){
 		var contentEl = $('#content');
 		contentEl.html(publicScreen_template);
-		pub.initialize({el:contentEl, partyId:'latest'});
+		pub.initialize({el:contentEl, partyId:partyId});
 	    }
 	});
 
 	var initialize = function(){
-	    new Router();
+	    var router = new Router();
 	    bb.history.start({pushState: true});
+	    router.showLatestParty();
 	};
 
 	return {initialize: initialize};
