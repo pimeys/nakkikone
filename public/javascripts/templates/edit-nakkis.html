@@ -1,12 +1,16 @@
-<table>
-<% _.each(data, function(nakki){ %> 
-<tr>
-  <td><input type="text" name="type" value="<%= nakki.type %>"></input></td>
-  <td><input type="text" name="start" value="<%= nakki.start %>"></input></td>
-  <td><input type="text" name="end" value="<%= nakki.end %>"></input></td>
-  <td><button class="deletor" value="<%= nakki.id %>">delete</button></td>
-</tr>
-<% }); %>
-</table>
-
+<button class="setter">Save Changes</button>
+<button class="creator">Create New Type</button>
+<div class="table">
+  <% _.each(data, function(nakki){ %> 
+  <div class="row">
+    <form>
+      <input type="hidden" name="cid" value="<%= nakki.cid %>"/>
+      <input type="text" name="type" value="<%= nakki.get('type') %>" />
+      <input type="text" name="start" value="<%= nakki.get('start') %>" />
+      <input type="text" name="end" value="<%= nakki.get('end') %>" />
+    </form>
+    <button class="deletor" value="<%= nakki.cid %>">delete</button>
+  </div>
+  <% }); %>
+</div>
 

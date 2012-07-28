@@ -33,6 +33,8 @@ define(['jquery',
 
 	   var nakkitypes = new collections.Nakkitypes();
 
+	   var counter = 1;
+
 	   var Party_Selector = bb.View.extend({
 	       events: {
 		   "change .selector" : "select",
@@ -93,14 +95,16 @@ define(['jquery',
 	   var Nakki_List = bb.View.extend({
 	       events: {
 		   'click .editor' : 'edit',
+		   'click .setter' : 'saveCollection',
+		   'click .creator' : 'create',
 		   'click .deletor' : 'remove'
 	       },
 
 	       initialize: function(){
 		   _.bindAll(this);
 		   vent.on('changeParty', this.refresh);
-		   nakkitypes.on('add', this.render);
-		   nakkitypes.on('remove', this.render);
+		   nakkitypes.on('add', this.edit);
+		   nakkitypes.on('remove', this.edit);
 		   this.render();
 	       },
 	       
@@ -125,11 +129,11 @@ define(['jquery',
 	       },
 
 	       create: function(){
-		   nakkitypes.add(new models.Nakkitype());
+		   nakkitypes.add(new models.Nakkitype({type:'tyyppi' + counter++}));
 	       },
 
 	       edit: function(){
-		   this.$el.html(nakkilist_edit_template({data:nakkitypes.toJSON()}));
+		   this.$el.html(nakkilist_edit_template({data:nakkitypes.models}));
 		   return this.$el;
 	       },
 
@@ -137,6 +141,21 @@ define(['jquery',
 	       remove: function(target){
 		   var removeId = target.currentTarget.attributes['value'].nodeValue;
 		   nakkitypes.remove(removeId);
+	       },
+
+	       saveCollection: function(){
+		   //TODO here we would reset whole collection based on input of the edit table.
+		   $('#nakit form').each(function(){
+		       var arr = $(this).serializeArray();
+		       var data = _(arr).reduce(function(acc, field) {
+			   acc[field.name] = field.value;
+			   return acc;
+		       }, {});
+		       var model = nakkitypes.getByCid(data["cid"]);
+		       delete data['cid'];
+		       model.save(data); //TODO handling new nakki type cases?
+		   });
+		   this.render();
 	       }
 	   });
 	   
