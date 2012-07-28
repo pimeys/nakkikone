@@ -15,10 +15,36 @@ ActiveRecord::Schema.define(:version => 20110124034948) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
+    t.string   "name"
+    t.string   "number"
     t.string   "password_hash"
     t.string   "password_salt"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "parties", :force => true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "date"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "nakkitypes", :force => true do |t|
+    t.string   "type", :null => false
+    t.datetime "start", :null => false
+    t.datetime "end", :null => false
+    t.integer  "party_id"
+  end
+
+  create_table "nakkis", :force => true do |t|
+    t.string   "type"
+    t.string   "assign"
+    t.integer  "slot", :null => false
+    t.integer  "user_id"
+    t.integer  "party_id", :null => false
+    t.integer  "nakkitype_id", :null => false
   end
 
 end

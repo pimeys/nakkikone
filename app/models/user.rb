@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation
   
+  has_many :parties
+
   attr_accessor :password
   before_save :encrypt_password
   
@@ -23,5 +25,14 @@ class User < ActiveRecord::Base
       self.password_salt = BCrypt::Engine.generate_salt
       self.password_hash = BCrypt::Engine.hash_secret(password, password_salt)
     end
+  end
+  
+  def as_json(options={})
+    {
+      :id => id,
+      :name => name,
+      :number => number,
+      :email => email
+    }
   end
 end
