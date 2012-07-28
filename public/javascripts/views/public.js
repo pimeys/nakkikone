@@ -78,7 +78,7 @@ define(['jquery',
 		   return false;
 	       }
 	   });
-
+	   
 	   var initialize = function(options){
 	       var rootel = options.el;
 	       var partyId = options.partyId;

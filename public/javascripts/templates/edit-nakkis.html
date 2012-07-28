@@ -1,5 +1,3 @@
-<button class="setter">Save Changes</button>
-<button class="creator">Create New Type</button>
 <div class="table">
   <% _.each(data, function(nakki){ %> 
   <div class="row">
@@ -12,5 +10,9 @@
     <button class="deletor" value="<%= nakki.cid %>">delete</button>
   </div>
   <% }); %>
+  <div class="row">
+    <button class="creator">Create New Type</button>
+    <button class="setter">Update NakkitTable</button>
+  </div>
 </div>
 
