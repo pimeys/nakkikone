@@ -13,7 +13,7 @@ define(['backbone','underscore','models'],function(bb, _, models){
     var Parties = bb.Collection.extend({
 	model: models.Party,
 	
-	url: '/mock-data/parties.json',
+	url: '/mock-data/parties',
     });
 
     var Nakit = bb.Collection.extend({
