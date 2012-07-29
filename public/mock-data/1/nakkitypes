@@ -1,0 +1,8 @@
+[
+{"id":"1", "type":"myynti","start":"2200","end":"0400"},
+{"id":"2", "type":"myynti2","start":"2200","end":"0400"},
+{"id":"3", "type":"narikka","start":"2200","end":"0400"},
+{"id":"4", "type":"liput","start":"2200","end":"0200"},
+{"id":"5", "type":"jv","start":"2200","end":"0400"},
+{"id":"6", "type":"liput2","start":"2200","end":"0300"}
+]

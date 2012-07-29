@@ -52,7 +52,7 @@ define(['jquery',
 		   
 		   _.each(ids, function(current){
 		       var model = nakit.get(current);
-		       model.save({assign:assignedPerson.get('email')});
+		       model.save({assign:assignedPerson.get('id')}); //TODO validate that person has ID!?
 		   });
 	       }
 	   });

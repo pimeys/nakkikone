@@ -1,6 +1,6 @@
 <form method="post">
   <select name="parties" class="selector">
-    <% _.each(data, function(party){ %> <option value="<%= party.title %>" <% if (selected === party.title) { %>selected="true"<% }; %>><%= party.title %></option> <% }); %>
+    <% _.each(data.models, function(party){ %> <option value="<%= party.cid %>" <% if (selected === party.get('title')) { %>selected="true"<% }; %>><%= party.get('title') %></option> <% }); %>
   </select>
 </form>
 <button class="creator">New Party</button>

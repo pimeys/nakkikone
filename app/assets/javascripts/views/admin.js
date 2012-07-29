@@ -51,7 +51,7 @@ define(['jquery',
 
 	       render: function(partyTitle){
 		   
-		   this.$el.html(selector_template({data:parties.toJSON(), selected:partyTitle}));
+		   this.$el.html(selector_template({data:parties, selected:partyTitle}));
 		   return this.$el;
 	       },
 	       
@@ -62,8 +62,9 @@ define(['jquery',
 
 	       create: function() {
 		   var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
-		   parties.add({title:partyTitle});
-		   vent.trigger('changeParty',partyTitle);
+		   var party = new models.Party({title:partyTitle});
+		   parties.add(party);
+		   vent.trigger('changeParty', party.cid);
 		   this.render(partyTitle);
 	       },
 
@@ -84,9 +85,9 @@ define(['jquery',
 	       
 	       refresh: function(partyId) {
 		   var self = this;
-		   var party = parties.get(partyId);
+		   var party = parties.getByCid(partyId);
 
-		   users.partyId = party.get('title');
+		   users.partyId = party.get('id');
 		   users.fetch({
 		       success: this.render, 
 		   
@@ -121,9 +122,9 @@ define(['jquery',
 	       
 	       refresh: function(partyId) {
 		   var self = this;
-		   var party = parties.get(partyId);
+		   var party = parties.getByCid(partyId);
 
-		   nakkitypes.partyId = party.get('title');
+		   nakkitypes.partyId = party.get('id');
 		   nakkitypes.fetch({
 		       success: this.render, 
 		   
@@ -188,7 +189,7 @@ define(['jquery',
 	       },
 
 	       select: function(partyId) {
-		   this.model = parties.get(partyId);
+		   this.model = parties.getByCid(partyId);
 		   this.render();
 	       },
 
@@ -202,7 +203,7 @@ define(['jquery',
 		       acc[field.name] = field.value;
 		       return acc;
 		   }, {});
-		   this.model.save(data,{sucess:this.render,error:this.render});
+		   this.model.save(data, {sucess:this.render, error:this.render});
 		   vent.trigger('partyEdited');
 		   return false;
 	       }
@@ -214,8 +215,8 @@ define(['jquery',
 
 	       parties.fetch({success:function(){
 		   latestParty = parties.at(0);
-		   users.partyId = latestParty.get('title');
-		   nakkitypes.partyId = latestParty.get('title');
+		   users.partyId = latestParty.get('id');
+		   nakkitypes.partyId = latestParty.get('id');
 		   
 		   var _ready = _.after(2, function(){
 		       new Party_Selector({el:$('#partyselector',rootel), selected: latestParty.title});
