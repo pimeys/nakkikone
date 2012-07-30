@@ -16,7 +16,7 @@ define([
 	var Router = bb.Router.extend({
 	    routes: {
 		'admin' : 'showAdminScreen',
-		'public' : 'showLatestParty'
+		'' : 'showLatestParty'
 	    },
 	    
 	    showAdminScreen: function(){
