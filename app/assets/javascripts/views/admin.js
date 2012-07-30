@@ -50,7 +50,6 @@ define(['jquery',
 	       },
 
 	       render: function(partyTitle){
-		   
 		   this.$el.html(selector_template({data:parties, selected:partyTitle}));
 		   return this.$el;
 	       },
@@ -64,7 +63,7 @@ define(['jquery',
 		   var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
 		   var party = new models.Party({title:partyTitle});
 		   parties.add(party);
-		   vent.trigger('changeParty', party.cid);
+		   vent.trigger('createdParty', party.cid);
 		   this.render(partyTitle);
 	       },
 
@@ -90,7 +89,7 @@ define(['jquery',
 		   users.partyId = party.get('id');
 		   users.fetch({
 		       success: this.render, 
-		   
+		       
 		       error: function(){
 			   users.reset();
 			   self.$el.html('none');
@@ -127,7 +126,7 @@ define(['jquery',
 		   nakkitypes.partyId = party.get('id');
 		   nakkitypes.fetch({
 		       success: this.render, 
-		   
+		       
 		       error: function(){
 			   nakkitypes.reset();
 			   self.$el.html(nakkilist_template({data:{}}));
@@ -180,6 +179,7 @@ define(['jquery',
 	       initialize: function(){
 		   _.bindAll(this);
 		   vent.on('changeParty', this.select);
+		   vent.on('createdParty', this.creationEdit);
 		   this.render();
 	       },
 	       
@@ -196,14 +196,20 @@ define(['jquery',
 	       edit: function() {
 		   this.$el.html(party_edit_template({party:this.model.toJSON()}))
 	       },
-	       
+
+	       creationEdit: function(partyId){
+		   this.model = parties.getByCid(partyId);
+		   this.edit();
+	       },
+
 	       save: function() {
 		   var arr = this.$("#edit_party").serializeArray();
 		   var data = _(arr).reduce(function(acc, field) {
 		       acc[field.name] = field.value;
 		       return acc;
 		   }, {});
-		   this.model.save(data, {sucess:this.render, error:this.render});
+		   this.model.save(data, {success:this.render, 
+					  error:function(){alert('saving of the party failed in backend')}});
 		   vent.trigger('partyEdited');
 		   return false;
 	       }
@@ -214,18 +220,25 @@ define(['jquery',
 	       var rootel = options.el;
 
 	       parties.fetch({success:function(){
-		   latestParty = parties.at(0);
-		   users.partyId = latestParty.get('id');
-		   nakkitypes.partyId = latestParty.get('id');
-		   
-		   var _ready = _.after(2, function(){
-		       new Party_Selector({el:$('#partyselector',rootel), selected: latestParty.title});
-		       new Party_Viewer({el:$('#party',rootel), model: latestParty});
+		   if (parties.length > 0) {
+		       latestParty = parties.at(0);
+		       users.partyId = latestParty.get('id');
+		       nakkitypes.partyId = latestParty.get('id');
+		       
+		       var _ready = _.after(2, function(){
+			   new Party_Selector({el:$('#partyselector',rootel), selected: latestParty.title});
+			   new Party_Viewer({el:$('#party',rootel), model: latestParty});
+			   new Nakki_List({el:$('#nakit',rootel)});
+			   new User_List({el:$('#users',rootel)});
+		       });
+		       users.fetch({success: _ready}); 
+		       nakkitypes.fetch({success: _ready}); 
+		   } else {
+		       new Party_Selector({el:$('#partyselector',rootel)});
+		       new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
 		       new Nakki_List({el:$('#nakit',rootel)});
 		       new User_List({el:$('#users',rootel)});
-		   });
-		   users.fetch({success: _ready}); 
-		   nakkitypes.fetch({success: _ready}); 
+		   }
 	       }});
 	   };
 
