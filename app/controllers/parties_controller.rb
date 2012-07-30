@@ -9,19 +9,16 @@ class PartiesController < ApplicationController
   end
 
   def update
-    @party = Party.find_by_title(params[:id])
-    if @party
-      @party.title = params[:title]
-      @party.description = params[:description]
-      @party.date = params[:date]
+    @party = Party.find(params[:id])
+    
+    @party.title = params[:title]
+    @party.description = params[:description]
+    @party.date = params[:date]
       
-      if @party.save
+    if @party.save
         respond_to do |format|
-          format.json { render :json => @party}
-        end
+        format.json { render :json => @party}
       end
-    else
-      self.new
     end
   end
 
@@ -36,8 +33,12 @@ class PartiesController < ApplicationController
     end
   end
 
+  def create
+    self.new
+  end
+
   def show
-    @party = Party.find_by_title(params[:id])
+    @party = Party.find(params[:id])
     if @party
       respond_to do |format|
         format.json { render :json => @party}
