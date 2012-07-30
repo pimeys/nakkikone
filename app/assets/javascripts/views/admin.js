@@ -35,6 +35,10 @@ define(['jquery',
 
 	   var counter = 1;
 
+	   var errorHandle = function(){
+	       alert('wat?');
+	   }
+
 	   var Party_Selector = bb.View.extend({
 	       events: {
 		   "change .selector" : "select",
@@ -68,10 +72,15 @@ define(['jquery',
 	       },
 
 	       destroy: function(){
+		   var self = this;
 		   var partyId = this.$('form').serializeArray()[0].value;
-		   parties.remove(partyId);
-		   vent.trigger('changeParty',parties.at(0));
-		   this.render();
+		   var model = parties.getByCid(partyId);
+		   model.destroy({wait:true, 
+				  success:function(){
+				      vent.trigger('changeParty',parties.at(0));
+				      self.render();
+				  },
+				  error: errorHandle });
 	       }
 	   });
 
