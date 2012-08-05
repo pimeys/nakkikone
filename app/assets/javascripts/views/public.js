@@ -42,7 +42,7 @@ define(['jquery',
 		   var titles = _.map(_.sortBy(data[0],'type'), function(current){
 		       return current.type;
 		   });
-	   	   this.$el.html(nakki_table_template({types: titles, data: data, persons:persons}));
+	   	   this.$el.html(nakki_table_template({types: titles, data: data}));
 	       },
 
 	       save: function(assignedPerson){
@@ -84,7 +84,7 @@ define(['jquery',
 	       var rootel = options.el;
 	       var partyId = options.partyId;
 	       
-	       party.fetch({url:'/mock-data/' + partyId + '/details', success:function(){
+	       party.fetch({url:'/parties/' + partyId, success:function(){
 		   nakit.partyId = party.get('id');
 		   persons.partyId = party.get('id');
 		   
