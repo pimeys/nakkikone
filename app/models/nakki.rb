@@ -8,8 +8,8 @@ class Nakki < ActiveRecord::Base
     {
       :id => id,
       :slot => slot,
-      :assign => user.name,
-      :type => nakkitype.name
+      :assign => user.nil? ? nil : user.name,
+      :type => nakkitype.nil? ? nil : nakkitype.name
     }
   end
 end
