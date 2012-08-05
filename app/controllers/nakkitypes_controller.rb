@@ -15,6 +15,13 @@ class NakkitypesController < ApplicationController
     @nakkitype.name = params[:type]
     @nakkitype.starttime = params[:start]
     @nakkitype.endtime = params[:end]
+    
+    @nakkitype.nakkis.clear
+
+    (0..5).each{ |i|
+      @nakkitype.nakkis.create(:slot  => i)
+    } 
+
     if @nakkitype.save
       respond_to do |format|
         format.json { render :json => @nakkitype}
@@ -27,6 +34,10 @@ class NakkitypesController < ApplicationController
     @nakkitype = @current_party.nakkitypes.create({:name => params[:type],
                                                     :starttime => params[:start],
                                                     :endtime => params[:end]})
+    (0..5).each{ |i|
+      @nakkitype.nakkis.create(:slot  => i)
+    } 
+
     if @nakkitype
       respond_to do |format|
         format.json { render :json => @nakkitype}
