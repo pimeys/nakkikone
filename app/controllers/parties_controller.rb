@@ -47,7 +47,7 @@ class PartiesController < ApplicationController
   end
 
   def destroy
-    Party.delete(params[:id])
+    Party.destroy(params[:id])
     respond_to do |format|
       format.json { render :json => {}}
     end
