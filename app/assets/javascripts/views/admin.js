@@ -12,6 +12,8 @@ define(['jquery',
 	'libs/text!templates/party-editor-form.html'],
        function($, _, bb, collections, models, usr_tmpl, nakit_tmpl, edit_nakki_tmpl, slctr_tmpl, party_tmpl, party_edit_tmpl) {
 
+	   //TODO fix party creation refresh for nakkitypes editor.
+
 	   var vent = {};
 	   _.extend(vent, bb.Events);
 
@@ -158,8 +160,14 @@ define(['jquery',
 	       },
 
 	       remove: function(target){
+		   var self = this;
 		   var removeId = target.currentTarget.attributes['value'].nodeValue;
-		   nakkitypes.remove(removeId);
+		   var model = nakkitypes.getByCid(removeId);
+		   model.destroy({wait:true,
+				  success:function(){
+				      self.render();
+				  },
+				  error: errorHandle });
 	       },
 
 	       saveCollection: function(){
