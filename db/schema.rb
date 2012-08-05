@@ -39,11 +39,9 @@ ActiveRecord::Schema.define(:version => 20110124034948) do
   end
 
   create_table "nakkis", :force => true do |t|
-    t.string   "type"
     t.string   "assign"
     t.integer  "slot", :null => false
     t.integer  "user_id"
-    t.integer  "party_id", :null => false
     t.integer  "nakkitype_id", :null => false
   end
 
