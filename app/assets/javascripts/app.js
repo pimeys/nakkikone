@@ -26,7 +26,7 @@ define([
 	    },
 
 	    showLatestParty: function() {
-		this.showPublicScreen('latest');
+		this.showPublicScreen('1');
 	    },
 
 	    showPublicScreen: function(partyId){
