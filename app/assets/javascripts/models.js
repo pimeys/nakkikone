@@ -8,6 +8,10 @@ define(['jquery','backbone'],function($,bb){
 	    email: "nakki@email.com",
 	    number: "0401234567"
 	},
+
+	urlRoot: function() {
+	    return 'parties/' + this.partyId + '/parcipitants'
+	}
     });
 
     var Nakki = bb.Model.extend({
