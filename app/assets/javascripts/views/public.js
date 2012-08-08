@@ -16,7 +16,6 @@ define(['jquery',
 
 	   var party = new models.Party();
 	   var nakit = new collections.Nakit();
-	   var persons = new collections.Users();
 
 	   var Party_Viewer = bb.View.extend({
 	       initialize: function(){
@@ -86,9 +85,8 @@ define(['jquery',
 	       
 	       party.fetch({url:'/parties/' + partyId, success:function(){
 		   nakit.partyId = party.get('id');
-		   persons.partyId = party.get('id');
 		   
-		   var _ready = _.after(2,function(){
+		   var _ready = function(){
 	               new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		       new Nakki_Table({el:$('#nakkiTable',rootel)});
 
@@ -96,9 +94,8 @@ define(['jquery',
 		       potentialPerson.partyId = party.get('id');
 
 	               new Assign_Form({el:$('#assign',rootel), model: potentialPerson});
-	       	   });
+	       	   };
 
-		   persons.fetch({success:_ready});
 	       	   nakit.fetch({success:_ready});
 	       }});
 	   };
