@@ -2,7 +2,7 @@ class NakkitypesController < ApplicationController
   skip_before_filter :require_login
   
   def index
-    @current_party = Party.find(params[:party_id])
+    @current_party = get_current_party
     @nakkitypes = @current_party.nakkitypes
     respond_to do |format|
       format.json { render :json => @nakkitypes}
@@ -13,12 +13,9 @@ class NakkitypesController < ApplicationController
     @nakkitype = Nakkitype.find(params[:id])
     
     @nakkitype.name = params[:type]
-    @nakkitype.starttime = params[:start]
-    @nakkitype.endtime = params[:end]
-    
     @nakkitype.nakkis.clear
 
-    (0..5).each{ |i|
+    (params[:start]..params[:end]).each{ |i|
       @nakkitype.nakkis.create(:slot  => i)
     } 
 
@@ -30,17 +27,15 @@ class NakkitypesController < ApplicationController
   end
 
   def new
-    @current_party = Party.find(params[:party_id])
-    @nakkitype = @current_party.nakkitypes.create({:name => params[:type],
-                                                    :starttime => params[:start],
-                                                    :endtime => params[:end]})
-    (0..5).each{ |i|
+    @current_party = get_current_party
+    @nakkitype = @current_party.nakkitypes.create(:name => params[:type])
+    (params[:start]..params[:end]).each{ |i|
       @nakkitype.nakkis.create(:slot  => i)
     } 
 
     if @nakkitype
       respond_to do |format|
-        format.json { render :json => @nakkitype}
+        format.json { render :json => @nakkitype }
       end
     end
   end
@@ -55,6 +50,13 @@ class NakkitypesController < ApplicationController
     respond_to do |format|
       format.json { render :json => {}}
     end
+  end
+
+  def create_nakki_slots
+    #TODO reset nakki slots for this nakkitype
+    (params[:start]..params[:end]).each{ |i|
+      @nakkitype.nakkis.create(:slot  => i)
+    } 
   end
 
   def get_current_party

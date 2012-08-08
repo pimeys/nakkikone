@@ -1,5 +1,5 @@
 class Nakkitype < ActiveRecord::Base
-  attr_accessible :name, :starttime, :endtime
+  attr_accessible :name
 
   belongs_to :party
   has_many :nakkis, :dependent => :delete_all
@@ -8,8 +8,8 @@ class Nakkitype < ActiveRecord::Base
     {
       :id => id,
       :type => name,
-      :start => starttime,
-      :end => endtime
+      :start => nakkis.first.slot,
+      :end => nakkis.last.slot
     }
   end
 end

@@ -33,8 +33,6 @@ ActiveRecord::Schema.define(:version => 20110124034948) do
 
   create_table "nakkitypes", :force => true do |t|
     t.string   "name", :null => false
-    t.datetime "starttime", :null => false
-    t.datetime "endtime", :null => false
     t.integer  "party_id"
   end
 
