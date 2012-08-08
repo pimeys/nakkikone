@@ -49,9 +49,13 @@ define(['jquery',
 		       return el.value;
 		   });
 		   
+		   var self = this;
+		   var _setted = _.after(ids.length, function(){
+		       self.render();
+		   });
 		   _.each(ids, function(current){
 		       var model = nakit.get(current);
-		       model.save({assign:assignedPerson.get('id')}); //TODO validate that person has ID!?
+		       model.save({assign: assignedPerson.id},{wait:true, success:_setted});
 		   });
 	       }
 	   });
@@ -73,8 +77,10 @@ define(['jquery',
 		       acc[field.name] = field.value;
 		       return acc;
 		   }, {});
-		   this.model.save(data);
-		   vent.trigger('assignPerson',this.model);
+		   var self = this;
+		   this.model.save(data,{wait:true, success: function(){
+		       vent.trigger('assignPerson',self.model);
+		   }});
 		   return false;
 	       }
 	   });
