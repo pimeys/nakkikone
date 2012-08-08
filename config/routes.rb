@@ -9,12 +9,6 @@ RailStrap::Application.routes.draw do
 
   resources :users
 
-  # get "parties" => "mockdata#show", :as => "show_mock_data"
-  # get "parties/:id" => "mockdata#index"
-
-  # get "parties/:id/parcipitants" => "mockdata#parcipitants"
-  # get "parties/:id/nakit" => "mockdata#nakit"
-
   resources :parties do
     resources :parcipitants, :nakkitypes, :nakit
   end
