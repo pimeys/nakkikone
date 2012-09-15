@@ -8,6 +8,6 @@ development:
 test:
   adapter: mysql2
   database: nakkikone_test
-  username: nakkipasswd
-  password:
+  username: nakki
+  password: nakkipasswd
   pool: 5
