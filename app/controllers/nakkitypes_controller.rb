@@ -1,6 +1,4 @@
 class NakkitypesController < ApplicationController
-  skip_before_filter :require_login
-  
   def index
     @current_party = get_current_party
     @nakkitypes = @current_party.nakkitypes

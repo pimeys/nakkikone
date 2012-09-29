@@ -235,28 +235,36 @@ define(['jquery',
 	   var initialize = function(options) {
 	       var latestParty;
 	       var rootel = options.el;
+	       var _error = function(col, error) {
+		   alert('failure: ' + error.statusText)
+	       };
 
-	       parties.fetch({success:function(){
-		   if (parties.length > 0) {
-		       latestParty = parties.at(0);
-		       users.partyId = latestParty.get('id');
-		       nakkitypes.partyId = latestParty.get('id');
-		       
-		       var _ready = _.after(2, function(){
-			   new Party_Selector({el:$('#partyselector',rootel), selected: latestParty.title});
-			   new Party_Viewer({el:$('#party',rootel), model: latestParty});
+	       parties.fetch( {
+		   success: function() {
+		       //TODO remove this stuff
+		       if (parties.length > 0) {
+			   latestParty = parties.at(0);
+			   users.partyId = latestParty.get('id');
+			   nakkitypes.partyId = latestParty.get('id');
+			   
+			   var _ready = _.after(2, function(){
+			       new Party_Selector({el:$('#partyselector',rootel), selected: latestParty.title});
+			       new Party_Viewer({el:$('#party',rootel), model: latestParty});
+			       new Nakki_List({el:$('#nakit',rootel)});
+			       new User_List({el:$('#users',rootel)});
+			   });
+
+			   users.fetch({success: _ready, error: _error}); 
+			   nakkitypes.fetch({success: _ready, error: _error}); 
+		       } else {
+			   new Party_Selector({el:$('#partyselector',rootel)});
+			   new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
 			   new Nakki_List({el:$('#nakit',rootel)});
 			   new User_List({el:$('#users',rootel)});
-		       });
-		       users.fetch({success: _ready}); 
-		       nakkitypes.fetch({success: _ready}); 
-		   } else {
-		       new Party_Selector({el:$('#partyselector',rootel)});
-		       new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
-		       new Nakki_List({el:$('#nakit',rootel)});
-		       new User_List({el:$('#users',rootel)});
-		   }
-	       }});
+		       }
+		   },
+		   error: _error
+	       });
 	   };
 
 	   return { initialize: initialize };

@@ -1,5 +1,4 @@
 class PartiesController < ApplicationController
-  skip_before_filter :require_login
 
   def index
     @parties = Party.all 

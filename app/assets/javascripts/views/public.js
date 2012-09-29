@@ -76,6 +76,11 @@ define(['jquery',
 	       var rootel = options.el;
 	       var partyId = options.partyId;
 	       
+	       var _error = function(col, error) {
+		   alert('failure: ' + error.statusText)
+	       };
+
+
 	       party.fetch({url:'/parties/' + partyId, success:function(){
 		   nakit.partyId = party.get('id');
 		   
@@ -85,8 +90,8 @@ define(['jquery',
 	               new Assign_Form({el:$('#assign',rootel), model: options.loggedUser});
 	       	   };
 
-	       	   nakit.fetch({success:_ready});
-	       }});
+	       	   nakit.fetch({success:_ready,error:_error});
+	       },error: _error});
 	   };
 
 	   return {initialize:initialize};

@@ -1,5 +1,4 @@
 class NakitController < ApplicationController
-  skip_before_filter :require_login
   
   def index
     @current_party = Party.find(params[:party_id])
