@@ -21,6 +21,8 @@ define([
 
     var router;
 
+    var loggedUser;
+
     var Login_View = bb.View.extend({
 	events: {'submit':'login'},
 
@@ -29,8 +31,15 @@ define([
 	},
 
 	login: function() {
-	    alert('trying to log in');
-	    router.navigate('admin',{trigger:true});
+	    var arr = this.$el.serializeArray();
+	    var data = _(arr).reduce(function(acc, field) {
+		acc[field.name] = field.value;
+		return acc;
+	    }, {});
+	    $.getJSON('/login', data, function(data) {
+		loggedUser = new models.Person(data);
+		router.navigate('public', {trigger:true});
+	    });
 	    return false;
 	}
     });
@@ -42,19 +51,19 @@ define([
 	    'sign_up' : 'showSignUpScreen'
 	},
 	
-	showAdminScreen: function(){
+	showAdminScreen: function() {
 	    contentEl.html(adminScreen_template);
 	    admin.initialize({el:contentEl});
 	},
 
-	showSignUpScreen: function(){
+	showSignUpScreen: function() {
 	    contentEl.html(signupScreen_template);
 	    signup.initialize({el:contentEl});
 	},
 
-	showPublicScreen: function(id){
+	showPublicScreen: function(id) {
 	    contentEl.html(publicScreen_template);
-	    pub.initialize({el:contentEl, partyId:id});
+	    pub.initialize({el:contentEl, partyId:id, loggedUser: loggedUser});
 	}
     });
 

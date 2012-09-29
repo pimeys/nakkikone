@@ -10,7 +10,7 @@ define(['jquery','backbone'],function($,bb){
 	},
 
 	urlRoot: function() {
-	    return 'parties/' + this.partyId + '/parcipitants'
+	     return 'parties/' + this.partyId + '/parcipitants'
 	}
     });
 

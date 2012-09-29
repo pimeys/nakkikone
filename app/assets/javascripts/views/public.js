@@ -29,7 +29,6 @@ define(['jquery',
 	   });
 
 	   var Nakki_Table = bb.View.extend({
-
 	       initialize: function() {
 	   	   _.bindAll(this,'save');
 		   vent.on('assignPerson',this.save)
@@ -61,26 +60,14 @@ define(['jquery',
 	   });
 	   
 	   var Assign_Form = bb.View.extend({
-	       events: {'submit': 'save'},
+	       events: {'submit': 'assign'},
 
 	       initialize: function() {
-	       	   _.bindAll(this, 'save');
+	       	   _.bindAll(this, 'assign');
 	       },
 	       
-	       render: function() {
-		   return this.$el;
-	       },
-
-	       save: function() {
-		   var arr = this.$el.serializeArray();
-		   var data = _(arr).reduce(function(acc, field) {
-		       acc[field.name] = field.value;
-		       return acc;
-		   }, {});
-		   var self = this;
-		   this.model.save(data,{wait:true, success: function(){
-		       vent.trigger('assignPerson',self.model);
-		   }});
+	       assign: function() {
+		   vent.trigger('assignPerson',self.model);
 		   return false;
 	       }
 	   });
@@ -95,11 +82,7 @@ define(['jquery',
 		   var _ready = function(){
 	               new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		       new Nakki_Table({el:$('#nakkiTable',rootel)});
-
-		       var potentialPerson = new models.Person();
-		       potentialPerson.partyId = party.get('id');
-
-	               new Assign_Form({el:$('#assign',rootel), model: potentialPerson});
+	               new Assign_Form({el:$('#assign',rootel), model: options.loggedUser});
 	       	   };
 
 	       	   nakit.fetch({success:_ready});

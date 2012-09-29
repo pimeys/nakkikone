@@ -19,11 +19,7 @@ class ParcipitantsController < ApplicationController
 
   def create
     @user = User.create(:name => params[:name], :email => params[:email], :password => "foobar", :number => params[:number])
-
-    respond_to do |format|
-      format.json { render :json => @user }
-    end
-
+    render :json => @user
   end
 
   def get_current_party

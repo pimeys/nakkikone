@@ -2,7 +2,7 @@
 define(['jquery',
 	'underscore',
 	'backbone',
-       'models'],
+	'models'],
        function($, _, bb, models) {
 	   
 	   var SignUp_Form = bb.View.extend({
@@ -10,10 +10,6 @@ define(['jquery',
 
 	       initialize: function() {
 	       	   _.bindAll(this, 'save');
-	       },
-	       
-	       render: function() {
-		   return this.$el;
 	       },
 
 	       save: function() {
@@ -36,7 +32,9 @@ define(['jquery',
 	   });
 	   
 	   var initialize = function(options){
-	       new SignUp_Form({el:options.el, model: new models.Person()}).render();
+	       var user = new models.Person(); 
+	       user.urlRoot = 'users';
+	       new SignUp_Form({el:$('#signup', options.el), model: user});
 	   };
 	 
 	   return {initialize:initialize};
