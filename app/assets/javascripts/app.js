@@ -38,7 +38,7 @@ define([
 	    }, {});
 	    $.getJSON('/login', data, function(data) {
 		loggedUser = new models.Person(data);
-		router.navigate('public', {trigger:true});
+		router.navigate('admin', {trigger:true});
 	    });
 	    return false;
 	}
