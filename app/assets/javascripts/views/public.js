@@ -67,7 +67,7 @@ define(['jquery',
 	       },
 	       
 	       assign: function() {
-		   vent.trigger('assignPerson',self.model);
+		   vent.trigger('assignPerson', this.model);
 		   return false;
 	       }
 	   });
