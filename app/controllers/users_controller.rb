@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   skip_before_filter :require_login, :only => [:new, :create, :home]
+
   def new
     @user = User.new
   end

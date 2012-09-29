@@ -5,41 +5,64 @@ define([
     'collections',
     'views/admin',
     'views/public',
+    'views/signup',
     'libs/text!templates/admin-screen.html',
+    'libs/text!templates/signup-screen.html',
     'libs/text!templates/public-screen.html'
-], function($, bb, models, collections, admin, pub, adminScreen, publicScreen) {
+], function($, bb, models, collections, admin, pub, signup, adminScreen, signupScreen, publicScreen) {
 
-	var adminScreen_template = _.template(adminScreen);
+    var adminScreen_template = _.template(adminScreen);
 
-	var publicScreen_template = _.template(publicScreen);
+    var publicScreen_template = _.template(publicScreen);
 
-	var Router = bb.Router.extend({
-	    routes: {
-		'admin' : 'showAdminScreen',
-		'' : 'showLatestParty'
-	    },
-	    
-	    showAdminScreen: function(){
-		var contentEl = $('#content');
-		contentEl.html(adminScreen_template);
-		admin.initialize({el:contentEl});
-	    },
+    var signupScreen_template = _.template(signupScreen);
 
-	    showLatestParty: function() {
-		this.showPublicScreen('1');
-	    },
+    var contentEl = $('#content');
 
-	    showPublicScreen: function(partyId){
-		var contentEl = $('#content');
-		contentEl.html(publicScreen_template);
-		pub.initialize({el:contentEl, partyId:partyId});
-	    }
-	});
+    var router;
 
-	var initialize = function(){
-	    var router = new Router();
-	    bb.history.start({pushState: true});
-	};
+    var Login_View = bb.View.extend({
+	events: {'submit':'login'},
 
-	return {initialize: initialize};
+	initialize: function() {
+	    _.bindAll(this, 'login');
+	},
+
+	login: function() {
+	    alert('trying to log in');
+	    router.navigate('admin',{trigger:true});
+	    return false;
+	}
     });
+
+    var Router = bb.Router.extend({
+	routes: {
+	    'admin' : 'showAdminScreen',
+	    'party/:id' : 'showPublicScreen',
+	    'sign_up' : 'showSignUpScreen'
+	},
+	
+	showAdminScreen: function(){
+	    contentEl.html(adminScreen_template);
+	    admin.initialize({el:contentEl});
+	},
+
+	showSignUpScreen: function(){
+	    contentEl.html(signupScreen_template);
+	    signup.initialize({el:contentEl});
+	},
+
+	showPublicScreen: function(id){
+	    contentEl.html(publicScreen_template);
+	    pub.initialize({el:contentEl, partyId:id});
+	}
+    });
+
+    var initialize = function(){
+	new Login_View({el:$('#login')});
+	router = new Router();
+	bb.history.start();
+    };
+
+    return {initialize: initialize};
+});

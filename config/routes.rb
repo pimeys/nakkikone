@@ -2,10 +2,11 @@ RailStrap::Application.routes.draw do
 
   root :to => "users#home"
 
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  post "sessions" => "sessions#create"
   get "sign_up" => "users#new", :as => "sign_up"
+
+  get "login" => "sessions#new", :as => "login"
+  get "logout" => "sessions#destroy", :as => "logout"
+  post "sessions" => "sessions#create"
 
   resources :users
 

@@ -5,7 +5,7 @@
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
@@ -23,72 +23,36 @@
     
     <style type="text/css">
       body {
-        padding-top: 60px;
-        padding-bottom: 40px;
+      padding-top: 60px;
+      padding-bottom: 40px;
       }
     </style>
 
     <%= csrf_meta_tag %>
-</head>
-<body>
+  </head>
+  <body>
     <!--[if lt IE 7]><p class="chromeframe">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <div class="hero-unit row">
+      <h1>NakkiKone by Entropy</h1>
+    </div>
+    <div id="content" class="row row-fluid">
+      <%= yield %>
+    </div>
+    <footer>
+      <p>&copy; Entropy 2012</p>
+    </footer>
+</div> 
+<!-- /container -->
 
-    <!-- <div class="navbar navbar-fixed-top"> -->
-    <!--   <div class="navbar-inner"> -->
-    <!--     <div class="container"> -->
-    <!--       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> -->
-    <!--         <span class="icon-bar"></span> -->
-    <!--         <span class="icon-bar"></span> -->
-    <!--         <span class="icon-bar"></span> -->
-    <!--       </a> -->
+<!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
 
-    <!--       <%= link_to "RailStrap", root_path, :class => 'brand' %> -->
-
-    <!--       <div class="nav-collapse"> -->
-    <!--         <ul class="nav"> -->
-    <!--            <% if current_user %> -->
-    <!--           <li><%= link_to "Log out", log_out_path %></li> -->
-    <!--           <% else %> -->
-    <!--           <li><%= link_to "Sign up", sign_up_path %></li> -->
-    <!--           <li><%= link_to "Log in", log_in_path %></li> -->
-    <!--           <% end %> -->
-    <!--         </ul> -->
-    <!--       </div><\!--/.nav-collapse -\-> -->
-    <!--     </div> -->
-    <!--   </div> -->
-    <!-- </div> -->
-
-    <div id="content"></div>
-
-    <!-- <div class="container"> -->
-
-    <!--   <div class="row"> -->
-    <!--     <% flash.each do |name, msg| %> -->
-    <!--       <div class="alert"> -->
-    <!--         <%= content_tag :div, msg, :id => "flash_#{name}" %> -->
-    <!--       </div> -->
-    <!--     <% end %>               -->
-    <!--   </div> -->
-      
-      <!-- <%= yield %> -->
-
-      <!-- <hr> -->
-
-      <footer>
-        <p>&copy; Company 2012</p>
-      </footer>
-
-    </div> <!-- /container -->
-
-    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-
-    <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
-         mathiasbynens.be/notes/async-analytics-snippet -->
-    <!-- <script> -->
-    <!--     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; -->
-    <!--     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0]; -->
-    <!--     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js'; -->
-    <!--     s.parentNode.insertBefore(g,s)}(document,'script')); -->
-    <!-- </script> -->
+<!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
+     mathiasbynens.be/notes/async-analytics-snippet -->
+<!-- <script> -->
+<!--     var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']]; -->
+<!--     (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0]; -->
+<!--     g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js'; -->
+<!--     s.parentNode.insertBefore(g,s)}(document,'script')); -->
+<!-- </script> -->
 </body>
 </html>
