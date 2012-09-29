@@ -54,7 +54,12 @@ define(['jquery',
 		   });
 		   _.each(ids, function(current){
 		       var model = nakit.get(current);
-		       model.save({assign: assignedPerson.id},{wait:true, success:_setted});
+		       model.save({assign: assignedPerson.id},{
+			   wait:true, 
+			   success: _setted, 
+			   error:function(col, error) {
+			       alert('failure: ' + error.statusText);
+			   }});
 		   });
 	       }
 	   });
@@ -77,9 +82,8 @@ define(['jquery',
 	       var partyId = options.partyId;
 	       
 	       var _error = function(col, error) {
-		   alert('failure: ' + error.statusText)
+		   alert('failure: ' + error.statusText);
 	       };
-
 
 	       party.fetch({url:'/parties/' + partyId, success:function(){
 		   nakit.partyId = party.get('id');

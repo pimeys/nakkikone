@@ -23,8 +23,8 @@ define(['jquery',
 		       success: function() {
 			   alert('successfully created new user!');
 		       },
-		       error: function() {
-			   alert('failed to create new user!');
+		       error: function(col, err) {
+			   alert('failed to create new user:' + err.statusText);
 		       }
 		   });
 		   return false;

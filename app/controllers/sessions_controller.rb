@@ -1,9 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login, :only => [:new, :create]
-  
-  def new
-    create
-  end
+  skip_before_filter :require_login, :only => [:create]
 
   def create
     user = User.authenticate(params[:email], params[:password])
