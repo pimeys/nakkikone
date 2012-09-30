@@ -1,25 +1,17 @@
 define([
     'jquery',
     'backbone',
+    'authentication',
     'models',
     'collections',
+    'vent',
     'views/admin',
     'views/public',
     'views/signup',
     'libs/text!templates/admin-screen.html',
     'libs/text!templates/signup-screen.html',
     'libs/text!templates/public-screen.html'
-], function($, bb, models, collections, admin, pub, signup, adminScreen, signupScreen, publicScreen) {
-
-    /* 
-     * Fixing reseting of the Rails session after each ajax call.
-     *
-     * http://stackoverflow.com/questions/7203304/warning-cant-verify-csrf-token-authenticity-rails
-     */
-    $(document).ajaxSend(function(e, xhr, options) {
-	var token = $("meta[name='csrf-token']").attr("content");
-	xhr.setRequestHeader("X-CSRF-Token", token);
-    });
+], function($, bb, authentication, models, collections, vent, admin, pub, signup, adminScreen, signupScreen, publicScreen) {
 
     var adminScreen_template = _.template(adminScreen);
 
@@ -31,35 +23,15 @@ define([
 
     var router;
 
-    var loggedUser;
-
-    var Login_View = bb.View.extend({
-	events: {'submit':'login'},
-
-	initialize: function() {
-	    _.bindAll(this, 'login');
-	},
-
-	login: function() {
-	    var arr = this.$el.serializeArray();
-	    var data = _(arr).reduce(function(acc, field) {
-		acc[field.name] = field.value;
-		return acc;
-	    }, {});
-	    
-	    $.post('/login', data, function(data) {
-		loggedUser = new models.Person(data);
-		router.navigate('party/1',{trigger: true});
-	    });
-	    return false;
-	}
-    });
-
     var Router = bb.Router.extend({
 	routes: {
 	    'admin' : 'showAdminScreen',
 	    'party/:id' : 'showPublicScreen',
 	    'sign_up' : 'showSignUpScreen'
+	},
+
+	initialize: function() {
+	    vent.on('logged-in',function(){ router.navigate('party/1',{trigger:true});});
 	},
 	
 	showAdminScreen: function() {
@@ -74,23 +46,15 @@ define([
 
 	showPublicScreen: function(id) {
 	    contentEl.html(publicScreen_template);
-	    pub.initialize({el:contentEl, partyId:id, loggedUser: loggedUser});
+	    pub.initialize({el:contentEl, partyId:id, loggedUser: authentication.currentUser()});
 	}
     });
 
     var initialize = function(){
-	new Login_View({el:$('#login')});
+	new authentication.LoginView({el:$('#login')});
 	router = new Router();
 	bb.history.start();
-	
-	// automatically login 
-	$.getJSON('/login', function(data) {
-	    loggedUser = new models.Person(data);
-	    alert("session present, setting logged user")
-	})
-	.error(function() {
-	    alert("no session present, needs manual login");
-	});
+	authentication.tryLogin();
     };
 
     return {initialize: initialize};
