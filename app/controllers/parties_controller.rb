@@ -1,34 +1,27 @@
 class PartiesController < ApplicationController
 
   def index
-    @parties = Party.all 
-    respond_to do |format|
-      format.json { render :json => @parties}
-    end
+    render :json => Party.all 
   end
 
   def update
-    @party = Party.find(params[:id])
+    party = Party.find(params[:id])
     
-    @party.title = params[:title]
-    @party.description = params[:description]
-    @party.date = params[:date]
+    party.title = params[:title]
+    party.description = params[:description]
+    party.date = params[:date]
       
-    if @party.save
-        respond_to do |format|
-        format.json { render :json => @party}
-      end
+    if party.save
+      render :json => party
     end
   end
 
   def new
-    @party = Party.new({:title => params[:title], 
+    party = Party.new({:title => params[:title], 
                          :description => params[:description], 
                          :date => params[:date]})
-    if @party.save
-      respond_to do |format|
-        format.json { render :json => @party}
-      end
+    if party.save
+      render :json => party
     end
   end
 
@@ -37,18 +30,14 @@ class PartiesController < ApplicationController
   end
 
   def show
-    @party = Party.find(params[:id])
-    if @party
-      respond_to do |format|
-        format.json { render :json => @party}
-      end
+    party = Party.find(params[:id])
+    if party
+      render :json => party
     end
   end
 
   def destroy
     Party.destroy(params[:id])
-    respond_to do |format|
-      format.json { render :json => {}}
-    end
+    render :json => {}
   end
 end
