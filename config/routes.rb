@@ -5,7 +5,7 @@ RailStrap::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"
 
   get "login" => "sessions#new"
-  post "login" => "session#create", :as => "login"
+  post "login" => "sessions#create", :as => "login"
  
   get "logout" => "sessions#destroy", :as => "logout"
 

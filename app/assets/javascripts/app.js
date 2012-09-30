@@ -36,9 +36,9 @@ define([
 		acc[field.name] = field.value;
 		return acc;
 	    }, {});
-	    $.getJSON('/login', data, function(data) {
+	    $.post('/login', data, function(data) {
 		loggedUser = new models.Person(data);
-		router.navigate('admin', {trigger:true});
+		router.navigate('party/1',{trigger: true});
 	    });
 	    return false;
 	}
