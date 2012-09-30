@@ -15,7 +15,7 @@ class NakitController < ApplicationController
     if nakki.save
       render :json => nakki
     else
-      render :text => "waht waht"
+      render :status => 500, :text => "what what"
     end
   end
 end
