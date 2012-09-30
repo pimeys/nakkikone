@@ -10,7 +10,7 @@ class NakitController < ApplicationController
 
   def update
     nakki = Nakki.find(params[:id])
-    nakki.user = User.find(params[:assign])
+    nakki.user = current_user
 
     if nakki.save
       render :json => nakki
