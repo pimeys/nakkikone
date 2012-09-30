@@ -5,6 +5,12 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def admin_access
+    unless current_user.id == 1
+      render :status => 403, :text => "your not admin."
+    end
+  end
+
   def require_login
     unless logged_in?
       render :status => 401, :text => "authorization error"

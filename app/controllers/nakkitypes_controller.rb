@@ -1,4 +1,5 @@
 class NakkitypesController < ApplicationController
+  before_filter :admin_access
 
   def index
     current_party = get_current_party

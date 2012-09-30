@@ -1,5 +1,6 @@
 class ParcipitantsController < ApplicationController
-  
+  before_filter :admin_access
+
   def index
     current_party = Party.find(params[:party_id])
     nakkilist = []

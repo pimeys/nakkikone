@@ -1,4 +1,6 @@
 class PartiesController < ApplicationController
+  before_filter :admin_access
+  skip_before_filter :admin_access, :only => [:show]
 
   def index
     render :json => Party.all 
