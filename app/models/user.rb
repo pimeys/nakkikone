@@ -25,12 +25,12 @@ class User < ActiveRecord::Base
     end
   end
   
-  def as_json(options={})
-    {
-      :id => id,
-      :name => name,
-      :number => number,
-      :email => email
-    }
-  end
+  # def as_json(options={})
+  #   {
+  #     :id => id,
+  #     :name => name,
+  #     :number => number,
+  #     :email => email
+  #   }
+  # end
 end

@@ -12,5 +12,5 @@ define(['backbone'],function(bb) {
 	on: function(event, callback) {
 	    vent.on(event, callback);
 	}
-    }s
+    }
 });

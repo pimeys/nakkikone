@@ -1,3 +1,4 @@
+"use strict";
 define([
     'jquery',
     'backbone',
@@ -9,15 +10,12 @@ define([
     'views/public',
     'views/signup',
     'libs/text!templates/admin-screen.html',
-    'libs/text!templates/signup-screen.html',
     'libs/text!templates/public-screen.html'
-], function($, bb, authentication, models, collections, vent, admin, pub, signup, adminScreen, signupScreen, publicScreen) {
+], function($, bb, authentication, models, collections, vent, admin, pub, signup, adminScreen, publicScreen) {
 
     var adminScreen_template = _.template(adminScreen);
 
     var publicScreen_template = _.template(publicScreen);
-
-    var signupScreen_template = _.template(signupScreen);
 
     var contentEl = $('#content');
 
@@ -31,7 +29,7 @@ define([
 	},
 
 	initialize: function() {
-	    vent.on('logged-in',function(){ router.navigate('party/1',{trigger:true});});
+	    vent.on('logged-in', function(){ router.navigate('party/1',{trigger:true});});
 	},
 	
 	showAdminScreen: function() {
@@ -40,7 +38,6 @@ define([
 	},
 
 	showSignUpScreen: function() {
-	    contentEl.html(signupScreen_template);
 	    signup.initialize({el:contentEl});
 	},
 
