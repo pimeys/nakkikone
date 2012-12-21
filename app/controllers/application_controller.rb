@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   private
 
+  #TODO do it properly
   def admin_access
     unless current_user.id == 1
       render :status => 403, :text => "your not admin."

@@ -1,0 +1,66 @@
+#+TITLE:     Backlog for NakkiKone
+#+AUTHOR:    Sami Airaksinen
+#+EMAIL:     samiaira@gmail.com
+#+DATE:      2012-12-21 Fri
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+
+This documentation is organizing development time todos.
+
+* TODO install jasmine plugin
+* TODO create jasmine tests for backbone code
+* TODO install handlebars plugin for require-js
+* TODO update backbone
+* TODO update requirejs
+* TODO backend stuff
+** TODO Map Record not found responses to 404 and empty bodies
+   - e.g. remove stack traces
+** TODO [#A] serialized user model don't have all attributes!!
+** TODO check and redefine resource url patterns if needed
+** TODO document backend design and functionality
+* TODO ui stuff
+** TODO logout link, bb conventions
+** TODO define route patterns
+** TODO redirection logic on 401 and 403 in BB
+** WAITING clean up templates
+   :CLOCK:
+   CLOCK: [2012-12-21 Fri 20:51]--[2012-12-21 Fri 21:17] =>  0:26
+   :END:
+   :LOGBOOK:
+   - State "STARTED"    from "TODO"       [2012-12-21 Fri 20:51]
+   :END:
+** TODO rollers for party start and end times
+** TODO date picker for party start date
+   remember that parties almost always are from night to dawn
+** TODO improve party creation flow
+   1. Title, time, (start and endtime) and description (providing template)
+   2. define nakki types (columns)
+   3. confirm.
+   4. After which admin can modify party properties
+      - nakki columns edits will destroy existing reservations?
+      - time edits as well?
+* TODO Usability stuff 
+* TODO UserManagement
+** TODO Screen to administrate nakkikone users
+*** TODO reset password
+*** TODO remove user
+*** TODO edit details
+*** TODO user can itself access itself
+* improvement ideas
+** two levels of nakkis
+   - special nakki assignment for organizers?
+
+* Development time defects
+** after login and reload page, assigned user is empty
+   - work if you do session based login in browsing root url
+   - happens because login is done with ajax.get and publicscreen gets
+     initalized before it sets the value to it.

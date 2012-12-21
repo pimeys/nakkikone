@@ -20,7 +20,6 @@ define([
     
     /* 
      * Fixing reseting of the Rails session after each ajax call.
-     *
      * http://stackoverflow.com/questions/7203304/warning-cant-verify-csrf-token-authenticity-rails
      */
     $(document).ajaxSend(function(e, xhr, options) {
@@ -52,13 +51,13 @@ define([
 	}
     });
 
-    var doLogin = function() {
+    var attemptLoginWithSessionCookie = function() {
 	$.getJSON('/login', function(data) {
 	    loggedUser = new models.Person(data);
-	    alert("session present, setting logged user")
+	    console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
 	    vent.trigger('logged-in');
 	}).error(function() {
-	    alert("no session present, needs manual login");
+	    console.log("no session cookie present, should do redirect...");
 	});
     };
     
@@ -66,6 +65,6 @@ define([
 	LoginView: Login_View, 
 	Signup: null,
 	currentUser: function() {return loggedUser},
-	tryLogin: doLogin
+	tryLogin: attemptLoginWithSessionCookie
     }
 });
