@@ -91,7 +91,7 @@ define([
 	    
 	    var _ready = function(){
 	        new Party_Viewer({el:$('#party-description',rootel), model: party}); 
-		new Nakki_Table({el:$('#nakkiTable',rootel)});
+		new Nakki_Table({el:$('#nakki-table',rootel)});
 	        new Assign_Form({el:$('#assign',rootel), model: options.loggedUser});
 	    };
 

@@ -58,7 +58,7 @@ This documentation is organizing development time todos.
 * improvement ideas
 ** two levels of nakkis
    - special nakki assignment for organizers?
-
+** Create separate authentication module
 * Development time defects
 ** after login and reload page, assigned user is empty
    - work if you do session based login in browsing root url
