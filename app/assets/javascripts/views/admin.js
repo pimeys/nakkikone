@@ -4,30 +4,18 @@ define(['jquery',
 	'backbone',
 	'collections',
 	'models',
-	'libs/text!templates/users.html',
-	'libs/text!templates/nakit.html',
-	'libs/text!templates/edit-nakkis.html',
-	'libs/text!templates/selector.html',
-	'libs/text!templates/party-description.html',
-	'libs/text!templates/party-editor-form.html'],
-       function($, _, bb, collections, models, usr_tmpl, nakit_tmpl, edit_nakki_tmpl, slctr_tmpl, party_tmpl, party_edit_tmpl) {
+	'hbs!templates/users',
+	'hbs!templates/nakit',
+	'hbs!templates/edit-nakkis',
+	'hbs!templates/selector',
+	'hbs!templates/party-description',
+	'hbs!templates/party-editor-form'],
+       function($, _, bb, collections, models, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit) {
 
 	   //TODO fix party creation refresh for nakkitypes editor.
 
 	   var vent = {};
 	   _.extend(vent, bb.Events);
-
-	   var selector_template = _.template(slctr_tmpl);
-
-	   var party_description_template = _.template(party_tmpl);
-
-	   var party_edit_template = _.template(party_edit_tmpl);
-
-	   var userlist_template = _.template(usr_tmpl);
-
-	   var nakkilist_template = _.template(nakit_tmpl);
-
-	   var nakkilist_edit_template = _.template(edit_nakki_tmpl);
 
 	   var parties = new collections.Parties();
 	   
@@ -56,7 +44,7 @@ define(['jquery',
 	       },
 
 	       render: function(partyTitle){
-		   this.$el.html(selector_template({data:parties, selected:partyTitle}));
+		   this.$el.html(selector({parties:parties.toJSON(), selected:partyTitle}));
 		   return this.$el;
 	       },
 	       
@@ -109,7 +97,7 @@ define(['jquery',
 	       },
 
 	       render: function(){
-		   this.$el.html(userlist_template({data:users.toJSON()}));
+		   this.$el.html(userlist({persons:users.toJSON()}));
 		   return this.$el;
 	       }
 	   });
@@ -140,13 +128,13 @@ define(['jquery',
 		       
 		       error: function(){
 			   nakkitypes.reset();
-			   self.$el.html(nakkilist_template({data:{}}));
+			   self.$el.html(nakkilist({nakit:{}}));
 		       }
 		   });
 	       },
 
 	       render: function(){
-		   this.$el.html(nakkilist_template({data:nakkitypes.toJSON()}));
+		   this.$el.html(nakkilist({nakit:nakkitypes.toJSONWithClientID()}));
 		   return this.$el;
 	       },
 
@@ -155,7 +143,8 @@ define(['jquery',
 	       },
 
 	       edit: function(){
-		   this.$el.html(nakkilist_edit_template({data:nakkitypes.models}));
+		   //todo get cid to here somehow...
+		   this.$el.html(nakkilist_edit({nakkitypes:nakkitypes.toJSONWithClientID()}));
 		   return this.$el;
 	       },
 
@@ -201,7 +190,7 @@ define(['jquery',
 	       },
 	       
 	       render: function(){
-		   this.$el.html(party_description_template({party:this.model.toJSON(), editable:true}));
+		   this.$el.html(party_description({party:this.model.toJSON(), editable:true}));
 		   return this.$el;
 	       },
 
@@ -211,7 +200,7 @@ define(['jquery',
 	       },
 
 	       edit: function() {
-		   this.$el.html(party_edit_template({party:this.model.toJSON()}))
+		   this.$el.html(party_edit({party:this.model.toJSON()}))
 	       },
 
 	       creationEdit: function(partyId){

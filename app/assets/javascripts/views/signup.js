@@ -5,11 +5,9 @@ define([
     'backbone',
     'models',
     'vent',
-    'libs/text!templates/signup-screen.html',
-    'libs/text!templates/outer-template.html'
+    'hbs!templates/signup-screen',
+    'hbs!templates/outer-template'
 ], function($, _, bb, models, vent, signupScreen, outer_template) {
-    
-    var signupScreen_template = _.template(signupScreen);
     
     var SubmitModel = models.Person.extend({
 	defaults: {
@@ -42,7 +40,7 @@ define([
 	},
 
 	render: function() {
-	    return this.$el.html(signupScreen_template({user:this.model.toJSON()}));
+	    return this.$el.html(signupScreen({user:this.model.toJSON()}));
 	},
 
 	save: function() {

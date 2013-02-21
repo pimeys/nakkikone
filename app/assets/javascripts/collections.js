@@ -33,6 +33,11 @@ define(['backbone','underscore','models'],function(bb, _, models){
 
 	url: function() {
 	    return '/parties/' + this.partyId + '/nakkitypes';
+	},
+	
+	//TODO remove when UI refactoring has been done
+	toJSONWithClientID: function() {
+	    return this.map(function(model){ return model.toJSONWithClientID(); });
 	}
     });
 

@@ -9,13 +9,9 @@ define([
     'views/admin',
     'views/public',
     'views/signup',
-    'libs/text!templates/admin-screen.html',
-    'libs/text!templates/public-screen.html'
+    'hbs!templates/admin-screen',
+    'hbs!templates/public-screen'
 ], function($, bb, authentication, models, collections, vent, admin, pub, signup, adminScreen, publicScreen) {
-
-    var adminScreen_template = _.template(adminScreen);
-
-    var publicScreen_template = _.template(publicScreen);
 
     var contentEl = $('#content');
 
@@ -33,7 +29,7 @@ define([
 	},
 	
 	showAdminScreen: function() {
-	    contentEl.html(adminScreen_template);
+	    contentEl.html(adminScreen);
 	    admin.initialize({el:contentEl});
 	},
 
@@ -42,7 +38,7 @@ define([
 	},
 
 	showPublicScreen: function(id) {
-	    contentEl.html(publicScreen_template);
+	    contentEl.html(publicScreen);
 	    pub.initialize({el:contentEl, partyId:id, loggedUser: authentication.currentUser()});
 	}
     });

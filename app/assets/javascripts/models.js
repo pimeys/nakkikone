@@ -27,6 +27,13 @@ define(['jquery','backbone'],function($,bb){
 	    type: "Name of Nakki",
 	    start: 0, 
 	    end: 0
+	},
+
+	//TODO remove after UI refactoring
+	toJSONWithClientID: function() {
+	    data = this.toJSON();
+	    data.cid = this.cid;
+	    return data;
 	}
     });
 

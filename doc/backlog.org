@@ -18,7 +18,26 @@ This documentation is organizing development time todos.
 
 * TODO install jasmine plugin
 * TODO create jasmine tests for backbone code
-* TODO install handlebars plugin for require-js
+* DONE install handlebars plugin for require-js
+  CLOSED: [2013-02-21 Thu 23:06]
+  :CLOCK:
+  CLOCK: [2013-02-19 Tue 20:08]--[2013-02-19 Tue 22:51] =>  2:43
+  CLOCK: [2013-02-21 Thu 21:08]--[2013-02-21 Thu 23:10] =>  2:02
+  :END:
+  :LOGBOOK:
+  - State "DONE"       from "WAITING"    [2013-02-21 Thu 23:06]
+  - State "STARTED"    from "STARTED"    [2013-02-19 Tue 22:27]
+  - State "STARTED"    from "STARTED"    [2013-02-19 Tue 20:08]
+  - State "STARTED"    from "TODO"       [2013-02-12 Tue 20:46]
+  :END:
+
+  - [X] add libraries
+  - [X] change templates
+  - [X] debug changes
+
+** notes							       :note:
+   - handlebars template helpers silently fails
+   - hbs compiles templates to javasript, is it needed to filter static html as well?
 * TODO update backbone
 * TODO update requirejs
 * TODO backend stuff

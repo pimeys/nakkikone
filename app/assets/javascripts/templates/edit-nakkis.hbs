@@ -1,0 +1,18 @@
+<div class="table">
+  {{#each nakkitypes}}
+  <div class="row">
+    <form>
+      <input type="hidden" name="cid" value="{{ this.cid }}"/>
+      <input type="text" name="type" value="{{ this.type }}" />
+      <input type="text" name="start" value="{{ this.start }}" />
+      <input type="text" name="end" value="{{ this.end }}" />
+    </form>
+    <button class="deletor" value="{{ this.cid }}">delete</button>
+  </div>
+  {{/each}}
+  <div class="row">
+    <button class="creator">Create New Type</button>
+    <button class="setter">Update NakkitTable</button>
+  </div>
+</div>
+

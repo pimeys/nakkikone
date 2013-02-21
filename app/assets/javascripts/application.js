@@ -8,10 +8,11 @@ require.config({
     },
 
     hbs: {
-	disableI18n: true
+	disableI18n: true,
+	helperPathCallback: function(name) {return 'templates/' + name;}
     }
 });
 
-require(['app'],function(app){
+require(['app','templates/nakki_row'],function(app){
     app.initialize();
 });

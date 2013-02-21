@@ -5,15 +5,12 @@ define([
     'backbone',
     'collections',
     'models',
-    'libs/text!templates/party-description.html',
-    'libs/text!templates/nakki-table.html'
-], function($, _, bb, collections, models, party_tmpl, nakki_tbl_tmpl) {
+    'hbs!templates/party-description',
+    'hbs!templates/nakki-table'
+], function($, _, bb, collections, models, party_description, nakki_table) {
 
     var vent = {};
     _.extend(vent, bb.Events);
-
-    var party_description_template = _.template(party_tmpl);
-    var nakki_table_template = _.template(nakki_tbl_tmpl);
 
     var party = new models.Party();
     var nakit = new collections.Nakit();
@@ -24,7 +21,7 @@ define([
 	},
 	
 	render: function(){
-	    this.$el.html(party_description_template({party:this.model.toJSON(), editable:false}));
+	    this.$el.html(party_description({party:this.model.toJSON(), editable:false}));
 	    return this.$el;
 	},
     });
@@ -41,7 +38,7 @@ define([
 	    var titles = _.map(_.sortBy(data[0],'type'), function(current){
 		return current.type;
 	    });
-	    this.$el.html(nakki_table_template({types: titles, data: data}));
+	    this.$el.html(nakki_table({titles: titles, nakit: _.toArray(data)}));
 	},
 
 	save: function(assignedPerson){
@@ -92,7 +89,7 @@ define([
 	    var _ready = function(){
 	        new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		new Nakki_Table({el:$('#nakki-table',rootel)});
-	        new Assign_Form({el:$('#assign',rootel), model: options.loggedUser});
+	        new Assign_Form({el:$('#assign',rootel), model: options.loggedUser}); // TODO fix race condition
 	    };
 
 	    nakit.fetch({success:_ready,error:_error});

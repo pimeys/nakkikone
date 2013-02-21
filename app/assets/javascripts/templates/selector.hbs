@@ -1,0 +1,9 @@
+<form method="post">
+  <select name="parties" class="selector">
+    {{#each parties}}
+    <option value="{{ this.cid }}" {{#if selected}}selected="true"{{/if}}>{{ this.title }}</option>
+    {{/each}}
+  </select>
+</form>
+<button class="creator">New Party</button>
+<button class="deletor">Delete selected</button>
