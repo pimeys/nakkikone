@@ -1,1 +1,0 @@
-../../../lib/assets/require-handlebars-plugin/hbs/json2.js

@@ -1,0 +1,1 @@
+../../../../lib/assets/require-handlebars-plugin/Handlebars.js

@@ -5,7 +5,7 @@ gem 'json'
 gem "bcrypt-ruby", :require => "bcrypt"
 gem 'jquery-rails'
 gem 'mysql2'
-gem 'requirejs-rails'
+gem 'requirejs-rails', '= 0.9.1'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

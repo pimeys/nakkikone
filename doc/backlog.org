@@ -38,8 +38,36 @@ This documentation is organizing development time todos.
 ** notes							       :note:
    - handlebars template helpers silently fails
    - hbs compiles templates to javasript, is it needed to filter static html as well?
-* TODO update backbone
-* TODO update requirejs
+* DONE update requirejs
+  CLOSED: [2013-02-24 Sun 19:45]
+  :LOGBOOK:
+  - State "DONE"       from "TODO"       [2013-02-24 Sun 19:45]
+  :END:
+  - currently comes from gem is 2.0.0 (0.9.0)
+  - needs only shim-configuration for jquery, bb and underscore.
+
+** notes
+   - updated gem and handlebars plugin 
+* DONE update backbone
+  CLOSED: [2013-02-24 Sun 19:45]
+  :CLOCK:
+  CLOCK: [2013-02-24 Sun 17:41]--[2013-02-24 Sun 19:45] =>  2:04
+  CLOCK: [2013-02-24 Sun 16:46]--[2013-02-24 Sun 16:51] =>  0:05
+  :END:
+  :LOGBOOK:
+  - State "DONE"       from "WAITING"    [2013-02-24 Sun 19:45]
+  - State "STARTED"    from "WAITING"    [2013-02-24 Sun 17:41]
+  - State "STARTED"    from "TODO"       [2013-02-24 Sun 16:46]
+  :END:
+  - done in the same time as requirejs update
+
+  - [X] creating submodules to repos (bb and underscore)
+  - [X] linking and checking that no major breakdowns
+
+** notes
+   - be careful with dependent library versions
+   - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
+
 * TODO backend stuff
 ** TODO Map Record not found responses to 404 and empty bodies
    - e.g. remove stack traces
