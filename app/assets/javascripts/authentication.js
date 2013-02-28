@@ -51,20 +51,21 @@ define([
 	}
     });
 
-    var attemptLoginWithSessionCookie = function() {
+    var attemptLoginWithSessionCookie = function(cb) {
 	$.getJSON('/login', function(data) {
 	    loggedUser = new models.Person(data);
 	    console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
-	    vent.trigger('logged-in');
+	    cb();
 	}).error(function() {
 	    console.log("no session cookie present, should do redirect...");
+	    cb();
 	});
     };
     
     return {
+	initialize: attemptLoginWithSessionCookie,
 	LoginView: Login_View, 
 	Signup: null,
 	currentUser: function() {return loggedUser},
-	tryLogin: attemptLoginWithSessionCookie
     }
 });

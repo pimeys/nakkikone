@@ -25,7 +25,7 @@ define([
 	},
 
 	initialize: function() {
-	    vent.on('logged-in', function(){ router.navigate('party/1',{trigger:true});});
+	    vent.on('logged-in', function(){ router.navigate('party/1', {trigger:true});});
 	},
 	
 	showAdminScreen: function() {
@@ -39,15 +39,16 @@ define([
 
 	showPublicScreen: function(id) {
 	    contentEl.html(publicScreen);
-	    pub.initialize({el:contentEl, partyId:id, loggedUser: authentication.currentUser()});
+	    pub.initialize({el:contentEl, partyId:id, currentUser: authentication.currentUser});
 	}
     });
 
-    var initialize = function(){
-	new authentication.LoginView({el:$('#login')});
-	router = new Router();
-	bb.history.start();
-	authentication.tryLogin();
+    var initialize = function() {
+	authentication.initialize(function() {
+	    new authentication.LoginView({el:$('#login')});
+	    router = new Router();
+	    bb.history.start();
+	});
     };
 
     return {initialize: initialize};

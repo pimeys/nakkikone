@@ -78,11 +78,13 @@ This documentation is organizing development time todos.
 ** TODO logout link, bb conventions
 ** TODO define route patterns
 ** TODO redirection logic on 401 and 403 in BB
-** WAITING clean up templates
+** DONE clean up templates
+   CLOSED: [2013-02-24 Sun 21:14]
    :CLOCK:
    CLOCK: [2012-12-21 Fri 20:51]--[2012-12-21 Fri 21:17] =>  0:26
    :END:
    :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-02-24 Sun 21:14]
    - State "STARTED"    from "TODO"       [2012-12-21 Fri 20:51]
    :END:
 ** TODO rollers for party start and end times
@@ -107,7 +109,19 @@ This documentation is organizing development time todos.
    - special nakki assignment for organizers?
 ** Create separate authentication module
 * Development time defects
-** after login and reload page, assigned user is empty
+** DONE after login and reload page, assigned user is empty
+   CLOSED: [2013-02-28 Thu 22:29]
+   :CLOCK:
+   CLOCK: [2013-02-28 Thu 21:08]--[2013-02-28 Thu 22:29] =>  1:21
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-02-28 Thu 22:29]
+   - State "STARTED"    from ""           [2013-02-28 Thu 21:08]
+   :END:
    - work if you do session based login in browsing root url
    - happens because login is done with ajax.get and publicscreen gets
      initalized before it sets the value to it.
+*** notes
+    - authentication module inits before app does
+    - lazy eval of current user until public view is initialized
+    - removed 'logged in' event from session cookie relogin
