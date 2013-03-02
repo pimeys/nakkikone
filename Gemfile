@@ -6,6 +6,7 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem 'jquery-rails'
 gem 'mysql2'
 gem 'requirejs-rails', '= 0.9.1'
+gem "active_model_serializers", :github => "rails-api/active_model_serializers"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

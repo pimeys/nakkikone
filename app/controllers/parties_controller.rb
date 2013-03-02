@@ -3,7 +3,7 @@ class PartiesController < ApplicationController
   skip_before_filter :admin_access, :only => [:show]
 
   def index
-    render :json => Party.all 
+    render :json => Party.all, :root => false
   end
 
   def update

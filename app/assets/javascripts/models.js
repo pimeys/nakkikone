@@ -19,13 +19,18 @@ define(['jquery','backbone'],function($,bb){
 	    assign: null,
 	    type: null,
 	    slot: null
+	},
+
+	parse: function(resp, options){
+	    resp.assign = resp.assign && resp.assign.name;
+	    return resp;
 	}
     });
 
     var NakkiType = bb.Model.extend({
 	defaults: {
 	    type: "Name of Nakki",
-	    start: 0, 
+	    start: 0,
 	    end: 0
 	},
 

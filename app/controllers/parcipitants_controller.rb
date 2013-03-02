@@ -7,6 +7,6 @@ class ParcipitantsController < ApplicationController
     current_party.nakkitypes.each{ |t| nakkilist += t.nakkis }
     parcipitants = nakkilist.map{ |nakki| nakki.user }
     
-    render :json => parcipitants.select{ |t| !t.nil? }
+    render :json => parcipitants.select{ |t| !t.nil? }, :root => false
   end
 end

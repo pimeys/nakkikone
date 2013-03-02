@@ -4,7 +4,7 @@ class NakkitypesController < ApplicationController
   def index
     current_party = get_current_party
     nakkitypes = current_party.nakkitypes
-    render :json => nakkitypes
+    render :json => nakkitypes, :root => false
   end
 
   def update

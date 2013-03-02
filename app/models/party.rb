@@ -7,14 +7,4 @@ class Party < ActiveRecord::Base
   
   validates :title,  :presence => true
   validates :description,  :presence => true
-
-  def as_json(options={})
-    {
-      :id => id,
-      :title => title,
-      :description => description,
-      :date => date
-    }
-  end
-
 end

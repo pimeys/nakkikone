@@ -1,4 +1,11 @@
 GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: 1c285772805546ee5c076c8693811e2a7206af29
+  specs:
+    active_model_serializers (0.5.2)
+      activemodel (>= 3.0)
+
+GIT
   remote: https://github.com/blowmage/minitest-rails.git
   revision: 7733031f2a40996a15d35379b43e1fe23e74869d
   specs:
@@ -135,6 +142,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers!
   bcrypt-ruby
   coffee-rails (~> 3.2.1)
   factory_girl_rails

@@ -5,7 +5,7 @@ class NakitController < ApplicationController
     nakkilist = []
     current_party.nakkitypes.each{ |t| nakkilist += t.nakkis }
 
-    render :json => nakkilist
+    render :json => nakkilist, :root => false
   end
 
   def update
