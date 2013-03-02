@@ -89,11 +89,11 @@ define([
 	    var _ready = function(){
 	        new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		new Nakki_Table({el:$('#nakki-table',rootel)});
-	        new Assign_Form({el:$('#assign',rootel), model: options.loggedUser}); // TODO fix race condition
+	        new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
 	    };
 
 	    nakit.fetch({success:_ready,error:_error});
-	},error: _error});
+	}, error: _error});
     };
 
     return {initialize:initialize};
