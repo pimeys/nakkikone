@@ -64,7 +64,7 @@ define(['jquery',
 	       destroy: function(){
 		   var self = this;
 		   var partyId = this.$('form').serializeArray()[0].value;
-		   var model = parties.getByCid(partyId);
+		   var model = parties.get(partyId);
 		   model.destroy({wait:true, 
 				  success:function(){
 				      vent.trigger('changeParty',parties.at(0));
@@ -83,7 +83,7 @@ define(['jquery',
 	       
 	       refresh: function(partyId) {
 		   var self = this;
-		   var party = parties.getByCid(partyId);
+		   var party = parties.get(partyId);
 
 		   users.partyId = party.get('id');
 		   users.fetch({
@@ -120,7 +120,7 @@ define(['jquery',
 	       
 	       refresh: function(partyId) {
 		   var self = this;
-		   var party = parties.getByCid(partyId);
+		   var party = parties.get(partyId);
 
 		   nakkitypes.partyId = party.get('id');
 		   nakkitypes.fetch({
@@ -151,7 +151,7 @@ define(['jquery',
 	       remove: function(target){
 		   var self = this;
 		   var removeId = target.currentTarget.attributes['value'].nodeValue;
-		   var model = nakkitypes.getByCid(removeId);
+		   var model = nakkitypes.get(removeId);
 		   model.destroy({wait:true,
 				  success:function(){
 				      self.render();
@@ -167,7 +167,7 @@ define(['jquery',
 			   acc[field.name] = field.value;
 			   return acc;
 		       }, {});
-		       var model = nakkitypes.getByCid(data["cid"]);
+		       var model = nakkitypes.get(data["cid"]);
 		       delete data['cid'];
 		       model.save(data);
 		   });
@@ -195,7 +195,7 @@ define(['jquery',
 	       },
 
 	       select: function(partyId) {
-		   this.model = parties.getByCid(partyId);
+		   this.model = parties.get(partyId);
 		   this.render();
 	       },
 
@@ -204,7 +204,7 @@ define(['jquery',
 	       },
 
 	       creationEdit: function(partyId){
-		   this.model = parties.getByCid(partyId);
+		   this.model = parties.get(partyId);
 		   this.edit();
 	       },
 
