@@ -89,8 +89,19 @@ This documentation is organizing development time todos.
 
 ** TODO check and redefine resource url patterns if needed
 ** TODO document backend design and functionality
+** TODO create model for pre- and post-building nakkis
 * TODO ui stuff
-** TODO logout link, bb conventions
+** TODO selector for pre and post building
+** DONE logout link, bb conventions
+   CLOSED: [2013-03-03 Sun 21:58]
+   :CLOCK:
+   CLOCK: [2013-03-03 Sun 20:32]--[2013-03-03 Sun 21:39] =>  1:07
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-03 Sun 21:58]
+   - State "STARTED"    from "TODO"       [2013-03-03 Sun 20:32]
+   :END:
+   - created simple view that renders logout link in place when logged user has been resolved
 ** TODO define route patterns
 ** TODO redirection logic on 401 and 403 in BB
 ** DONE clean up templates
