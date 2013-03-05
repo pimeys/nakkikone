@@ -1,6 +1,6 @@
 RailStrap::Application.routes.draw do
 
-  root :to => "users#home"
+  root :to => "users#home" #TODO point to somewhere else
 
   get "sign_up" => "users#new", :as => "sign_up"
 
@@ -12,7 +12,8 @@ RailStrap::Application.routes.draw do
   resources :users
 
   resources :parties do
-    resources :parcipitants, :nakkitypes, :nakit
+    resources :parcipitants, :nakkitypes, :nakit, :aux_nakit
+    get "aux_parcipitants" => "parcipitants#aux_index"
   end
   
   # The priority is based upon order of creation:

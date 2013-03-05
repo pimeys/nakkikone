@@ -9,4 +9,16 @@ class ParcipitantsController < ApplicationController
     
     render :json => parcipitants.select{ |t| !t.nil? }, :root => false
   end
+
+  def aux_index
+    current_party = Party.find(params[:party_id])
+    parcipitants = current_party.aux_nakkis.select{ |t| !t.user.nil? }.map{ |nakki| 
+      user = nakki.user 
+      user.name = nakki.name
+      user
+    }
+    
+    render :json => parcipitants, :root => false
+  end
+
 end

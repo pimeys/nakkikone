@@ -26,20 +26,26 @@ ActiveRecord::Schema.define(:version => 20110124034948) do
   create_table "parties", :force => true do |t|
     t.string   "title", :null => false
     t.string   "description"
-    t.datetime "date"
+    t.datetime "date", :null => false
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
 
   create_table "nakkitypes", :force => true do |t|
     t.string   "name", :null => false
-    t.integer  "party_id"
+    t.integer  "party_id", :null => false
   end
 
   create_table "nakkis", :force => true do |t|
     t.integer  "slot", :null => false
     t.integer  "user_id"
     t.integer  "nakkitype_id", :null => false
+  end
+
+  create_table "aux_nakkis", :force => true do |t|
+    t.string   "name", :null => false
+    t.integer  "user_id"
+    t.integer  "party_id", :null => false
   end
 
 end

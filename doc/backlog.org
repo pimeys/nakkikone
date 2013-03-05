@@ -68,10 +68,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO backend stuff
-** TODO remove duplicates from parcipiants response
-** TODO Map Record not found responses to 404 and empty bodies
-   - e.g. remove stack traces
+* TODO backend stuff [1/6]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -87,6 +84,19 @@ This documentation is organizing development time todos.
    - added activemodel serializers for each model
    - refactored js code slightly
 
+** WAITING [#A] create model for pre- and post-building nakkis
+   :CLOCK:
+   CLOCK: [2013-03-05 Tue 20:16]--[2013-03-05 Tue 23:29] =>  3:13
+   :END:
+   :LOGBOOK:
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:16]
+   :END:
+** TODO remove duplicates from parcipiants response
+   :LOGBOOK:
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:15]
+   :END:
+** TODO Map Record not found responses to 404 and empty bodies
+   - e.g. remove stack traces
 ** TODO check and redefine resource url patterns if needed
 ** TODO document backend design and functionality
 ** TODO create model for pre- and post-building nakkis
