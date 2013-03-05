@@ -1,39 +1,35 @@
 define(['backbone','underscore','models'],function(bb, _, models){
 
-    var Users = bb.Collection.extend({
+    var PartyResources = bb.Collection.extend({
 	partyId: 'noparties',
-
-	model: models.Person,
-
+	resource: 'no-resource',
 	url: function() {
-	    return '/parties/' + this.partyId + '/parcipitants';
+	    return '/parties/' + this.partyId + '/' + this.resource;
 	}
+    });
+
+    var Users = PartyResources.extend({
+	model: models.Person,
+	resource: 'parcipitants'
+    });
+
+    var AuxUsers = Users.extend({
+	resource: 'aux_parcipitants'
     });
 
     var Parties = bb.Collection.extend({
 	model: models.Party,
-	
-	url: '/parties',
+	url: '/parties'
     });
 
-    var Nakit = bb.Collection.extend({
-	partyId: 'noparties',
-
+    var Nakit = PartyResources.extend({
 	model: models.Nakki,
-
-	url: function() {
-	    return '/parties/' + this.partyId + '/nakit';
-	}
+	resource: 'nakit'
     });
 
-    var NakkiTypes = bb.Collection.extend({
-	partyId: 'noparties',
-
+    var NakkiTypes = PartyResources.extend({
 	model: models.Nakkitype,
-
-	url: function() {
-	    return '/parties/' + this.partyId + '/nakkitypes';
-	},
+	resource: 'nakkitypes',
 	
 	//TODO remove when UI refactoring has been done
 	toJSONWithClientID: function() {
@@ -43,6 +39,7 @@ define(['backbone','underscore','models'],function(bb, _, models){
 
     return {
 	Users: Users,
+	AuxUsers: AuxUsers,
 	Parties: Parties,
 	Nakit: Nakit,
 	Nakkitypes: NakkiTypes 

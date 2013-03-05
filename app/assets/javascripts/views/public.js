@@ -6,12 +6,23 @@ define([
     'collections',
     'models',
     'hbs!templates/party-description',
-    'hbs!templates/nakki-table'
-], function($, _, bb, collections, models, party_description, nakki_table) {
+    'hbs!templates/nakki-table', 
+    'hbs!templates/aux-job-selector', 
+], function($, _, bb, collections, models, party_description, nakki_table, auxJobSelector) {
 
     var vent = {};
     _.extend(vent, bb.Events);
 
+    var AuxJob = models.PartyResource.extend({
+	resource: 'aux_nakit'
+    });
+
+    var _auxJob = new AuxJob();
+    var auxJobFactory = function() {
+	var tmp = _auxJob.clone();
+	tmp.partyId = party.get('id');
+	return tmp;
+    }; 
     var party = new models.Party();
     var nakit = new collections.Nakit();
 
@@ -22,8 +33,31 @@ define([
 	
 	render: function(){
 	    this.$el.html(party_description({party:this.model.toJSON(), editable:false}));
-	    return this.$el;
+	    return this;
+	}
+    });
+
+    var AuxJobsSelect = bb.View.extend({
+	initialize: function() {
+	    _.bindAll(this);
+	    vent.on('assignPerson',this.save)
+	    this.render();
 	},
+	
+	save: function(assigned) {
+	    var type = this.$('form').serializeArray()[0].value;
+	    if (type === "both") {
+	    	auxJobFactory().save({name:"clean"});
+		auxJobFactory().save({name:"const"});
+	    } else {
+		auxJobFactory().save({name:type});
+	    }
+	},
+
+	render: function(){
+	    this.$el.html(auxJobSelector());
+	    return this;
+	}
     });
 
     var Nakki_Table = bb.View.extend({
@@ -85,10 +119,12 @@ define([
 
 	party.fetch({url:'/parties/' + partyId, success:function(){
 	    nakit.partyId = party.get('id');
-	    
+	    _auxJob.partyId = party.get('id');
+
 	    var _ready = function(){
 	        new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		new Nakki_Table({el:$('#nakki-table',rootel)});
+		new AuxJobsSelect({el: $('#auxJob-selector', rootel)});
 	        new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
 	    };
 

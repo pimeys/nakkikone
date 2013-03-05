@@ -1,16 +1,20 @@
 define(['jquery','backbone'],function($,bb){
 
-    var Person = bb.Model.extend({
+    var PartyResource = bb.Model.extend({
 	partyId: 'noparties',
+	resource: 'noresource',
+	urlRoot: function() {
+	     return 'parties/' + this.partyId + '/' + this.resource;
+	}
+    });
+
+    var Person = PartyResource.extend({
+	resource: 'parcipitant',
 
 	defaults: {
 	    name: "nakkilainen",
 	    email: "nakki@email.com",
 	    number: "0401234567"
-	},
-
-	urlRoot: function() {
-	     return 'parties/' + this.partyId + '/parcipitants'
 	}
     });
 
@@ -54,6 +58,7 @@ define(['jquery','backbone'],function($,bb){
 	Person: Person, 
 	Nakkitype: NakkiType,
 	Nakki: Nakki,
-	Party: Party
+	Party: Party,
+	PartyResource: PartyResource
     };
 });

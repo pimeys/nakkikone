@@ -99,9 +99,18 @@ This documentation is organizing development time todos.
    - e.g. remove stack traces
 ** TODO check and redefine resource url patterns if needed
 ** TODO document backend design and functionality
-** TODO create model for pre- and post-building nakkis
-* TODO ui stuff
-** TODO selector for pre and post building
+* TODO ui stuff [2/10]
+** WAITING [#A] selector for pre and post building
+   :CLOCK:
+   CLOCK: [2013-03-05 Tue 23:29]--[2013-03-06 Wed 00:30] =>  1:01
+   :END:
+   :LOGBOOK:
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 23:29]
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:15]
+   :END:
+** TODO [#B] fix date parsing for party
+** TODO [#B] replace proper time for slot column  
+** TODO [#B] redirection logic on 401 and 403 in BB
 ** DONE logout link, bb conventions
    CLOSED: [2013-03-03 Sun 21:58]
    :CLOCK:
@@ -112,8 +121,6 @@ This documentation is organizing development time todos.
    - State "STARTED"    from "TODO"       [2013-03-03 Sun 20:32]
    :END:
    - created simple view that renders logout link in place when logged user has been resolved
-** TODO define route patterns
-** TODO redirection logic on 401 and 403 in BB
 ** DONE clean up templates
    CLOSED: [2013-02-24 Sun 21:14]
    :CLOCK:
@@ -123,6 +130,7 @@ This documentation is organizing development time todos.
    - State "DONE"       from "WAITING"    [2013-02-24 Sun 21:14]
    - State "STARTED"    from "TODO"       [2012-12-21 Fri 20:51]
    :END:
+** TODO define route patterns
 ** TODO rollers for party start and end times
 ** TODO date picker for party start date
    remember that parties almost always are from night to dawn

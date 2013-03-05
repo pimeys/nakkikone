@@ -21,6 +21,8 @@ define(['jquery',
 	   
 	   var users = new collections.Users();
 
+	   var auxUsers = new collections.AuxUsers();
+
 	   var nakkitypes = new collections.Nakkitypes();
 
 	   var counter = 1;
@@ -75,6 +77,8 @@ define(['jquery',
 	   });
 
 	   var User_List = bb.View.extend({
+	       collection: users, //TODO maybe as an constructor parameter
+
 	       initialize: function(){
 		   _.bindAll(this);
 		   vent.on('changeParty', this.refresh);
@@ -85,21 +89,35 @@ define(['jquery',
 		   var self = this;
 		   var party = parties.get(partyId);
 
-		   users.partyId = party.get('id');
-		   users.fetch({
+		   this.collection.partyId = party.get('id');
+		   this.collection.fetch({
 		       success: this.render, 
 		       
 		       error: function(){
-			   users.reset();
+			   this.collection.reset();
 			   self.$el.html('none');
 		       }
 		   });
 	       },
 
 	       render: function(){
-		   this.$el.html(userlist({persons:users.toJSON()}));
-		   return this.$el;
+		   this.$el.html(userlist({persons:this.collection.toJSON()}));
+		   return this;
 	       }
+	   });
+
+	   var Constructors_List = User_List.extend({
+	       collection: auxUsers,
+	       filterRules: {name: 'const'},
+
+	       render: function(){
+		   this.$el.html(userlist({persons: new bb.Collection().add(this.collection.where(this.filterRules)).toJSON()})); //TODO please kill me now
+		   return this;
+	       }
+	   });
+
+	   var Cleaners_List = Constructors_List.extend({
+	       filterRules: {name: 'clean'}
 	   });
 
 	   var Nakki_List = bb.View.extend({
@@ -234,15 +252,20 @@ define(['jquery',
 		       if (parties.length > 0) {
 			   latestParty = parties.at(0);
 			   users.partyId = latestParty.get('id');
+			   auxUsers.partyId = latestParty.get('id');
 			   nakkitypes.partyId = latestParty.get('id');
 			   
-			   var _ready = _.after(2, function(){
+			   var _ready = _.after(3, function(){
 			       new Party_Selector({el:$('#party-selector',rootel), selected: latestParty.title});
-			       new Party_Viewer({el:$('#party',rootel), model: latestParty});
-			       new Nakki_List({el:$('#nakit',rootel)});
-			       new User_List({el:$('#users',rootel)});
+			       new Party_Viewer({el: $('#party', rootel), model: latestParty});
+			       new Nakki_List({el: $('#nakit', rootel)});
+			       
+			       new Constructors_List({el: $('#constructors', rootel)});
+			       new User_List({el: $('#users', rootel)});
+			       new Cleaners_List({el: $('#cleaners', rootel)});
 			   });
 
+			   auxUsers.fetch({success: _ready, error: _error}); 
 			   users.fetch({success: _ready, error: _error}); 
 			   nakkitypes.fetch({success: _ready, error: _error}); 
 		       } else {
