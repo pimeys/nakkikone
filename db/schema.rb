@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(:version => 20110124034948) do
   end
 
   create_table "aux_nakkis", :force => true do |t|
-    t.string   "name", :null => false
+    t.string   "nakkiname", :null => false
     t.integer  "user_id"
     t.integer  "party_id", :null => false
   end

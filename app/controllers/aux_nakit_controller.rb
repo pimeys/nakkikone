@@ -1,5 +1,6 @@
 class AuxNakitController < ApplicationController
-  #before_filter :admin_access
+  before_filter :admin_access 
+  skip_before_filter :admin_access, :only => [:create]
 
   def index
     current_party = Party.find(params[:party_id]) #TODO move finder to upper class
@@ -9,11 +10,11 @@ class AuxNakitController < ApplicationController
 
   def create
     current_party = Party.find(params[:party_id])
-    aux_nakki = current_party.aux_nakkis.create({:name => params[:name]})
+    aux_nakki = current_party.aux_nakkis.create({:nakkiname => params[:type]})
     aux_nakki.user = current_user
 
     if aux_nakki.save
-      render :json => aux_nakki 
+      render :json => aux_nakki
     else
       render :status => 500, :text => "what what"
     end

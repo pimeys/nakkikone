@@ -108,7 +108,7 @@ define(['jquery',
 
 	   var Constructors_List = User_List.extend({
 	       collection: auxUsers,
-	       filterRules: {name: 'const'},
+	       filterRules: {type: 'const'},
 
 	       render: function(){
 		   this.$el.html(userlist({persons: new bb.Collection().add(this.collection.where(this.filterRules)).toJSON()})); //TODO please kill me now
@@ -117,7 +117,7 @@ define(['jquery',
 	   });
 
 	   var Cleaners_List = Constructors_List.extend({
-	       filterRules: {name: 'clean'}
+	       filterRules: {type: 'clean'}
 	   });
 
 	   var Nakki_List = bb.View.extend({

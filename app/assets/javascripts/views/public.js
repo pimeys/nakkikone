@@ -45,12 +45,15 @@ define([
 	},
 	
 	save: function(assigned) {
+	    // TODO refactor to trigger event to status view
+	    var notify = function(){alert("your cleaning/construction has been registered.")};
 	    var type = this.$('form').serializeArray()[0].value;
 	    if (type === "both") {
-	    	auxJobFactory().save({name:"clean"});
-		auxJobFactory().save({name:"const"});
+		var notify = _.after(2, notify);
+	    	auxJobFactory().save({type:"clean"}, {wait:true,success:notify});
+		auxJobFactory().save({type:"const"}, {wait:true,success:notify});
 	    } else {
-		auxJobFactory().save({name:type});
+		auxJobFactory().save({type:type}, {wait:true,success:notify});
 	    }
 	},
 
@@ -83,6 +86,7 @@ define([
 	    var self = this;
 	    var _setted = _.after(ids.length, function(){
 		self.render();
+		alert("your nakkis have been registered."); // todo trigger event in notify
 	    });
 	    _.each(ids, function(current){
 		var model = nakit.get(current);
