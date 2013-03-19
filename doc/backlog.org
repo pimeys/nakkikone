@@ -99,18 +99,36 @@ This documentation is organizing development time todos.
    - e.g. remove stack traces
 ** TODO check and redefine resource url patterns if needed
 ** TODO document backend design and functionality
-* TODO ui stuff [3/11]
-** WAITING [#A] selector for pre and post building
+* TODO ui stuff [5/11]
+** DONE [#A] selector for pre and post building
+   CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
    CLOCK: [2013-03-05 Tue 23:29]--[2013-03-06 Wed 00:30] =>  1:01
    :END:
    :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-19 Tue 21:48]
    - State "STARTED"    from "TODO"       [2013-03-05 Tue 23:29]
    - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:15]
    :END:
+
+   - selector, but is going to be replaced with other kind of UI
+     design
+
 ** TODO [#B] fix date parsing for party
 ** TODO [#B] replace proper time for slot column  
-** TODO [#B] redirection logic on 401 and 403 in BB
+** DONE [#B] redirection logic on 401 and 403 in BB
+   CLOSED: [2013-03-19 Tue 22:26]
+   :CLOCK:
+   CLOCK: [2013-03-19 Tue 21:54]--[2013-03-19 Tue 22:25] =>  0:31
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-19 Tue 22:26]
+   - State "STARTED"    from "TODO"       [2013-03-19 Tue 21:54]
+   :END:
+
+   - also redirection when signing up
+   - now all errors > 400 trigger redirection to login page.
+     
 ** DONE hide logout button when logged out
    CLOSED: [2013-03-19 Tue 21:33]
    :CLOCK:
@@ -142,7 +160,7 @@ This documentation is organizing development time todos.
    - State "DONE"       from "WAITING"    [2013-02-24 Sun 21:14]
    - State "STARTED"    from "TODO"       [2012-12-21 Fri 20:51]
    :END:
-** TODO define route patterns
+** TODO redefine route patterns
 ** TODO rollers for party start and end times
 ** TODO date picker for party start date
    remember that parties almost always are from night to dawn
@@ -153,7 +171,7 @@ This documentation is organizing development time todos.
    4. After which admin can modify party properties
       - nakki columns edits will destroy existing reservations?
       - time edits as well?
-* TODO Usability stuff 
+* TODO Usability stuff
 * TODO UserManagement
 ** TODO Screen to administrate nakkikone users
 *** TODO reset password
@@ -161,6 +179,9 @@ This documentation is organizing development time todos.
 *** TODO edit details
 *** TODO user can itself access itself
 * improvement ideas
+** create error handling module
+   - provides tools to notify users about backend errors
+   - also part of the redirection logic could go here
 ** two levels of nakkis
    - special nakki assignment for organizers?
 ** Create separate authentication module

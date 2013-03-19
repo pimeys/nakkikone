@@ -25,6 +25,7 @@ define([
 	},
 
 	initialize: function() {
+	    vent.on('user-created', function(){ location.href='/'}); //todo trigger route to show login page, now reloads whole page..
 	    vent.on('logged-in', function(){ router.navigate('party/1', {trigger:true});});
 	},
 	

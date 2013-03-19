@@ -53,7 +53,8 @@ define([
 	    this.model.save(data, {
 		wait:true, 
 		success: function() {
-		    vent.trigger('created-user');
+		    alert('Succesfully created new user! Go on and login.')
+		    vent.trigger('user-created');
 		},
 
 		error: function(model, err) {

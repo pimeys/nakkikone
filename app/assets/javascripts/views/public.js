@@ -66,7 +66,7 @@ define([
     var Nakki_Table = bb.View.extend({
 	initialize: function() {
 	    _.bindAll(this,'save');
-	    vent.on('assignPerson',this.save)
+	    vent.on('assignPerson', this.save)
 	    this.render();
 	},
 
@@ -112,14 +112,17 @@ define([
 	    return false;
 	}
     });
+
+    //todo move to separate error-handling-module
+    var _error = function(col, error) {
+	alert('Failure: ' + error.statusText);
+	//todo proper delegatation to router
+	location.href = '/';
+    };
     
     var initialize = function(options){
 	var rootel = options.el;
 	var partyId = options.partyId;
-	
-	var _error = function(col, error) {
-	    alert('failure: ' + error.statusText);
-	};
 
 	party.fetch({url:'/parties/' + partyId, success:function(){
 	    nakit.partyId = party.get('id');
@@ -132,7 +135,7 @@ define([
 	        new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
 	    };
 
-	    nakit.fetch({success:_ready,error:_error});
+	    nakit.fetch({success:_ready, error:_error});
 	}, error: _error});
     };
 

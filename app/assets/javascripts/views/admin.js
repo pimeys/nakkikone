@@ -27,9 +27,12 @@ define(['jquery',
 
 	   var counter = 1;
 
-	   var errorHandle = function(){
-	       alert('wat?');
-	   }
+	   //todo move to separate error-handling-module
+	   var _error = function(col, error) {
+	       alert('Failure: ' + error.statusText);
+	       //todo proper delegatation to router
+	       location.href = '/';
+	   };
 
 	   var Party_Selector = bb.View.extend({
 	       events: {
@@ -72,7 +75,7 @@ define(['jquery',
 				      vent.trigger('changeParty',parties.at(0));
 				      self.render();
 				  },
-				  error: errorHandle });
+				  error: _error });
 	       }
 	   });
 
@@ -242,9 +245,6 @@ define(['jquery',
 	   var initialize = function(options) {
 	       var latestParty;
 	       var rootel = options.el;
-	       var _error = function(col, error) {
-		   alert('failure: ' + error.statusText)
-	       };
 
 	       parties.fetch( {
 		   success: function() {
