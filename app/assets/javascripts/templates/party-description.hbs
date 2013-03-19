@@ -1,8 +1,8 @@
 <section>
   <heading>
-    <h1 name="title">{{ party.title }}</h1>
-    <h3 name="date">{{ party.date }}</h3>
+    <h1 name="title pull-left">{{ party.title }} @ {{ party.date }}</h1>
   </heading>
   <p name="description">{{ party.description }}</p>
-  {{#if editable}} <button class="editor">EDIT</button> {{/if}}
+  {{#if editable}} <button class="editor btn">EDIT</button> {{/if}}
 </section>
+	<hr>

@@ -11,7 +11,7 @@ define('templates/nakki_row', ['handlebars','underscore'], function ( Handlebars
 	    if (!!nakki.assign) { 
 	    	row += nakki.assign;
 	    } else {
-	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/>Take'; 
+	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/> Take'; 
 	    }
 	    row += "</td>";
 	});

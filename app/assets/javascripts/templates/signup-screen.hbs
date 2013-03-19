@@ -1,6 +1,35 @@
-Name: <input type="text" name="name" value="{{ user.name }}" /><br/>
-Email: <input type="text" name="email" value="{{ user.email }}" /><br/>
-Phone: <input type="text" name="number" value="{{ user.number }}" /><br/>
-Password: <input type="text" name="password" value="{{ user.password }}" /><br/>
-Retype password: <input type="text" name="password_confirmation" value="{{ user.password_confirmation }}" /><br/>
-<input type="submit" value="Sing In!"></input>
+  <div class="control-group">
+	<label class="control-label" for="inputName">Name:</label>
+		<div class="controls">
+		<input type="text" name="name" placeholder="{{ user.name }}" />
+		</div>
+  </div>
+  <div class="control-group">
+	<label class="control-label" for="inputEmail">Email:</label>
+		<div class="controls">
+		<input type="text" name="email" placeholder="{{ user.email }}" />
+		</div>
+  </div>
+  <div class="control-group">
+	<label class="control-label" for="inputPhone">Phone:</label>
+		<div class="controls">
+		<input type="text" name="number" placeholder="{{ user.number }}" />
+		</div>
+  </div>
+  <div class="control-group">
+	<label class="control-label" for="inputPass">Password:</label>
+		<div class="controls">
+		<input type="password" name="password" />
+	</div>
+  </div>
+  <div class="control-group">
+	<label class="control-label" for="inputPassagain">Retype Password:</label>
+		<div class="controls">
+		<input type="password" name="password_confirmation" />
+	</div>
+  </div>
+<div class="control-group">
+<div class="controls">
+<input type="submit" class="btn btn-primary" value="Sing In!"></input>
+</div>
+</div>

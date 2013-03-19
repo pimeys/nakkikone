@@ -1,6 +1,15 @@
 <form id="assignedNakkis">
-<table>
-  <tr><td>Time Slot</td>{{#each titles}}<td>{{ this }}</td>{{/each}}</tr>
-  {{#each nakit}}<tr>{{nakki_row}}</tr>{{/each}}
+<table class="table table-striped">
+  <tr>
+	<td><h5>Time Slot</h5></td>
+	{{#each titles}}
+	<td><h5>{{ this }}</h5></td>
+	{{/each}}
+  </tr>
+  	{{#each nakit}}
+	<tr>
+	{{nakki_row}}
+	</tr>
+	{{/each}}
 </table>
 </form>
