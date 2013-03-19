@@ -45,8 +45,8 @@ define([
 
 	    $.post('/login', data, function(data) {
 		loggedUser = new models.Person(data);
+		new Navigation({el:$("#navigation")}).render();
 		vent.trigger('logged-in');
-		new Logout({el:$("#logout")}).render();
 	    });
 	    return false;
 	}
@@ -56,7 +56,7 @@ define([
 	$.getJSON('/login', function(data) {
 	    loggedUser = new models.Person(data);
 	    console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
-	    new Logout({el:$("#logout")}).render();
+	    new Navigation({el:$("#navigation")}).render();
 	    cb();
 	}).error(function() {
 	    console.log("no session cookie present, should do redirect...");
@@ -64,9 +64,9 @@ define([
 	});
     };
 
-    var Logout = Backbone.View.extend({
+    var Navigation = Backbone.View.extend({
 	render: function(){
-	    this.$el.html('<a href="/logout">Log out</a>')
+	    this.$el.show();
 	    return this;
 	}
     });
