@@ -99,7 +99,7 @@ This documentation is organizing development time todos.
    - e.g. remove stack traces
 ** TODO check and redefine resource url patterns if needed
 ** TODO document backend design and functionality
-* TODO ui stuff [2/10]
+* TODO ui stuff [3/11]
 ** WAITING [#A] selector for pre and post building
    :CLOCK:
    CLOCK: [2013-03-05 Tue 23:29]--[2013-03-06 Wed 00:30] =>  1:01
@@ -111,6 +111,18 @@ This documentation is organizing development time todos.
 ** TODO [#B] fix date parsing for party
 ** TODO [#B] replace proper time for slot column  
 ** TODO [#B] redirection logic on 401 and 403 in BB
+** DONE hide logout button when logged out
+   CLOSED: [2013-03-19 Tue 21:33]
+   :CLOCK:
+   CLOCK: [2013-03-19 Tue 20:50]--[2013-03-19 Tue 21:33] =>  0:43
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-19 Tue 21:33]
+   - State "STARTED"    from "TODO"       [2013-03-19 Tue 20:50]
+   :END:
+   
+   - whole navigation bar is hidden until logged in.
+
 ** DONE logout link, bb conventions
    CLOSED: [2013-03-03 Sun 21:58]
    :CLOCK:
