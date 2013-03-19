@@ -51,6 +51,13 @@ define(['jquery','backbone'],function($,bb){
 	    title: "Party title",
 	    description: "Osallistumalla nakkiin pääset maksutta bileisiin",
 	    date: "1/1/2012"
+	},
+
+	//TODO remove after UI refactoring
+	toJSONWithClientID: function() {
+	    data = this.toJSON();
+	    data.cid = this.cid;
+	    return data;
 	}
     });
 

@@ -19,7 +19,12 @@ define(['backbone','underscore','models'],function(bb, _, models){
 
     var Parties = bb.Collection.extend({
 	model: models.Party,
-	url: '/parties'
+	url: '/parties',
+
+	//TODO remove when UI refactoring has been done
+	toJSONWithClientID: function() {
+	    return this.map(function(model){ return model.toJSONWithClientID(); });
+	}
     });
 
     var Nakit = PartyResources.extend({

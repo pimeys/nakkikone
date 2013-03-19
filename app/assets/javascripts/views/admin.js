@@ -46,20 +46,20 @@ define(['jquery',
 	       },
 
 	       render: function(partyTitle){
-		   this.$el.html(selector({parties:parties.toJSON(), selected:partyTitle}));
+		   this.$el.html(selector({parties:parties.toJSONWithClientID(), selected:partyTitle}));
 		   return this.$el;
 	       },
 	       
 	       select: function(target) {
 		   var partyId = this.$('form').serializeArray()[0].value;
-		   vent.trigger('changeParty',partyId);
+		   vent.trigger('changeParty', partyId);
 	       },
 
 	       create: function() {
 		   var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
 		   var party = new models.Party({title:partyTitle});
 		   parties.add(party);
-		   vent.trigger('createdParty', party.cid);
+		   vent.trigger('createdParty', party.get('id'));
 		   this.render(partyTitle);
 	       },
 
