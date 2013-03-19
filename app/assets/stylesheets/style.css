@@ -24,6 +24,7 @@ body {
 	padding-left: 3%;
 	height: 40px;
 	postion: static;
+	display:block;
 }
 .header h1 {
 	display: block;
@@ -36,9 +37,13 @@ body {
 	-o-transform: rotate(-4deg);
 	text-shadow: 1px 1px 1px #FFFFFF;
 }
+#navigation {
+	position: static;
+	margin-right: 4%;
+	display:inline-block;
+}
 #logout {
 	position: inherit;
-	margin-right: 4%;
 }
 #content {
 }
