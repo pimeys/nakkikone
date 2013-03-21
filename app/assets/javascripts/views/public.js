@@ -70,12 +70,13 @@ define([
 	    this.render();
 	},
 
-	render: function(){
+	render: function(){ 
+	    var startingTime = party.get('date');
 	    var data = _.groupBy(nakit.toJSON(),'slot');
 	    var titles = _.map(_.sortBy(data[0],'type'), function(current){
 		return current.type;
 	    });
-	    this.$el.html(nakki_table({titles: titles, nakit: _.toArray(data)}));
+	    this.$el.html(nakki_table({titles: titles, nakit: _.toArray(data), startTime: startingTime.toJSON()}));
 	},
 
 	save: function(assignedPerson){

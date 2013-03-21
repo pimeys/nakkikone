@@ -99,7 +99,7 @@ This documentation is organizing development time todos.
    - e.g. remove stack traces
 ** TODO check and redefine resource url patterns if needed
 ** TODO document backend design and functionality
-* TODO ui stuff [5/11]
+* TODO ui stuff [7/11]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -114,8 +114,25 @@ This documentation is organizing development time todos.
    - selector, but is going to be replaced with other kind of UI
      design
 
-** TODO [#B] fix date parsing for party
-** TODO [#B] replace proper time for slot column  
+** DONE [#B] fix date parsing for party
+   CLOSED: [2013-03-21 Thu 22:16]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-03-21 Thu 22:16]
+   :END:
+** DONE [#B] replace proper time for slot column  
+   CLOSED: [2013-03-21 Thu 22:15]
+   :CLOCK:
+   CLOCK: [2013-03-21 Thu 21:43]--[2013-03-21 Thu 22:15] =>  0:32
+   CLOCK: [2013-03-21 Thu 20:59]--[2013-03-21 Thu 21:37] =>  0:38
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-21 Thu 22:15]
+   - State "STARTED"    from "WAITING"    [2013-03-21 Thu 21:43]
+   - State "STARTED"    from "TODO"       [2013-03-21 Thu 20:59]
+   :END:
+
+   - 1 hour increment from starting time
+
 ** DONE [#B] redirection logic on 401 and 403 in BB
    CLOSED: [2013-03-19 Tue 22:26]
    :CLOCK:

@@ -1,8 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 require.config({
-//    baseUrl: './assets/',
-
     paths: {
 	text: 'libs/text',
         jquery: 'libs/jquery-1.7.2',
@@ -37,6 +35,7 @@ require.config({
     }
 });
 
-require(['app','templates/nakki_row'],function(app){
+//todo cleanup these helpers away... shim... 
+require(['app','templates/nakki_row','templates/prettyDate'],function(app){
     app.initialize();
 });

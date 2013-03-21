@@ -1,11 +1,19 @@
 define('templates/nakki_row', ['handlebars','underscore'], function ( Handlebars, _) {
     
-    function nakki_row(){
-	
-	var sortedByType = _.sortBy(this,'type');
-	var slotName = sortedByType[0].slot;
+    function parseTime(slot, startTime) {
+	var time = new Date(startTime);
+	time.setHours(time.getHours() + slot);
+	time.setMinutes(0);
+	time.setSeconds(0);
+	return time.toLocaleTimeString()
+    }
 
-	var row = "<td>" + slotName + "</td>";
+    function nakki_row(startTime){
+	
+	var sortedByType = _.sortBy(this, 'type');
+	var slotOrder = sortedByType[0].slot;
+
+	var row = "<td>" + parseTime(slotOrder, startTime) + "</td>";
 	_.each(sortedByType, function(nakki) {
 	    row += "<td>";
 	    if (!!nakki.assign) { 
