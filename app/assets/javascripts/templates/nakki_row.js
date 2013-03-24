@@ -8,18 +8,23 @@ define('templates/nakki_row', ['handlebars','underscore'], function ( Handlebars
 	return time.toLocaleTimeString()
     }
 
-    function nakki_row(startTime){
-	
-	var sortedByType = _.sortBy(this, 'type');
-	var slotOrder = sortedByType[0].slot;
+    function nakki_row(startTime, titles){
+	var missing = _.map(_.difference(titles, _.pluck(this, 'type')), 
+			  function(el) {
+			      return { type:el };
+			  });
 
-	var row = "<td>" + parseTime(slotOrder, startTime) + "</td>";
+	var sortedByType = _.sortBy(_.union(this, missing), 'type');
+
+	var row = "<td>" + parseTime(this[0].slot, startTime) + "</td>";
 	_.each(sortedByType, function(nakki) {
 	    row += "<td>";
-	    if (!!nakki.assign) { 
+	    if (!!nakki.assign) {
 	    	row += nakki.assign;
-	    } else {
+	    } else if (!!nakki.id) {
 	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/> Take'; 
+	    } else {
+		row += 'Not In Use';
 	    }
 	    row += "</td>";
 	});

@@ -99,7 +99,7 @@ This documentation is organizing development time todos.
    - e.g. remove stack traces
 ** TODO check and redefine resource url patterns if needed
 ** TODO document backend design and functionality
-* TODO ui stuff [7/11]
+* TODO ui stuff [8/12]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -177,6 +177,26 @@ This documentation is organizing development time todos.
    - State "DONE"       from "WAITING"    [2013-02-24 Sun 21:14]
    - State "STARTED"    from "TODO"       [2012-12-21 Fri 20:51]
    :END:
+** DONE fix uneven nakkitype population to nakkitable
+   CLOSED: [2013-03-24 Sun 22:45]
+   :CLOCK:
+   CLOCK: [2013-03-24 Sun 20:18]--[2013-03-24 Sun 22:45] =>  2:27
+   CLOCK: [2013-03-24 Sun 19:37]--[2013-03-24 Sun 19:50] =>  0:13
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-24 Sun 22:45]
+   - State "STARTED"    from "STARTED"    [2013-03-24 Sun 22:45]
+   - State "STARTED"    from "WAITING"    [2013-03-24 Sun 20:18]
+   - State "STARTED"    from "TODO"       [2013-03-24 Sun 19:37]
+   :END:
+
+   - fixed titles resolving from nakki collection
+   - figured out how arbitrary size nakkitypes are populated to table
+     so that cell column order is preserved.
+*** notes
+    - brakes if all nakkitypes start from slot 0>, needs at least one
+      from 0 slot. e.g. input validation needed.
+
 ** TODO redefine route patterns
 ** TODO rollers for party start and end times
 ** TODO date picker for party start date
