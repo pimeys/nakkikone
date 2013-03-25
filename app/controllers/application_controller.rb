@@ -2,8 +2,17 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user
   before_filter :require_login
+  rescue_from ActiveRecord::RecordNotFound, User::Unauthorized, User::Unauthenticated, :with => :mapped_exceptions
 
   private
+
+  def mapped_exceptions(exception)
+    case exception
+    when ActiveRecord::RecordNotFound then render :status => 404, :text => "No resources"
+    when User::Unauthorized           then render :status => 403, :text => "Your not admin"
+    when User::Unauthenticated        then render :status => 401, :text => "Your not logged in"
+    end
+  end
 
   def get_current_party
     Party.find(params[:party_id]);
@@ -11,15 +20,11 @@ class ApplicationController < ActionController::Base
 
   #TODO do it properly
   def admin_access
-    unless current_user.id == 1
-      render :status => 403, :text => "your not admin."
-    end
+    raise User::Unauthorized unless current_user.id == 1
   end
 
   def require_login
-    unless logged_in?
-      render :status => 401, :text => "authorization error"
-    end
+    raise User::Unauthenticated unless logged_in?
   end
   
   def current_user

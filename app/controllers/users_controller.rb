@@ -8,9 +8,9 @@ class UsersController < ApplicationController
   def create
     user = User.new(params[:user])
     if user.save
-      render :json => user, :notice => "Signed up!"
+      render :json => user
     else
-      render :text => "something failed"
+      render :text => "failed to signup"
     end
   end
   

@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     if current_user
       render :json => current_user
     else
-      render :status => 401, :text => "session not present"
+      raise User::Unauthenticated
     end
   end
 
@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       render :json => user, :notice => "Logged in!"
     else
-      render :text => "failed"
+      raise User::Unauthorized
     end
   end
   
