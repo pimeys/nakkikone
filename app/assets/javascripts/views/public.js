@@ -50,11 +50,12 @@ define([
 	    var type = this.$('form').serializeArray()[0].value;
 	    if (type === "both") {
 		var notify = _.after(2, notify);
-	    	auxJobFactory().save({type:"clean"}, {wait:true,success:notify});
-		auxJobFactory().save({type:"const"}, {wait:true,success:notify});
+	    	auxJobFactory().save({type:"clean"}, {wait:true, success:notify});
+		auxJobFactory().save({type:"const"}, {wait:true, success:notify});
 	    } else {
-		auxJobFactory().save({type:type}, {wait:true,success:notify});
+		auxJobFactory().save({type:type}, {wait:true, success:notify});
 	    }
+	    return false;
 	},
 
 	render: function(){
@@ -97,6 +98,7 @@ define([
 			alert('failure: ' + error.statusText);
 		    }});
 	    });
+	    return false;
 	}
     });
     
