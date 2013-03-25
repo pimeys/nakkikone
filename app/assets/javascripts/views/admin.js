@@ -62,7 +62,7 @@ define(['jquery',
 		   var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
 		   var party = new models.Party({title:partyTitle});
 		   parties.add(party);
-		   vent.trigger('createdParty', party.get('id'));
+		   vent.trigger('createdParty', party.cid);
 		   this.render(partyTitle);
 	       },
 
@@ -235,9 +235,20 @@ define(['jquery',
 		       acc[field.name] = field.value;
 		       return acc;
 		   }, {});
-		   this.model.save(data, {success:this.render, 
-					  error:function(){alert('saving of the party failed in backend')}});
-		   vent.trigger('partyEdited');
+		   var self = this;
+		   this.model.save(data, {
+		       success: function(model) {
+			   vent.trigger('changeParty', model.get('id'));
+			   vent.trigger('partyEdited', model.get('title'));
+			   self.render();
+		       },
+		       
+		       error: function(){
+			   alert('saving of the party failed in backend')
+		       },
+		       
+		       wait:true
+		   });
 		   return false;
 	       }
 	   });
