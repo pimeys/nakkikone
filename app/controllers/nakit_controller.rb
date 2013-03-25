@@ -1,7 +1,7 @@
 class NakitController < ApplicationController
 
   def index
-    current_party = Party.find(params[:party_id])
+    current_party = get_current_party
     nakkilist = []
     current_party.nakkitypes.each{ |t| nakkilist += t.nakkis }
 

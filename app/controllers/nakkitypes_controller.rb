@@ -44,8 +44,4 @@ class NakkitypesController < ApplicationController
     #TODO reset nakki slots for this nakkitype
     (params[:start]..params[:end]).each{ |i| nakkitype.nakkis.create(:slot  => i) } 
   end
-
-  def get_current_party
-    Party.find(params[:party_id]);
-  end
 end

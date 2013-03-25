@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def get_current_party
+    Party.find(params[:party_id]);
+  end
+
   #TODO do it properly
   def admin_access
     unless current_user.id == 1
