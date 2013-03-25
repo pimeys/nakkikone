@@ -47,6 +47,9 @@ body {
 }
 #content {
 }
+.disabled{
+	color: #EEE;
+}
 footer p{
 	margin-top: 5%;
 }

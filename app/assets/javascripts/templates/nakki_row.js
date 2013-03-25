@@ -24,7 +24,7 @@ define('templates/nakki_row', ['handlebars','underscore'], function ( Handlebars
 	    } else if (!!nakki.id) {
 	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/> Take'; 
 	    } else {
-		row += 'Not In Use';
+		row += '<span class="disabled">Not In Use<span>';
 	    }
 	    row += "</td>";
 	});
