@@ -10,7 +10,7 @@ class AuxNakitController < ApplicationController
 
   def create
     current_party = get_current_party
-    aux_nakki = current_party.aux_nakkis.create({:nakkiname => params[:type]})
+    aux_nakki = current_party.aux_nakkis.new({:nakkiname => params[:type]})
     aux_nakki.user = current_user
 
     if aux_nakki.save
@@ -21,7 +21,7 @@ class AuxNakitController < ApplicationController
   end
 
   def destroy
-    current_party = Party.find(params[:party_id]) #TODO move finder to upper class
+    current_party = get_current_party
     current_party.aux_nakkis.destroy(params[:id])
   end
 end
