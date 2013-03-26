@@ -252,5 +252,18 @@ This documentation is organizing development time todos.
     - authentication module inits before app does
     - lazy eval of current user until public view is initialized
     - removed 'logged in' event from session cookie relogin
-** TODO fix exess posts when reserving aux_nakkis
+** DONE fix exess posts when reserving aux_nakkis
+   CLOSED: [2013-03-27 Wed 00:12]
+   :CLOCK:
+   CLOCK: [2013-03-26 Tue 21:30]--[2013-03-27 Wed 00:12] =>  2:42
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-27 Wed 00:12]
+   - State "STARTED"    from "TODO"       [2013-03-27 Wed 00:09]
+   :END:
    - something to do with poor save implementation in auxjob...
+
+   - turned out to be trickier, old views were triggered via vent bindings
+   - cleaned module api
+   - vents are reseted in each initializations
+

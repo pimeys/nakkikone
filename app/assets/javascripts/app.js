@@ -8,10 +8,8 @@ define([
     'vent',
     'views/admin',
     'views/public',
-    'views/signup',
-    'hbs!templates/admin-screen',
-    'hbs!templates/public-screen'
-], function($, bb, authentication, models, collections, vent, admin, pub, signup, adminScreen, publicScreen) {
+    'views/signup'
+], function($, bb, authentication, models, collections, vent, admin, pub, signup) {
 
     var contentEl = $('#content');
 
@@ -30,7 +28,7 @@ define([
 	},
 	
 	showAdminScreen: function() {
-	    contentEl.html(adminScreen);
+	    pub.detach();
 	    admin.initialize({el:contentEl});
 	},
 
@@ -39,7 +37,7 @@ define([
 	},
 
 	showPublicScreen: function(id) {
-	    contentEl.html(publicScreen);
+	    admin.detach();
 	    pub.initialize({el:contentEl, partyId:id, currentUser: authentication.currentUser});
 	}
     });
