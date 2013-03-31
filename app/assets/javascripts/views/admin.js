@@ -5,6 +5,8 @@ define([
     'backbone',
     'collections',
     'models',
+    'bootstrapDatepicker',
+    'bootstrapTimepicker',
     'hbs!templates/admin-screen',
     'hbs!templates/users',
     'hbs!templates/nakit',
@@ -12,7 +14,7 @@ define([
     'hbs!templates/selector',
     'hbs!templates/party-description',
     'hbs!templates/party-editor-form'
-], function($, _, bb, collections, models, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit) {
+], function($, _, bb, collections, models, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit) {
 
     //TODO fix party creation refresh for nakkitypes editor.
 
@@ -217,8 +219,8 @@ define([
 	},
 	
 	render: function(){
-	    this.$el.html(party_description({party: this.model.toJSON(), editable:true}));
-	    return this.$el;
+	    this.$el.html(party_description({party: this.model.toJSON(), editable: true}));
+	    return this;
 	},
 
 	select: function(partyId) {
@@ -227,20 +229,56 @@ define([
 	},
 
 	edit: function() {
-	    this.$el.html(party_edit({party:this.model.toJSON()}))
+	    this.$el.html(party_edit({party:this.model.toJSON()}));
+	    $('.datepicker', this.$el).datepicker({
+		format: 'dd.mm.yyyy',
+		startDate: new Date(),
+		autoclose: true
+	    });
+	    $('#start-time', this.$el).timepicker({
+		showMeridian: false,
+		showSeconds: false,
+		minuteStep: 30
+	    });
+	    $('#info-time', this.$el).timepicker({
+		showMeridian: false,
+		showSeconds: false,
+		minuteStep: 30
+	    });
 	},
 
 	creationEdit: function(partyId){
 	    this.model = parties.get(partyId);
 	    this.edit();
 	},
+	
+	//todo move to time/date parsing module
+	parseData: function(data) {
+	    var parseDate = function(dateString, timeString) {
+		var date = new Date(dateString);
+		var time = timeString.split(":");
+		date.setHours(time[0]);
+		date.setMinutes(time[1]);
+		return date;
+	    };
+
+	    var parsed = {};
+	    parsed.title = data.title;
+	    parsed.description = data.description;
+	    parsed.date = parseDate(data.date, data.startTime);
+	    parsed.infoDate = parseDate(data.date, data.infoTime);
+	    
+	    return parsed;
+	},
 
 	save: function() {
 	    var arr = this.$("#edit_party").serializeArray();
-	    var data = _(arr).reduce(function(acc, field) {
+	    var input_data = _(arr).reduce(function(acc, field) {
 		acc[field.name] = field.value;
 		return acc;
 	    }, {});
+	    var data = this.parseData(input_data);
+
 	    var self = this;
 	    this.model.save(data, {
 		success: function(model) {

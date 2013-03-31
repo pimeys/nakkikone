@@ -1,7 +1,27 @@
 <form id="edit_party">
-  Title: <input type="text" name="title" value="{{ party.title }}" readOnly="true"/><br />
-  Date: <input type="text" name="date" value="{{ party.date }}" /><br />
-  Description: <textarea rows="5" cols="40" name="description" value="{{ party.description }}">{{ party.description }}</textarea><br />
-  <!-- <input type="text" name="description" value="{{ party.description }}" /><br/> -->
-  <input type="submit" value="Save Changes"></input>
+  <div class="input-append">
+    Title: <input type="text" name="title" value="{{ party.title }}" readOnly="true" />
+  </div>
+  <div class="input-append date datepicker">
+    Date: <input size="16" type="text" name="date" value="{{ prettyDate party.date }}" readOnly="true">
+      <span class="add-on">
+	<i class="icon-th"></i>
+      </span>
+  </div>
+  <div class="input-append bootstrap-timepicker">
+    Party Info Time: <input id="info-time" type="text" name="infoTime" value="{{ prettyTime party.infoDate }}" class="input-small" >
+      <span class="add-on">
+	<i class="icon-time"></i>
+      </span>
+  </div>
+  <div class="input-append bootstrap-timepicker">
+    Starting Time: <input id="start-time" type="text" name="startTime" value="{{ prettyTime party.date }}" class="input-small" >
+      <span class="add-on">
+	<i class="icon-time"></i>
+      </span>
+  </div>
+  <div class="input-append">
+    Description: <textarea rows="5" cols="50" name="description" value="{{ party.description }}">{{ party.description }}</textarea>
+  </div>
+  <input type="submit" value="Save Changes" class="btn btn-primary"></input>
 </form>

@@ -22,7 +22,8 @@ adminUser = User.create({ :name => 'webmaster',
 # 1. Party
 example_party = Party.create({ :title => 'Example Party!',
                                :description => 'Party specific descriptions, notes to participants. This will be shown in public side as well',
-                               :date => Date.today
+                               :date => Date.today,
+                               :info_date => Date.today
                              })
 
 # 2. Nakkittypes and nakkis:
@@ -83,7 +84,8 @@ aux_nakki.save
 # 6. Vanilla party without parcipitants
 example_party = Party.create({ :title => 'Party Template?',
                                :description => 'Party specific descriptions, notes to participants. This will be shown in public side as well',
-                               :date => Date.today
+                               :date => Date.today,
+                               :info_date => Date.today
                              })
 [
  {:name => "selling-1", :start => 0, :end => 6},

@@ -68,7 +68,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO backend stuff [5/7]
+* TODO backend stuff [6/8]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -118,8 +118,6 @@ This documentation is organizing development time todos.
    - State "DONE"       from "TODO"       [2013-03-25 Mon 22:31]
    :END:
    - e.g. remove stack traces
-** TODO Check and redefine resource url patterns if needed
-** TODO Document backend design and functionality
 ** DONE Create dummy Data
    CLOSED: [2013-03-31 Sun 13:41]
    :CLOCK:
@@ -138,7 +136,23 @@ This documentation is organizing development time todos.
    - so that one can do visual development instantly.
    - 2 parties, one empty and other one has test users which have been
      assigned some tasks.
-* TODO ui stuff [8/12]
+** DONE Add nakki info time to party model
+   CLOSED: [2013-03-31 Sun 23:07]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 18:33]--[2013-03-31 Sun 20:25] =>  1:52
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-31 Sun 23:07]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 18:33]
+   :END:
+   - so that it can be selected during party creation 
+   - extra time field to define party info meeting
+   - constrain is that its before party start
+   - preferably couple hours before party starts.
+   - same date as parties, stored to own attribute
+** TODO Check and redefine resource url patterns if needed
+** TODO Document backend design and functionality
+* TODO ui stuff [9/13]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -235,11 +249,26 @@ This documentation is organizing development time todos.
 *** notes
     - brakes if all nakkitypes start from slot 0>, needs at least one
       from 0 slot. e.g. input validation needed.
-
+** TODO dynamic time presentation of nakki info
+   - depends on addition of nakki info time to party model
 ** TODO redefine route patterns
 ** TODO rollers for party start and end times
-** TODO date picker for party start date
-   remember that parties almost always are from night to dawn
+** DONE date picker for party start date
+   CLOSED: [2013-03-31 Sun 23:05]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 22:13]--[2013-03-31 Sun 23:05] =>  0:52
+   CLOCK: [2013-03-31 Sun 20:26]--[2013-03-31 Sun 21:48] =>  1:22
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-31 Sun 23:05]
+   - State "STARTED"    from "WAITING"    [2013-03-31 Sun 22:13]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 20:26]
+   :END:
+   - added date and time pickers
+   - added party info date to party model
+   - Now date and time pickers are populated from party information
+   - added prettyTime printing
+   - party_viewer save data parsing completed
 ** TODO improve party creation flow
    1. Title, time, (start and endtime) and description (providing template)
    2. define nakki types (columns)
@@ -247,14 +276,19 @@ This documentation is organizing development time todos.
    4. After which admin can modify party properties
       - nakki columns edits will destroy existing reservations?
       - time edits as well?
-* TODO Usability stuff
+* TODO [0/2] Usability stuff
+** TODO adding cancellation possibility of nakkis
+   - UI that allows user to remove its own nakki reservations
+** TODO Changing reservation of nakki to single click
+   - pressing nakki will reserve it to user
+   - depends needs cancellation feature
 * TODO UserManagement
 ** TODO Screen to administrate nakkikone users
 *** TODO reset password
 *** TODO remove user
 *** TODO edit details
 *** TODO user can itself access itself
-* improvement ideas
+* Improvement ideas
 ** create error handling module
    - provides tools to notify users about backend errors
    - also part of the redirection logic could go here

@@ -50,7 +50,8 @@ define(['jquery','backbone'],function($,bb){
 	defaults: {
 	    title: "Party title",
 	    description: "Osallistumalla nakkiin pääset maksutta bileisiin",
-	    date: new Date()
+	    date: new Date(),
+	    infoDate: new Date()
 	},
 
 	//TODO remove after UI refactoring
@@ -62,6 +63,7 @@ define(['jquery','backbone'],function($,bb){
 
 	parse: function(response, options) {
 	    response.date = new Date(response.date);
+	    response.infoDate = new Date(response.infoDate);
 	    return response;
 	}
     });
