@@ -68,7 +68,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO backend stuff [4/7]
+* TODO backend stuff [5/7]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -98,10 +98,20 @@ This documentation is organizing development time todos.
 
    - needs to fixed to one user per nakkitype per party
    - now restricted via complex unique constrain 
-** TODO Remove duplicates from parcipiants response
+** DONE Remove duplicates from parcipiants response
+   CLOSED: [2013-03-31 Sun 18:21]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 18:15]--[2013-03-31 Sun 18:21] =>  0:06
+   :END:
    :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-31 Sun 18:21]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 18:15]
    - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:15]
    :END:
+   
+   - parcipiants JSON response contains several same entities, need to
+     be filtered before passing to frontend
+   - added uniq filtering
 ** DONE Map Record not found responses to 404 and empty bodies
    CLOSED: [2013-03-25 Mon 22:31]
    :LOGBOOK:
