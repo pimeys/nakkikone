@@ -5,7 +5,7 @@ define('templates/nakki_row', ['handlebars','underscore'], function ( Handlebars
 	time.setHours(time.getHours() + slot);
 	time.setMinutes(0);
 	time.setSeconds(0);
-	return time.toLocaleTimeString()
+	return time.toTimeString()
     }
 
     function nakki_row(startTime, titles){
