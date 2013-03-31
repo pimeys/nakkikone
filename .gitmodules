@@ -7,3 +7,9 @@
 [submodule "lib/assets/underscore"]
 	path = lib/assets/underscore
 	url = git://github.com/documentcloud/underscore.git
+[submodule "lib/assets/bootstrap-datepicker"]
+	path = lib/assets/bootstrap-datepicker
+	url = git://github.com/eternicode/bootstrap-datepicker.git
+[submodule "lib/assets/bootstrap-timepicker"]
+	path = lib/assets/bootstrap-timepicker
+	url = git://github.com/jdewit/bootstrap-timepicker.git
