@@ -152,7 +152,7 @@ This documentation is organizing development time todos.
    - same date as parties, stored to own attribute
 ** TODO Check and redefine resource url patterns if needed
 ** TODO Document backend design and functionality
-* TODO ui stuff [9/13]
+* TODO ui stuff [10/13]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -249,8 +249,18 @@ This documentation is organizing development time todos.
 *** notes
     - brakes if all nakkitypes start from slot 0>, needs at least one
       from 0 slot. e.g. input validation needed.
-** TODO dynamic time presentation of nakki info
+** DONE dynamic time presentation of nakki info
+   CLOSED: [2013-04-01 Mon 00:00]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 23:35]--[2013-04-01 Mon 00:00] =>  0:25
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-01 Mon 00:00]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 23:35]
+   :END:
    - depends on addition of nakki info time to party model
+
+   - need to edit party-description template.
 ** TODO redefine route patterns
 ** TODO rollers for party start and end times
 ** DONE date picker for party start date
