@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20110124034948) do
 
   create_table "users", :force => true do |t|
-    t.string   "email", :null => false
+    t.string   "email", :null => false, :unique => true
     t.string   "name",  :null => false
     t.string   "number"
     t.string   "password_hash", :null => false
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20110124034948) do
   end
 
   create_table "parties", :force => true do |t|
-    t.string   "title", :null => false
+    t.string   "title", :null => false, :unique => true
     t.string   "description"
     t.datetime "date", :null => false
     t.datetime "created_at",    :null => false

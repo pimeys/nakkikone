@@ -68,7 +68,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO backend stuff [3/7]
+* TODO backend stuff [4/7]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -110,8 +110,24 @@ This documentation is organizing development time todos.
    - e.g. remove stack traces
 ** TODO Check and redefine resource url patterns if needed
 ** TODO Document backend design and functionality
-** TODO Create dummy Data
-   - so that one can do visual development instantly. 
+** DONE Create dummy Data
+   CLOSED: [2013-03-31 Sun 13:41]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 13:00]--[2013-03-31 Sun 13:41] =>  0:41
+   CLOCK: [2013-03-31 Sun 11:44]--[2013-03-31 Sun 12:38] =>  0:54
+   CLOCK: [2013-03-30 Sat 16:29]--[2013-03-30 Sat 16:38] =>  0:09
+   CLOCK: [2013-03-29 Fri 13:18]--[2013-03-29 Fri 13:43] =>  0:25
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-31 Sun 13:41]
+   - State "STARTED"    from "WAITING"    [2013-03-31 Sun 13:00]
+   - State "STARTED"    from "WAITING"    [2013-03-31 Sun 11:44]
+   - State "STARTED"    from "WAITING"    [2013-03-30 Sat 16:29]
+   - State "STARTED"    from "TODO"       [2013-03-29 Fri 13:18]
+   :END:
+   - so that one can do visual development instantly.
+   - 2 parties, one empty and other one has test users which have been
+     assigned some tasks.
 * TODO ui stuff [8/12]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
