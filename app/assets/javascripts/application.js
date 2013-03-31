@@ -6,11 +6,13 @@ require.config({
         jquery: 'libs/jquery-1.7.2',
         underscore: 'libs/underscore',
         backbone: 'libs/backbone',
-	 
+ 
 	handlebars : "libs/Handlebars",
         hbs : 'libs/hbs',
         i18nprecompile : "libs/hbs/i18nprecompile",
-        json2 : "libs/hbs/json2"
+        json2 : "libs/hbs/json2",
+	bootstrapDatepicker: "libs/bootstrap-datepicker",
+	bootstrapTimepicker: "libs/bootstrap-timepicker"
     },
 
     shim: {
@@ -25,7 +27,17 @@ require.config({
             //Once loaded, use the global 'Backbone' as the
             //module value.
             exports: 'Backbone'
-        }
+        },
+
+	'bootstrapDatepicker': {
+	    deps: ['jquery'],
+	    exports: 'bootstrapDatepicker'
+	},
+
+	'bootstrapTimepicker': {
+	    deps: ['jquery'],
+	    exports: 'bootstrapTimepicker'
+	}
     },
 
     hbs: {
