@@ -29,8 +29,6 @@ define([
 
     var nakkitypes = new collections.Nakkitypes();
 
-    var counter = 1;
-
     //todo move to separate error-handling-module
     var _error = function(col, error) {
 	alert('Failure: ' + error.statusText);
@@ -148,9 +146,9 @@ define([
 	
 	refresh: function(partyId) {
 	    var self = this;
-	    var party = parties.get(partyId);
+	    this.model = parties.get(partyId);
 
-	    nakkitypes.partyId = party.get('id');
+	    nakkitypes.partyId = this.model.get('id');
 	    nakkitypes.fetch({
 		success: this.render, 
 		
@@ -162,18 +160,22 @@ define([
 	},
 
 	render: function(){
-	    this.$el.html(nakkilist({nakit:nakkitypes.toJSONWithClientID()}));
-	    return this.$el;
+	    this.$el.html(nakkilist({nakit:nakkitypes.toJSONWithClientID(), party: this.model.toJSON()}));
+	    return this;
 	},
 
 	create: function(){
-	    nakkitypes.add(new models.Nakkitype({type:'tyyppi' + counter++}));
+	    nakkitypes.add(new models.Nakkitype({type:'<define type>'}));
 	},
 
 	edit: function(){
-	    //todo get cid to here somehow...
-	    this.$el.html(nakkilist_edit({nakkitypes:nakkitypes.toJSONWithClientID()}));
-	    return this.$el;
+	    this.$el.html(nakkilist_edit({nakkitypes:nakkitypes.toJSONWithClientID(), party: this.model.toJSON() }));
+	    $('.time-picker',this.$el).timepicker({
+		showMeridian: false,
+		showSeconds: false,
+		minuteStep: 60
+	    });
+	    return this;
 	},
 
 	delete: function(target){
@@ -184,10 +186,23 @@ define([
 			   success:function(){
 			       self.render();
 			   },
-			   error: errorHandle });
+			   error: errorHandle 
+			  });
+	},
+	
+	parseSlotFromTime: function(timeString, date) {
+	    var time = timeString.split(":");
+	    return (Number(time[0]) + 24 - date.getHours()) % 24;
+	},
+
+	parseData: function(data) {
+	    data.start = this.parseSlotFromTime(data.start, this.model.get('date')); 
+	    data.end = this.parseSlotFromTime(data.end, this.model.get('date'));
+	    return data;
 	},
 
 	saveCollection: function(){
+	    var self = this;
 	    //TODO here we would reset whole collection based on input of the edit table.
 	    $('#nakit form').each(function(){
 		var arr = $(this).serializeArray();
@@ -197,7 +212,7 @@ define([
 		}, {});
 		var model = nakkitypes.get(data["cid"]);
 		delete data['cid'];
-		model.save(data);
+		model.save(self.parseData(data));
 	    });
 	    this.render();
 	}
@@ -316,8 +331,8 @@ define([
 		    var _ready = _.after(3, function(){
 			new Party_Selector({el:$('#party-selector',rootel), selected: latestParty.title});
 			new Party_Viewer({el: $('#party', rootel), model: latestParty});
-			new Nakki_List({el: $('#nakit', rootel)});
-			
+			new Nakki_List({el: $('#nakit', rootel), model: latestParty});
+
 			new Constructors_List({el: $('#constructors', rootel)});
 			new User_List({el: $('#users', rootel)});
 			new Cleaners_List({el: $('#cleaners', rootel)});
@@ -329,7 +344,7 @@ define([
 		} else {
 		    new Party_Selector({el:$('#party-selector',rootel)});
 		    new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
-		    new Nakki_List({el:$('#nakit',rootel)});
+		    new Nakki_List({el:$('#nakit',rootel), model: latestParty});
 		    new User_List({el:$('#users',rootel)});
 		}
 	    },

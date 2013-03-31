@@ -1,6 +1,11 @@
-<button class="editor">Edit NakkiTypes</button>
 <table class="table table-striped">
-{{#each nakit}}
-<tr><td>{{ this.type }}</td><td>{{ this.start }}</td><td>{{ this.end }}</td></tr>
-{{/each}}
+  <tr><th>Nakki Type</th><th>Start Time</th><th>End Time</th></tr>
+  {{#each nakit}}
+  <tr>
+    <td>{{ this.type }}</td>
+    <td>{{ prettyTimeFromSlot this.start ../party.date }}</td>
+    <td>{{ prettyTimeFromSlot this.end ../party.date }}</td>
+  </tr>
+  {{/each}}
 </table>
+<button class="editor btn btn-primary">Edit NakkiTypes</button>
