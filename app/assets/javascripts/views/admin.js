@@ -207,7 +207,8 @@ define([
 	events: {
 	    'change .selector' : 'select',
 	    'click .editor'    : 'edit',
-	    'submit'           : 'save'
+	    'submit'           : 'save',
+	    'click .cancel'    : 'render',
 	},
 	
 	initialize: function(){
