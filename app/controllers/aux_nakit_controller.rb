@@ -16,12 +16,13 @@ class AuxNakitController < ApplicationController
     if aux_nakki.save
       render :json => aux_nakki
     else
-      render :status => 500, :text => "what what"
+      render :status => 500, :text => aux_nakki.errors.full_messages
     end
   end
 
   def destroy
     current_party = get_current_party
     current_party.aux_nakkis.destroy(params[:id])
+    render :json => {}
   end
 end

@@ -13,7 +13,12 @@ define(['backbone','underscore','models'],function(bb, _, models){
 	resource: 'parcipitants'
     });
 
-    var AuxUsers = Users.extend({
+    var AuxUser = models.Person.extend({
+	resource: 'aux_parcipitants'
+    });
+
+    var AuxUsers = PartyResources.extend({
+	model: AuxUser,
 	resource: 'aux_parcipitants'
     });
 

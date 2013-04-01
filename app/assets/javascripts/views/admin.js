@@ -85,10 +85,15 @@ define([
     var User_List = bb.View.extend({
 	collection: users, //TODO maybe as an constructor parameter
 
+	events: {
+	    'click .unassign': 'unassign'
+	},
+
 	initialize: function(){
 	    _.bindAll(this);
 	    vent.on('changeParty', this.refresh);
 	    vent.on('detach', this.remove);
+	    this.listenTo(this.collection,'remove',this.render);
 	    this.render();
 	},
 	
@@ -107,10 +112,21 @@ define([
 	    });
 	},
 
-	render: function(){
+	render: function() {
 	    this.$el.html(userlist({persons:this.collection.toJSON()}));
 	    return this;
-	}
+	},
+	
+	unassign: function(event) {
+	    var self = this;
+	    var cancelledUser = this.collection.get($(event.target).data('id'));
+	    cancelledUser.partyId = this.collection.partyId;
+	    cancelledUser.destroy({
+		success: function(model, response) {
+		    self.collection.remove(cancelledUser);
+		}
+	    });
+	} 
     });
 
     var Constructors_List = User_List.extend({

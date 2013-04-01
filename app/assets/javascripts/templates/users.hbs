@@ -1,6 +1,15 @@
 <table class="table table-striped">
-  <tr><td><h4>Name</h4></td><td><h4>Email</h4></td><td><h4>Phone</h4></td></tr>
+  <tr>
+    <td><h4>Name</h4></td>
+    <td><h4>Email</h4></td>
+    <td><h4>Phone</h4></td>
+    <td><h4>Remove</h4></td></tr>
   {{#each persons}}
-  <tr><td>{{ this.name }}</td><td>{{ this.email }}</td><td>{{ this.number }}</td></tr>
+  <tr>
+    <td>{{ this.name }}</td>
+    <td>{{ this.email }}</td>
+    <td>{{ this.number }}</td>
+    <td><button class="btn btn-danger unassign" data-id="{{ this.id }}">Remove</button></td>
+  </tr>
   {{/each}}
 </table>

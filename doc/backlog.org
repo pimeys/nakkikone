@@ -18,6 +18,7 @@ This documentation is organizing development time todos.
 
 * TODO install jasmine plugin
 * TODO create jasmine tests for backbone code
+* TODO implement unit tests for server side code
 * DONE install handlebars plugin for require-js
   CLOSED: [2013-02-21 Thu 23:06]
   :CLOCK:
@@ -68,7 +69,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO backend stuff [6/8]
+* TODO backend stuff [6/10]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -152,7 +153,13 @@ This documentation is organizing development time todos.
    - same date as parties, stored to own attribute
 ** TODO Check and redefine resource url patterns if needed
 ** TODO Document backend design and functionality
-* TODO ui stuff [11/13]
+** TODO model validations
+   - needs to have proper validations
+     - nakkitype.start < nakkitype.end
+** TODO user roles for user models
+   - enumeration
+   - used first only for admin role
+* TODO ui stuff [12/15]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -289,8 +296,21 @@ This documentation is organizing development time todos.
    - time pickers, but maps to slots behind the scenes
    - needs to handle changing of the day
      1. 22:00-05:00 => 7 slots
+** DONE Remove user from party nakkis
+   CLOSED: [2013-04-01 Mon 18:17]
+   :CLOCK:
+   CLOCK: [2013-04-01 Mon 18:07]--[2013-04-01 Mon 18:17] =>  0:10
+   CLOCK: [2013-04-01 Mon 15:09]--[2013-04-01 Mon 15:42] =>  0:33
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-01 Mon 18:17]
+   - State "STARTED"    from "WAITING"    [2013-04-01 Mon 18:07]
+   - State "STARTED"    from "TODO"       [2013-04-01 Mon 15:09]
+   :END:
+   - needs button to list where admin can unassign nakkis from user
 ** TODO redefine route patterns
-** WAITING improve party creation flow
+   - if party could be fetched by its title it needs new url into backend
+** WAITING [#C] improve party creation flow
    :CLOCK:
    CLOCK: [2013-04-01 Mon 00:12]--[2013-04-01 Mon 00:13] =>  0:01
    :END:
@@ -303,10 +323,11 @@ This documentation is organizing development time todos.
    4. After which admin can modify party properties
       - nakki columns edits will destroy existing reservations?
       - time edits as well?
+** TODO Hide admin screen button from non-admin users
 * TODO [0/2] Usability stuff
 ** TODO adding cancellation possibility of nakkis
    - UI that allows user to remove its own nakki reservations
-** TODO Changing reservation of nakki to single click
+** TODO Changing reservation of nakki to single click UI
    - pressing nakki will reserve it to user
    - depends needs cancellation feature
 * TODO UserManagement
@@ -316,10 +337,10 @@ This documentation is organizing development time todos.
 *** TODO edit details
 *** TODO user can itself access itself
 * Improvement ideas
-** create error handling module
+** Create error handling module
    - provides tools to notify users about backend errors
    - also part of the redirection logic could go here
-** two levels of nakkis
+** Two levels of nakkis
    - special nakki assignment for organizers?
 ** Create separate authentication module
 * Development time defects

@@ -14,6 +14,7 @@ RailStrap::Application.routes.draw do
   resources :parties do
     resources :parcipitants, :nakkitypes, :nakit, :aux_nakit
     get "aux_parcipitants" => "parcipitants#aux_index"
+    delete "aux_parcipitants/:id" => "aux_nakit#destroy"
   end
   
   # The priority is based upon order of creation:

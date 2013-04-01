@@ -9,7 +9,7 @@ define(['jquery','backbone'],function($,bb){
     });
 
     var Person = PartyResource.extend({
-	resource: 'parcipitant',
+	resource: 'parcipitants',
 
 	defaults: {
 	    name: "nakkilainen",
