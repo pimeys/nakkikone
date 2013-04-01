@@ -69,7 +69,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO backend stuff [6/10]
+* TODO Backend stuff [6/10]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -159,7 +159,7 @@ This documentation is organizing development time todos.
 ** TODO user roles for user models
    - enumeration
    - used first only for admin role
-* TODO ui stuff [12/15]
+* TODO UI stuff [12/17]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -308,6 +308,9 @@ This documentation is organizing development time todos.
    - State "STARTED"    from "TODO"       [2013-04-01 Mon 15:09]
    :END:
    - needs button to list where admin can unassign nakkis from user
+** TODO [#A] model validations
+   - example nakkitype slot parsing fails because of invalid input
+     - earlier time than start time
 ** TODO redefine route patterns
    - if party could be fetched by its title it needs new url into backend
 ** WAITING [#C] improve party creation flow
@@ -324,6 +327,8 @@ This documentation is organizing development time todos.
       - nakki columns edits will destroy existing reservations?
       - time edits as well?
 ** TODO Hide admin screen button from non-admin users
+** TODO Time formatting
+   - to show simpler time stamp
 * TODO [0/2] Usability stuff
 ** TODO adding cancellation possibility of nakkis
    - UI that allows user to remove its own nakki reservations
@@ -375,3 +380,4 @@ This documentation is organizing development time todos.
    - cleaned module api
    - vents are reseted in each initializations
 
+** TODO removing nakkitype fails
