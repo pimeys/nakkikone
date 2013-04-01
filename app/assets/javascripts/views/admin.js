@@ -263,16 +263,10 @@ define([
 	edit: function() {
 	    this.$el.html(party_edit({party:this.model.toJSON()}));
 	    $('.datepicker', this.$el).datepicker({
-		format: 'dd.mm.yyyy',
 		startDate: new Date(),
 		autoclose: true
 	    });
-	    $('#start-time', this.$el).timepicker({
-		showMeridian: false,
-		showSeconds: false,
-		minuteStep: 30
-	    });
-	    $('#info-time', this.$el).timepicker({
+	    $('.timepicker', this.$el).timepicker({
 		showMeridian: false,
 		showSeconds: false,
 		minuteStep: 30

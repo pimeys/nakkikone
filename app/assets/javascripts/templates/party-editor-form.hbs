@@ -1,28 +1,47 @@
-<form id="edit_party">
-  <div class="input-append">
-    Title: <input type="text" name="title" value="{{ party.title }}" readOnly="true" />
+<form id="edit_party" class="form-horizontal">
+  <div class="input-append control-group">
+    <label class="control-label">Title:</label>
+    <div class="controls">
+      <input type="text" name="title" value="{{ party.title }}" readOnly="true" />
+    </div>
   </div>
-  <div class="input-append date datepicker">
-    Date: <input size="16" type="text" name="date" value="{{ prettyDate party.date }}" readOnly="true">
-      <span class="add-on">
-	<i class="icon-th"></i>
-      </span>
+  <div class="control-group">
+    <label class="control-label">Date:</label>
+    <div class="controls">
+      <div class="date input-append datepicker">
+	<input size="16" type="text" name="date" value="{{ prettyDate party.date }}" readOnly="true" class="input-small">
+	  <span class="add-on"><i class="icon-th"></i></span>
+      </div>
+    </div>
   </div>
-  <div class="input-append bootstrap-timepicker">
-    Party Info Time: <input id="info-time" type="text" name="infoTime" value="{{ prettyTime party.infoDate }}" class="input-small" >
-      <span class="add-on">
-	<i class="icon-time"></i>
-      </span>
+  <div class="control-group">
+    <label class="control-label">Party Info Time:</label>
+    <div class="controls">
+      <div class="bootstrap-timepicker input-append">
+	<input type="text" name="infoTime" value="{{ prettyTime party.infoDate }}" class="input-small timepicker" >
+	  <span class="add-on"><i class="icon-time"></i></span>
+      </div>
+    </div>
   </div>
-  <div class="input-append bootstrap-timepicker">
-    Starting Time: <input id="start-time" type="text" name="startTime" value="{{ prettyTime party.date }}" class="input-small" >
-      <span class="add-on">
-	<i class="icon-time"></i>
-      </span>
+  <div class="control-group">
+    <label class="control-label">Starting Time:</label> 
+    <div class="controls">
+      <div class="bootstrap-timepicker input-append">
+	<input type="text" name="startTime" value="{{ prettyTime party.date }}" class="input-small timepicker" >
+	  <span class="add-on"><i class="icon-time"></i></span>
+      </div>
+    </div>
   </div>
-  <div class="input-append">
-    Description: <textarea rows="5" cols="50" name="description" value="{{ party.description }}">{{ party.description }}</textarea>
+  <div class="control-group">
+    <label class="control-label" >Description:</label> 
+    <div class="controls">
+      <textarea rows="5" cols="50" name="description" value="{{ party.description }}">{{ party.description }}</textarea>
+    </div>
   </div>
-  <input type="submit" value="Save Changes" class="btn btn-primary"></input>
-  <button class="btn btn-danger cancel">Cancel</button>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" value="Save Changes" class="btn btn-primary"></input>
+      <button class="btn btn-danger cancel">Cancel</button>
+    </div>
+  </div>
 </form>
