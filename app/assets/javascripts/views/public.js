@@ -56,6 +56,8 @@ define([
 	    if (type === "both") {
 	    	this.model1.save({type:"clean"}, {wait:true, success:notify, error: _errorDebug});
 		this.model2.save({type:"const"}, {wait:true, success:notify, error: _errorDebug});
+	    } else if (type === "none"){
+		return false;
 	    } else {
 		this.model1.save({type:type}, {wait:true, success:notify, error: _errorDebug});
 	    }
