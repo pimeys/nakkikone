@@ -13,7 +13,8 @@
 adminUser = User.create({ :name => 'webmaster', 
                           :email => 'webmaster@entropy.fi',
                           :number => '+35840123456',
-                          :password => 'nakki-test' 
+                          :password => 'nakki-test',
+                          :role => "admin"
                         })
 
 # Development seeds:
@@ -45,13 +46,15 @@ example_party = Party.create({ :title => 'Example Party!',
 basicUser = User.create({ :name => 'jokuTm', 
                           :email => 'somebody@mail.com',
                           :number => '+35840123456',
-                          :password => 'nakki-user' 
+                          :password => 'nakki-user',
+                          :role => "user"
                         })
 
 basicUser2 = User.create({ :name => 'jokuToinenTm', 
                           :email => 'somebodyelse@mail.com',
                           :number => '+35840123456',
-                          :password => 'nakki-user' 
+                          :password => 'nakki-user',
+                          :role => "user"
                         })
 
 # 4. Assinign Random user to party

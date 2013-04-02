@@ -18,9 +18,8 @@ class ApplicationController < ActionController::Base
     Party.find(params[:party_id]);
   end
 
-  #TODO do it properly
   def admin_access
-    raise User::Unauthorized unless current_user.id == 1
+    raise User::Unauthorized unless current_user.role == "admin"
   end
 
   def require_login

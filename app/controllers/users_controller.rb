@@ -7,10 +7,11 @@ class UsersController < ApplicationController
   
   def create
     user = User.new(params[:user])
+    user.role = "user";
     if user.save
       render :json => user
     else
-      render :text => "failed to signup"
+      render :text => "failed to signup" #TODO raise exception 
     end
   end
   

@@ -14,7 +14,8 @@ define(['jquery','backbone'],function($,bb){
 	defaults: {
 	    name: "nakkilainen",
 	    email: "nakki@email.com",
-	    number: "0401234567"
+	    number: "0401234567",
+	    role: "user"
 	}
     });
 
