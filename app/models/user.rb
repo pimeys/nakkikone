@@ -6,9 +6,19 @@ class User < ActiveRecord::Base
   
   validates_confirmation_of :password
   validates_presence_of :password, :on => :create
-  validates_presence_of :email
-  validates_uniqueness_of :email
-  validates :role, :inclusion => { :in => %w(admin user), :message => "%{value} is not valid role"}
+  
+  validates :email, 
+  :presence => true, 
+  :uniqueness => { :case_sensitive => false }, 
+  :format => { 
+    :with => /^.+@.+$/, #TODO replace with better one
+    :message => "%{value} is not valid email (our opinion, you might disagree)"
+  }
+
+  validates :role, :inclusion => { 
+    :in => %w(admin user), 
+    :message => "%{value} is not valid role"
+  }
   
   def self.authenticate(email, password)
     user = find_by_email(email)
@@ -26,9 +36,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  class Unauthorized <StandardError
+  class Unauthorized < StandardError
   end
 
-  class Unauthenticated <StandardError
+  class Unauthenticated < StandardError
   end
 end

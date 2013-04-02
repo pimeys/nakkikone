@@ -23,8 +23,8 @@ adminUser = User.create({ :name => 'webmaster',
 # 1. Party
 example_party = Party.create({ :title => 'Example Party!',
                                :description => 'Party specific descriptions, notes to participants. This will be shown in public side as well',
-                               :date => Date.today,
-                               :info_date => Date.today
+                               :date => DateTime.now.end_of_day.beginning_of_hour,
+                               :info_date => DateTime.now.end_of_day.beginning_of_hour
                              })
 
 # 2. Nakkittypes and nakkis:
@@ -36,7 +36,7 @@ example_party = Party.create({ :title => 'Example Party!',
  {:name => "selling-2", :start => 0, :end => 6},
  {:name => "door-1",    :start => 0, :end => 4},
  {:name => "door-2",    :start => 2, :end => 5},
- {:name => "VJ",        :start => 0, :end => 6}
+ {:name => "visual controller",        :start => 0, :end => 6}
 ].each{ |type|
   nakkitype = example_party.nakkitypes.create(:name => type[:name])
   (type[:start]..type[:end]).each{ |i| nakkitype.nakkis.create(:slot  => i) } 
@@ -87,8 +87,8 @@ aux_nakki.save
 # 6. Vanilla party without parcipitants
 example_party = Party.create({ :title => 'Party Template?',
                                :description => 'Party specific descriptions, notes to participants. This will be shown in public side as well',
-                               :date => Date.today,
-                               :info_date => Date.today
+                               :date => DateTime.now.end_of_day.beginning_of_hour,
+                               :info_date => DateTime.now.end_of_day.beginning_of_hour
                              })
 [
  {:name => "selling-1", :start => 0, :end => 6},

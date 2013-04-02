@@ -69,7 +69,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO Backend stuff [7/11]
+* TODO Backend stuff [8/12]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -153,9 +153,20 @@ This documentation is organizing development time todos.
    - same date as parties, stored to own attribute
 ** TODO Service for finding party based on title
 ** TODO Check and redefine resource url patterns if needed
-** TODO model validations
+** DONE model validations
+   CLOSED: [2013-04-03 Wed 01:06]
+   :CLOCK:
+   CLOCK: [2013-04-02 Tue 23:06]--[2013-04-03 Wed 01:06] =>  2:00
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-03 Wed 01:06]
+   - State "STARTED"    from "TODO"       [2013-04-02 Tue 23:06]
+   :END:
    - needs to have proper validations
      - nakkitype.start < nakkitype.end
+     - all model attributes should be validated
+*** notes
+    - inner validation class must be defined before actual usage
 ** DONE user roles for user models
    CLOSED: [2013-04-02 Tue 17:05]
    :CLOCK:

@@ -14,7 +14,7 @@ class PartiesController < ApplicationController
                                 :info_date => params[:infoDate])
       render :json => party
     else
-      render :status => 500
+      render :status => 500 #TODO render errors here 
     end
   end
 
