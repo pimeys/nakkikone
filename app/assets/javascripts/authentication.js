@@ -3,8 +3,9 @@ define([
     'backbone',
     'jquery',
     'models',
-    'vent'
-], function(Backbone, $, models, vent) {
+    'vent',
+    'hbs!templates/navigation'
+], function(Backbone, $, models, vent, navigationTemplate) {
 
     //Adding session authentication token to each request.
     Backbone.old_sync = Backbone.sync
@@ -45,7 +46,7 @@ define([
 
 	    $.post('/login', data, function(data) {
 		loggedUser = new models.Person(data);
-		new Navigation({el:$("#navigation")}).render();
+		new Navigation({el: $("#navigation"), model: loggedUser}).render();
 		vent.trigger('logged-in');
 	    });
 	    return false;
@@ -56,7 +57,7 @@ define([
 	$.getJSON('/login', function(data) {
 	    loggedUser = new models.Person(data);
 	    console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
-	    new Navigation({el:$("#navigation")}).render();
+	    new Navigation({el:$("#navigation"), model: loggedUser}).render();
 	    cb();
 	}).error(function() {
 	    console.log("no session cookie present, should do redirect...");
@@ -65,8 +66,8 @@ define([
     };
 
     var Navigation = Backbone.View.extend({
-	render: function(){
-	    this.$el.show();
+	render: function() {
+	    this.$el.html(navigationTemplate({user: this.model.toJSON(), isAdmin: this.model.get('role') === 'admin'})).show(); //TODO encapsulate to view..
 	    return this;
 	}
     });

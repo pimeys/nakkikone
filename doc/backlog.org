@@ -69,7 +69,7 @@ This documentation is organizing development time todos.
    - be careful with dependent library versions
    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
 
-* TODO Backend stuff [7/10]
+* TODO Backend stuff [7/11]
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -151,6 +151,7 @@ This documentation is organizing development time todos.
    - constrain is that its before party start
    - preferably couple hours before party starts.
    - same date as parties, stored to own attribute
+** TODO Service for finding party based on title
 ** TODO Check and redefine resource url patterns if needed
 ** TODO model validations
    - needs to have proper validations
@@ -170,7 +171,7 @@ This documentation is organizing development time todos.
      - role should be enumerated (admin, user)
      - model addition and validation
 ** TODO Document backend design and functionality
-* TODO UI stuff [12/17]
+* TODO UI stuff [13/17]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -319,11 +320,21 @@ This documentation is organizing development time todos.
    - State "STARTED"    from "TODO"       [2013-04-01 Mon 15:09]
    :END:
    - needs button to list where admin can unassign nakkis from user
+** DONE Hide admin screen button from non-admin users
+   CLOSED: [2013-04-02 Tue 19:02]
+   :CLOCK:
+   CLOCK: [2013-04-02 Tue 18:46]--[2013-04-02 Tue 19:02] =>  0:16
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-02 Tue 19:02]
+   - State "STARTED"    from "TODO"       [2013-04-02 Tue 18:46]
+   :END:
 ** TODO [#A] model validations
    - example nakkitype slot parsing fails because of invalid input
      - earlier time than start time
 ** TODO redefine route patterns
    - if party could be fetched by its title it needs new url into backend
+   - depends on query service
 ** WAITING [#C] improve party creation flow
    :CLOCK:
    CLOCK: [2013-04-01 Mon 00:12]--[2013-04-01 Mon 00:13] =>  0:01
@@ -337,7 +348,6 @@ This documentation is organizing development time todos.
    4. After which admin can modify party properties
       - nakki columns edits will destroy existing reservations?
       - time edits as well?
-** TODO Hide admin screen button from non-admin users
 ** TODO Time formatting
    - to show simpler time stamp
 * TODO [0/2] Usability stuff
