@@ -182,7 +182,7 @@ This documentation is organizing development time todos.
      - role should be enumerated (admin, user)
      - model addition and validation
 ** TODO Document backend design and functionality
-* TODO UI stuff [13/17]
+* TODO UI stuff [14/19]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -340,7 +340,15 @@ This documentation is organizing development time todos.
    - State "DONE"       from "STARTED"    [2013-04-02 Tue 19:02]
    - State "STARTED"    from "TODO"       [2013-04-02 Tue 18:46]
    :END:
-** TODO [#A] model validations
+** DONE [#A] model validations
+   CLOSED: [2013-04-04 Thu 01:06]
+   :CLOCK:
+   CLOCK: [2013-04-03 Wed 22:41]--[2013-04-04 Thu 01:06] =>  2:25
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 01:06]
+   - State "STARTED"    from "TODO"       [2013-04-03 Wed 22:41]
+   :END:
    - example nakkitype slot parsing fails because of invalid input
      - earlier time than start time
 ** TODO redefine route patterns
@@ -361,6 +369,8 @@ This documentation is organizing development time todos.
       - time edits as well?
 ** TODO Time formatting
    - to show simpler time stamp
+** TODO Change alerts to bootstrap notification modals
+** TODO Add confirmation to party Delete action 
 * TODO [0/2] Usability stuff
 ** TODO adding cancellation possibility of nakkis
    - UI that allows user to remove its own nakki reservations
@@ -412,4 +422,15 @@ This documentation is organizing development time todos.
    - cleaned module api
    - vents are reseted in each initializations
 
-** TODO removing nakkitype fails
+** DONE [#A] Removing nakkitype fails
+   CLOSED: [2013-04-04 Thu 01:15]
+   :CLOCK:
+   CLOCK: [2013-04-04 Thu 01:09]--[2013-04-04 Thu 01:15] =>  0:06
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 01:15]
+   - State "STARTED"    from "TODO"       [2013-04-04 Thu 01:09]
+   :END:
+** TODO refactor nakkitype view to be more manageable
+   - nakkitypes.add to .create (more sync with backend)
+   - collect validation errors from backend

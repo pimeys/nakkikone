@@ -73,12 +73,15 @@ define([
 	    var self = this;
 	    var partyId = this.$('form').serializeArray()[0].value;
 	    var model = parties.get(partyId);
-	    model.destroy({wait:true, 
-			   success:function(){
-			       vent.trigger('changeParty',parties.at(0));
-			       self.render();
-			   },
-			   error: _error });
+	    model.destroy({
+		wait: true, 
+		success: function() {
+		    vent.trigger('changeParty', parties.at(0));
+		    self.render();
+		},
+		
+		error: _error 
+	    });
 	}
     });
 
@@ -143,6 +146,7 @@ define([
 	filterRules: {type: 'clean'}
     });
 
+    //TODO refactor to use maybe subviews for each models 
     var Nakki_List = bb.View.extend({
 	events: {
 	    'click .editor' : 'edit',
@@ -154,8 +158,8 @@ define([
 	initialize: function(){
 	    _.bindAll(this);
 	    vent.on('changeParty', this.refresh);
-	    nakkitypes.on('add', this.edit);
-	    nakkitypes.on('remove', this.edit);
+	    this.collection.on('add', this.edit);
+	    this.collection.on('remove', this.edit);
 	    vent.on('detach', this.remove);
 	    this.render();
 	},
@@ -164,19 +168,19 @@ define([
 	    var self = this;
 	    this.model = parties.get(partyId);
 
-	    nakkitypes.partyId = this.model.get('id');
-	    nakkitypes.fetch({
+	    this.collection.partyId = this.model.get('id');
+	    this.collection.fetch({
 		success: this.render, 
 		
 		error: function(){
-		    nakkitypes.reset();
+		    self.collection.reset();
 		    self.$el.html(nakkilist({nakit:{}}));
 		}
 	    });
 	},
 
 	render: function(){
-	    this.$el.html(nakkilist({nakit:nakkitypes.toJSONWithClientID(), party: this.model.toJSON()}));
+	    this.$el.html(nakkilist({nakit:this.collection.toJSONWithClientID(), party: this.model.toJSON()}));
 	    return this;
 	},
 
@@ -185,7 +189,7 @@ define([
 	},
 
 	edit: function(){
-	    this.$el.html(nakkilist_edit({nakkitypes:nakkitypes.toJSONWithClientID(), party: this.model.toJSON() }));
+	    this.$el.html(nakkilist_edit({nakkitypes:this.collection.toJSONWithClientID(), party: this.model.toJSON() }));
 	    $('.time-picker',this.$el).timepicker({
 		showMeridian: false,
 		showSeconds: false,
@@ -197,13 +201,17 @@ define([
 	delete: function(target){
 	    var self = this;
 	    var removeId = target.currentTarget.attributes['value'].nodeValue;
-	    var model = nakkitypes.get(removeId);
-	    model.destroy({wait:true,
-			   success:function(){
-			       self.render();
-			   },
-			   error: errorHandle 
-			  });
+	    var model = this.collection.get(removeId);
+	    model.destroy({
+		wait:true,
+		
+		success:function(){
+		    self.render();
+		},
+	
+		error: _error 
+	    });
+	    return false;
 	},
 	
 	parseSlotFromTime: function(timeString, date) {
@@ -226,11 +234,22 @@ define([
 		    acc[field.name] = field.value;
 		    return acc;
 		}, {});
-		var model = nakkitypes.get(data["cid"]);
+		var model = self.collection.get(data["cid"]);
 		delete data['cid'];
 		model.save(self.parseData(data));
 	    });
-	    this.render();
+	    var errors = _.reduce(this.collection.models, function(memo, model) {
+		if (!!model.validationError) {
+		    memo[model.cid] = model.validationError;
+		};
+		return memo;
+	    }, {});
+	    if (!_.isEmpty(errors)) {
+		//TODO better messaging.
+		alert('Your input is invalid: ' + errors);
+	    } else {
+		this.render();
+	    }
 	}
     });
     
@@ -353,7 +372,7 @@ define([
 		    var _ready = _.after(3, function(){
 			new Party_Selector({el:$('#party-selector',rootel), selected: latestParty.title});
 			new Party_Viewer({el: $('#party', rootel), model: latestParty});
-			new Nakki_List({el: $('#nakit', rootel), model: latestParty});
+			new Nakki_List({el: $('#nakit', rootel), model: latestParty, collection: nakkitypes});
 
 			new Constructors_List({el: $('#constructors', rootel)});
 			new User_List({el: $('#users', rootel)});
@@ -366,7 +385,7 @@ define([
 		} else {
 		    new Party_Selector({el:$('#party-selector',rootel)});
 		    new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
-		    new Nakki_List({el:$('#nakit',rootel), model: latestParty});
+		    new Nakki_List({el:$('#nakit',rootel), model: latestParty, collection: nakkitypes});
 		    new User_List({el:$('#users',rootel)});
 		}
 	    },

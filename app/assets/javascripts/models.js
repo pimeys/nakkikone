@@ -1,10 +1,13 @@
-define(['jquery','backbone'],function($,bb){
+define([
+    'jquery',
+    'backbone'
+], function($, bb) {
 
     var PartyResource = bb.Model.extend({
 	partyId: 'noparties',
 	resource: 'noresource',
 	urlRoot: function() {
-	     return 'parties/' + this.partyId + '/' + this.resource;
+	    return 'parties/' + this.partyId + '/' + this.resource;
 	}
     });
 
@@ -26,9 +29,18 @@ define(['jquery','backbone'],function($,bb){
 	    slot: null
 	},
 
-	parse: function(resp, options){
+	parse: function(resp, options) {
 	    resp.assign = resp.assign && resp.assign.name;
 	    return resp;
+	},
+
+	validate: function(attr, options) {
+	    if (!attr['slot']) {
+		return "Nakki slot is undefined";
+	    }
+	    if (!attr['type']) {
+		return "Nakki type is undefined";
+	    }
 	}
     });
 
@@ -44,6 +56,15 @@ define(['jquery','backbone'],function($,bb){
 	    data = this.toJSON();
 	    data.cid = this.cid;
 	    return data;
+	},
+
+	validate: function(attr, options) {
+	    if ((!attr['start'] && attr['start'] != 0) || !attr['end']) {
+		return "Range for nakkitype is invalid.";
+	    };
+	    if (attr['start'] >= attr['end']) {
+		return "Range start can't be after ending.";
+	    };
 	}
     });
 
