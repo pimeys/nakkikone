@@ -4,10 +4,20 @@ class NakkitypeSerializer < ActiveModel::Serializer
   attribute :name, :key => :type
 
   def start
-    object.nakkis.first.slot
+    #TODO remove, not needed with params validation
+    if object.nakkis.empty?
+      0
+    else
+      object.nakkis.first.slot
+    end
   end
 
   def end
-    object.nakkis.last.slot
+    #TODO remove, not needed with params validation
+    if object.nakkis.empty?
+      0
+    else
+      object.nakkis.last.slot
+    end
   end
 end
