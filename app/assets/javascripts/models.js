@@ -66,6 +66,18 @@ define(['jquery','backbone'],function($,bb){
 	    response.date = new Date(response.date);
 	    response.infoDate = new Date(response.infoDate);
 	    return response;
+	},
+
+	validate: function(attr, options) {
+	    if (!attr['title']) {
+		return "party title is missing";
+	    };
+	    if (!attr['date'] || !attr['infoDate']) {
+		return "Important dates are missing";
+	    }
+	    if (attr['date'] < attr['infoDate']) {
+		return "Info time can't be after party has started";
+	    }
 	}
     });
 

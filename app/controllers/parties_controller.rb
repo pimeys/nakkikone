@@ -14,7 +14,7 @@ class PartiesController < ApplicationController
                                 :info_date => params[:infoDate])
       render :json => party
     else
-      render :status => 500 #TODO render errors here 
+      render :status => 400, :json => party.errors
     end
   end
 
@@ -25,6 +25,8 @@ class PartiesController < ApplicationController
                        :info_date => params[:infoDate])
     if party.save
       render :json => party
+    else
+      render :status => 400, :json => party.errors
     end
   end
 

@@ -247,7 +247,18 @@ define([
 	    vent.on('changeParty', this.select);
 	    vent.on('createdParty', this.creationEdit);
 	    vent.on('detach', this.remove);
+	    this.listenTo(this.model, 'invalid', this.notifyValidity);
 	    this.render();
+	},
+
+	changeModel: function(newModel) {
+	    this.stopListening(this.model);
+	    this.model = newModel;
+	    this.listenTo(this.model, 'invalid', this.notifyValidity);
+	},
+
+	notifyValidity: function() {
+	    alert('Your input is invalid: ' + this.model.validationError);
 	},
 	
 	render: function(){
@@ -274,7 +285,7 @@ define([
 	},
 
 	creationEdit: function(partyId){
-	    this.model = parties.get(partyId);
+	    this.changeModel(parties.get(partyId));
 	    this.edit();
 	},
 	
@@ -313,8 +324,9 @@ define([
 		    self.render();
 		},
 		
-		error: function(){
-		    alert('saving of the party failed in backend')
+		error: function(model, xhr, options){
+		    alert('Server failed save party, ' + xhr.responseText);
+		    self.render();
 		},
 		
 		wait:true
