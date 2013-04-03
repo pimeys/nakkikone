@@ -44,7 +44,7 @@ class NakkitypesController < ApplicationController
     render :status => 400, :json => {:message => "start/end range validation failed, must be start < end."} if 
       params[:start].nil? ||
       params[:end].nil? ||
-      params[:start] => params[:end]
+      params[:start] >= params[:end]
   end
 
   def reset_nakki_slots(nakkitype, start, endz)
