@@ -143,8 +143,15 @@ define([
 	rootel.html(publicScreen);
 	vent.off(); //hard reset!
 
-	var partyId = options.partyId;
-	party.fetch({url:'/parties/' + partyId, success:function(){
+	//todo hide to model
+	var partyFindUrl = '/parties/';
+	if (options.partyId) {
+	    partyFindUrl += options.partyId;
+	} else if (options.partyTitle) {
+	    partyFindUrl += options.partyTitle + '?by_title=true';
+	}
+
+	party.fetch({url:partyFindUrl, success:function(){
 	    nakit.partyId = party.get('id');
 
 	    //todo remove these when refactoring single click UI responses

@@ -19,12 +19,13 @@ define([
 	routes: {
 	    'admin' : 'showAdminScreen',
 	    'party/:id' : 'showPublicScreen',
+	    'party/id/:id' : 'showPublicScreenById',
 	    'sign_up' : 'showSignUpScreen'
 	},
 
 	initialize: function() {
 	    vent.on('user-created', function(){ location.href='/'}); //todo trigger route to show login page, now reloads whole page..
-	    vent.on('logged-in', function(){ router.navigate('party/1', {trigger:true});});
+	    vent.on('logged-in', function(){ router.navigate('party/by/1', {trigger:true});}); //todo remove or make dynamic query of latest
 	},
 	
 	showAdminScreen: function() {
@@ -36,7 +37,12 @@ define([
 	    signup.initialize({el:contentEl});
 	},
 
-	showPublicScreen: function(id) {
+	showPublicScreen: function(title) {
+	    admin.detach();
+	    pub.initialize({el:contentEl, partyTitle:title, currentUser: authentication.currentUser});
+	},
+
+	showPublicScreenById: function(id) {
 	    admin.detach();
 	    pub.initialize({el:contentEl, partyId:id, currentUser: authentication.currentUser});
 	}

@@ -165,7 +165,6 @@ This documentation is organizing development time todos.
    - simple extension to party/id pattern with optional query
      parameter
    - party title must be unique now
-** TODO Check and redefine resource url patterns if needed
 ** DONE model validations
    CLOSED: [2013-04-03 Wed 01:06]
    :CLOCK:
@@ -194,8 +193,9 @@ This documentation is organizing development time todos.
      - create role column (one role per user, simplicity here)
      - role should be enumerated (admin, user)
      - model addition and validation
-** TODO Document backend design and functionality
-* TODO UI stuff [15/19]
+** TODO [#C] Check and redefine resource url patterns if needed
+** TODO [#C] Document backend design and functionality
+* TODO UI stuff [16/19]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -364,7 +364,15 @@ This documentation is organizing development time todos.
    :END:
    - example nakkitype slot parsing fails because of invalid input
      - earlier time than start time
-** TODO redefine route patterns
+** DONE redefine route patterns
+   CLOSED: [2013-04-04 Thu 23:38]
+   :CLOCK:
+   CLOCK: [2013-04-04 Thu 23:22]--[2013-04-04 Thu 23:38] =>  0:16
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 23:38]
+   - State "STARTED"    from "TODO"       [2013-04-04 Thu 23:22]
+   :END:
    - if party could be fetched by its title it needs new url into backend
    - depends on query service
 ** WAITING [#C] improve party creation flow
