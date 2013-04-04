@@ -73,15 +73,18 @@ define([
 	    var self = this;
 	    var partyId = this.$('form').serializeArray()[0].value;
 	    var model = parties.get(partyId);
-	    model.destroy({
-		wait: true, 
-		success: function() {
-		    vent.trigger('changeParty', parties.at(0));
-		    self.render();
-		},
-		
-		error: _error 
-	    });
+	    var r = confirm("Are you sure to want to delete party " + model.get('title') + " ?");
+	    if (r) {
+		model.destroy({
+		    wait: true, 
+		    success: function() {
+			vent.trigger('changeParty', parties.at(0));
+			self.render();
+		    },
+		    
+		    error: _error 
+		});
+	    }
 	}
     });
 

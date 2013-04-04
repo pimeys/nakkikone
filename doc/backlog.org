@@ -182,7 +182,7 @@ This documentation is organizing development time todos.
      - role should be enumerated (admin, user)
      - model addition and validation
 ** TODO Document backend design and functionality
-* TODO UI stuff [14/19]
+* TODO UI stuff [15/19]
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -370,7 +370,16 @@ This documentation is organizing development time todos.
 ** TODO Time formatting
    - to show simpler time stamp
 ** TODO Change alerts to bootstrap notification modals
-** TODO Add confirmation to party Delete action 
+** DONE Add confirmation to party Delete action 
+   CLOSED: [2013-04-04 Thu 17:15]
+   :CLOCK:
+   CLOCK: [2013-04-04 Thu 17:07]--[2013-04-04 Thu 17:15] =>  0:08
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 17:15]
+   - State "STARTED"    from "TODO"       [2013-04-04 Thu 17:07]
+   :END:
+   - delete confirmation and associations fixed
 * TODO [0/2] Usability stuff
 ** TODO adding cancellation possibility of nakkis
    - UI that allows user to remove its own nakki reservations

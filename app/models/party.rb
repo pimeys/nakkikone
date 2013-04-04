@@ -1,11 +1,8 @@
 class Party < ActiveRecord::Base
   attr_accessible :title, :description, :date, :info_date
 
-  has_many :nakkis, :dependent => :delete_all
   has_many :aux_nakkis, :dependent => :delete_all
   has_many :nakkitypes, :dependent => :delete_all
-
-  has_many :users               # TODO remove, users are assosiated via nakkis
   
   validates :title, :presence => true, :length => {
     :minimum => 3,
