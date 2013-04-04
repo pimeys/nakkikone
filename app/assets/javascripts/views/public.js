@@ -5,11 +5,12 @@ define([
     'backbone',
     'collections',
     'models',
+    'bs',
     'hbs!templates/public-screen',
     'hbs!templates/party-description',
     'hbs!templates/nakki-table', 
     'hbs!templates/aux-job-selector', 
-], function($, _, bb, collections, models, publicScreen, party_description, nakki_table, auxJobSelector) {
+], function($, _, bb, collections, models, bs, publicScreen, party_description, nakki_table, auxJobSelector) {
 
     var vent = {};
     _.extend(vent, bb.Events);
