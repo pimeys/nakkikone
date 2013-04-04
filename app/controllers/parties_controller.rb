@@ -35,9 +35,17 @@ class PartiesController < ApplicationController
   end
 
   def show
-    party = Party.find(params[:id])
+    party = nil;
+    if (params[:by_title])
+      party = Party.where(:title => params[:id]).first
+    else
+      party = Party.find(params[:id])
+    end
+
     if party
       render :json => party
+    else
+      render :status => 404, :text => "not found"
     end
   end
 

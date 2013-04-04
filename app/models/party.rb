@@ -4,7 +4,7 @@ class Party < ActiveRecord::Base
   has_many :aux_nakkis, :dependent => :delete_all
   has_many :nakkitypes, :dependent => :delete_all
   
-  validates :title, :presence => true, :length => {
+  validates :title, :presence => true, :uniqueness => true, :length => {
     :minimum => 3,
     :maximum => 50,
     :too_short => "#{count} character is minimum allowed",
