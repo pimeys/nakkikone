@@ -42,6 +42,9 @@ body {
 	margin-right: 4%;
 	display:inline-block;
 }
+.name {
+	padding: 5px 20px 0 0;
+}
 #logout {
 	position: inherit;
 }

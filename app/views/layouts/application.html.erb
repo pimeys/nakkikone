@@ -18,6 +18,7 @@
     <link rel="icon" type="image/png" href="http://entropy.fi/favicon.ico" />
     <%= stylesheet_link_tag '__main.css' %>
     <%= stylesheet_link_tag '_bootstrap.min.css' %>
+    <%= stylesheet_link_tag 'bootstrap-responsive.min.css' %>
     <%= stylesheet_link_tag 'style.css' %>
     <%= stylesheet_link_tag 'datepicker.css' %>
     <%= stylesheet_link_tag 'bootstrap-timepicker.css' %>
@@ -41,7 +42,7 @@
       </div>
     </div>
     <div class="row-fluid">
-	<div class="span1"></div>
+	<div class="span1 hidden-phone"></div>
 	<div id="content" class="span10">
 	  <%= yield %>
 	</div>
