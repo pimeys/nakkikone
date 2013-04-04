@@ -11,16 +11,22 @@ define([
     
     var SubmitModel = models.Person.extend({
 	defaults: {
-	    name: "Your name",
-	    email: "your@email.com",
-	    number: "0123456",
-	    password: "password",
-	    password_confirmation: ""
+	    name: null,
+	    email: null,
+	    number: "no number given",
+	    password: null,
+	    password_confirmation: null
 	},
 	
 	urlRoot: 'users',
 
-	validate: function(attr) {
+	validate: function(attr, options) {
+	    if (!attr['name']) {
+		return "name missing (mandatory)";
+	    }
+	    if (!attr['email']) {
+		return "missing email (mandatory)";
+	    }
 	    if (attr.password !== attr.password_confirmation) {
 		return "you miss typed your password";
 	    }
@@ -36,7 +42,12 @@ define([
 	events: {'submit': 'save'},
 
 	initialize: function() {
-	    _.bindAll(this, 'save');
+	    _.bindAll(this);
+	    this.listenTo(this.model,'invalid',this.notify);
+	},
+
+	notify: function() {
+	    alert("Failed to signup: " + this.model.validationError);
 	},
 
 	render: function() {
@@ -57,17 +68,11 @@ define([
 		    vent.trigger('user-created');
 		},
 
-		error: function(model, err) {
-		    alert('Failed to create user, ' + err);
-		    self.reset();
+		error: function(model, xhr, options) {
+		    alert('Failed to signup: ' + xhr.responseText);
 		}
 	    });
 	    return false;
-	},
-
-	reset: function() {
-	    this.model = getSubmitUser();
-	    this.render();
 	}
     });
     
