@@ -69,7 +69,7 @@ used as logging tool after that.
     - handlebars template helpers silently fails
     - hbs compiles templates to javasript, is it needed to filter static html as well?
 ** TODO install jasmine plugin
-* Backend stuff [10/11]						  :IMPLEMENT:
+* Backend stuff [10/11] 					  :IMPLEMENT:
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -200,7 +200,7 @@ used as logging tool after that.
      Was done during feature additions, and would be wasteful now.
    :END:
 ** TODO implement unit tests for server side code
-* UI stuff [16/18]						  :IMPLEMENT:
+* UI stuff [17/19] 						  :IMPLEMENT:
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -390,9 +390,24 @@ used as logging tool after that.
    - State "STARTED"    from "TODO"       [2013-04-04 Thu 17:07]
    :END:
    - delete confirmation and associations fixed
+** DONE Change alerts to bootstrap notification boxes
+   CLOSED: [2013-04-05 Fri 17:58]
+   :CLOCK:
+   CLOCK: [2013-04-05 Fri 17:33]--[2013-04-05 Fri 17:58] =>  0:25
+   CLOCK: [2013-04-05 Fri 16:38]--[2013-04-05 Fri 17:23] =>  0:45
+   CLOCK: [2013-04-05 Fri 12:56]--[2013-04-05 Fri 13:59] =>  1:03
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-05 Fri 17:58]
+   - State "STARTED"    from "WAITING"    [2013-04-05 Fri 17:33]
+   - State "STARTED"    from "WAITING"    [2013-04-05 Fri 16:38]
+   - State "STARTED"    from "TODO"       [2013-04-05 Fri 12:56]
+   :END:
+   - all alerts should be bootstrap notify/alert indications
+   - messaging is done via vent to common area in each page
+   - needs own view for that
 ** TODO Time formatting
    - to show simpler time stamp
-** TODO Change alerts to bootstrap notification modals
 ** TODO create jasmine tests for backbone code
 * Improvement ideas [0/4] 					     :DESIGN:
 ** TODO [1/4] Usability stuff

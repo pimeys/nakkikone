@@ -9,8 +9,9 @@ define([
     'hbs!templates/public-screen',
     'hbs!templates/party-description',
     'hbs!templates/nakki-table', 
-    'hbs!templates/aux-job-selector', 
-], function($, _, bb, collections, models, bs, publicScreen, party_description, nakki_table, auxJobSelector) {
+    'hbs!templates/aux-job-selector',
+    'hbs!templates/alert'
+], function($, _, bb, collections, models, bs, publicScreen, party_description, nakki_table, auxJobSelector, alertTmpl) {
 
     var vent = {};
     _.extend(vent, bb.Events);
@@ -21,6 +22,31 @@ define([
 
     var party = new models.Party();
     var nakit = new collections.Nakit();
+
+    //TODO refactor to common-module
+    var NotificationArea = bb.View.extend({
+	initialize: function() {
+	    _.bindAll(this);
+	    vent.on('detach', this.remove);
+	    this.listenTo(vent, 'alert', this.showAlert);
+	    this.listenTo(vent, 'notify', this.showNotify);
+	    this.render();
+	},
+
+	showAlert: function(message) {
+	    message.type = 'error';
+	    this.appendAlert(message);
+	},
+
+	showNotify: function(message) {
+	    message.type = 'success';
+	    this.appendAlert(message);
+	},	
+
+	appendAlert: function(message) {
+	    this.$el.append(alertTmpl({message: message}));
+	}
+    });
 
     var Party_Viewer = bb.View.extend({
 	initialize: function(){
@@ -51,18 +77,32 @@ define([
 	},
 
 	submit: function(assigned) {
-	    // TODO refactor to trigger event to status view
-	    var notify = function(){ alert("your cleaning/construction has been registered.")};
 	    var type = this.$('form').serializeArray()[0].value;
 	    if (type === "both") {
-	    	this.model1.save({type:"clean"}, {wait:true, success:notify, error: _errorDebug});
-		this.model2.save({type:"const"}, {wait:true, success:notify, error: _errorDebug});
+	    	this.model1.save({type:"clean"}, {wait:true, success:this.notify, error: this.alert});
+		this.model2.save({type:"const"}, {wait:true, success:this.notify, error: this.alert});
 	    } else if (type === "none"){
 		return false;
 	    } else {
-		this.model1.save({type:type}, {wait:true, success:notify, error: _errorDebug});
+		this.model1.save({type:type}, {wait:true, success: this.notify, error: this.alert});
 	    }
 	    return false;
+	},
+
+	notify: function(model, options) {
+	    var message = {
+		title: "Success!",
+		text: "Your " + model.get('type') + " has been succesfully registered for you."
+	    }
+	    vent.trigger('notify', message);
+	},
+
+	alert: function(model, xhr, options) {
+	    var message = {
+		title: "Failure (Something went wrong in server)!",
+		text: "Your assignment request failed because: " + xhr.responseText
+	    }
+	    vent.trigger('alert', message);
 	},
 
 	render: function(){
@@ -94,23 +134,36 @@ define([
 	    if (ids.length == 0) {
 		return false;
 	    }
-	    
+	    this.returned = _.after(ids.length, this.render); //todo safe?
 	    var self = this;
-	    var _setted = _.after(ids.length, function(){
-		self.render();
-		alert("your nakkis have been registered."); // todo trigger event in notify
-	    });
-
 	    _.each(ids, function(current){
 		var model = nakit.get(current);
 		model.save({assign: assignedPerson.id}, 
 			   { 
-			       wait:true, 
-			       success: _setted, 
-			       error: _errorDebug
+			       wait: true, 
+			       success: self.notify, 
+			       error: self.alert
 			   });
 	    });
 	    return false;
+	},
+
+	notify: function(model, options) {
+	    this.returned();
+	    var message = {
+		title: "Success!",
+		text: "Your " + model.get('type') + " has been succesfully registered for you."
+	    }
+	    vent.trigger('notify', message);
+	},
+
+	alert: function(model, xhr, options) {
+	    this.returned();
+	    var message = {
+		title: "Failure (Something went wrong in server)!",
+		text: "Your assignment request failed because: " + xhr.responseText
+	    }
+	    vent.trigger('alert', message);
 	}
     });
     
@@ -143,6 +196,8 @@ define([
 	var rootel = options.el;
 	rootel.html(publicScreen);
 	vent.off(); //hard reset!
+	
+	new NotificationArea({el: $('#alert-area', rootel)});
 
 	//todo hide to model
 	var partyFindUrl = '/parties/';

@@ -13,8 +13,9 @@ define([
     'hbs!templates/edit-nakkis',
     'hbs!templates/selector',
     'hbs!templates/party-description',
-    'hbs!templates/party-editor-form'
-], function($, _, bb, collections, models, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit) {
+    'hbs!templates/party-editor-form',
+    'hbs!templates/alert'
+], function($, _, bb, collections, models, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, alertTmpl) {
 
     //TODO fix party creation refresh for nakkitypes editor.
 
@@ -35,6 +36,31 @@ define([
 	//todo proper delegatation to router
 	location.href = '/';
     };
+    
+    //TODO refactor to common-module
+    var NotificationArea = bb.View.extend({
+	initialize: function() {
+	    _.bindAll(this);
+	    vent.on('detach', this.remove);
+	    this.listenTo(vent, 'alert', this.showAlert);
+	    this.listenTo(vent, 'notify', this.showNotify);
+	    this.render();
+	},
+
+	showAlert: function(message) {
+	    message.type = 'error';
+	    this.appendAlert(message);
+	},
+
+	showNotify: function(message) {
+	    message.type = 'success';
+	    this.appendAlert(message);
+	},	
+
+	appendAlert: function(message) {
+	    this.$el.append(alertTmpl({message: message}));
+	}
+    });
 
     var Party_Selector = bb.View.extend({
 	events: {
@@ -77,14 +103,28 @@ define([
 	    if (r) {
 		model.destroy({
 		    wait: true, 
-		    success: function() {
-			vent.trigger('changeParty', parties.at(0));
-			self.render();
-		    },
-		    
-		    error: _error 
+		    success: this.notify,
+		    error: this.alert
 		});
 	    }
+	},
+	
+	notify: function(model, options) {
+	    var message = {
+		title: 'Success',
+		text: "Party " + model.get('title') + " successfully removed."
+	    };
+	    vent.trigger('notify', message);
+	    vent.trigger('changeParty', parties.at(0));
+	    this.render();
+	},
+
+	alert: function(model, xhr, options) {
+	    var message = {
+		title: "Failure (Something went wrong in server)!",
+		text: "Your assignment request failed because: " + xhr.responseText
+	    }
+	    vent.trigger('alert', message);
 	}
     });
 
@@ -99,7 +139,7 @@ define([
 	    _.bindAll(this);
 	    vent.on('changeParty', this.refresh);
 	    vent.on('detach', this.remove);
-	    this.listenTo(this.collection,'remove',this.render);
+	    this.listenTo(this.collection, 'remove', this.render);
 	    this.render();
 	},
 	
@@ -128,11 +168,29 @@ define([
 	    var cancelledUser = this.collection.get($(event.target).data('id'));
 	    cancelledUser.partyId = this.collection.partyId;
 	    cancelledUser.destroy({
-		success: function(model, response) {
-		    self.collection.remove(cancelledUser);
-		}
+		success: this.notify,
+		error: this.error
 	    });
-	} 
+	},
+
+	notify: function(model, options) {
+	    var message = {
+		title: 'Success',
+		text: "User " + model.get('name') + " successfully removed from parcipitants list."
+	    };
+	    vent.trigger('notify', message);
+	    vent.trigger('changeParty', parties.at(0));
+	    this.collection.remove(model);
+	    this.render();
+	},
+
+	alert: function(model, xhr, options) {
+	    var message = {
+		title: "Failure (Something went wrong in server)!",
+		text: "Your assignment request failed because: " + xhr.responseText
+	    }
+	    vent.trigger('alert', message);
+	}
     });
 
     var Constructors_List = User_List.extend({
@@ -175,7 +233,7 @@ define([
 	    this.collection.fetch({
 		success: this.render, 
 		
-		error: function(){
+		error: function() {
 		    self.collection.reset();
 		    self.$el.html(nakkilist({nakit:{}}));
 		}
@@ -208,11 +266,12 @@ define([
 	    model.destroy({
 		wait:true,
 		
-		success:function(){
+		success: function() {
+		    self.notify();
 		    self.render();
 		},
-	
-		error: _error 
+		
+		error: this.alert 
 	    });
 	    return false;
 	},
@@ -228,10 +287,10 @@ define([
 	    return data;
 	},
 
-	saveCollection: function(){
+	saveCollection: function() {
 	    var self = this;
 	    //TODO here we would reset whole collection based on input of the edit table.
-	    $('#nakit form').each(function(){
+	    $('#nakit form').each(function() {
 		var arr = $(this).serializeArray();
 		var data = _(arr).reduce(function(acc, field) {
 		    acc[field.name] = field.value;
@@ -239,7 +298,10 @@ define([
 		}, {});
 		var model = self.collection.get(data["cid"]);
 		delete data['cid'];
-		model.save(self.parseData(data));
+		model.save(self.parseData(data), {
+		    success: self.notify,
+		    error: self.alert
+		});
 	    });
 	    var errors = _.reduce(this.collection.models, function(memo, model) {
 		if (!!model.validationError) {
@@ -248,11 +310,34 @@ define([
 		return memo;
 	    }, {});
 	    if (!_.isEmpty(errors)) {
-		//TODO better messaging.
-		alert('Your input is invalid: ' + errors);
+		_.each(_.keys(errors), function(el) {
+		    var message = {
+			title: "Validation failed in nakkitype id=" + el,
+			text: errors[el]
+		    };
+		    vent.trigger('alert', message);
+		});
 	    } else {
 		this.render();
 	    }
+	},
+
+	notify: function(model, options) {
+	    var message = {
+		title: 'Success',
+		text: "Nakki " + model.get('type') + " successfully created/modified/removed."
+	    };
+	    vent.trigger('notify', message);
+	    vent.trigger('changeParty', parties.at(0));
+	    this.render();
+	},
+
+	alert: function(model, xhr, options) {
+	    var message = {
+		title: "Failure in nakkitype "+ model.get('type') + " (Something went wrong in server)!",
+		text: "Your assignment request failed because: " + xhr.responseText
+	    }
+	    vent.trigger('alert', message);
 	}
     });
     
@@ -280,7 +365,11 @@ define([
 	},
 
 	notifyValidity: function() {
-	    alert('Your input is invalid: ' + this.model.validationError);
+	    var message = {
+		title: "Party edit validation",
+		text: "Input is invalid, " + this.model.validationError
+	    }
+	    vent.trigger('alert', message);
 	},
 	
 	render: function(){
@@ -337,23 +426,30 @@ define([
 		return acc;
 	    }, {});
 	    var data = this.parseData(input_data);
-
-	    var self = this;
 	    this.model.save(data, {
-		success: function(model) {
-		    vent.trigger('changeParty', model.get('id'));
-		    vent.trigger('partyEdited', model.get('title'));
-		    self.render();
-		},
-		
-		error: function(model, xhr, options){
-		    alert('Server failed save party, ' + xhr.responseText);
-		    self.render();
-		},
-		
+		success: this.notify, 
+		error: this.alert,
 		wait:true
 	    });
 	    return false;
+	},
+
+	notify: function(model, options) {
+	    var message = {
+		title: 'Success',
+		text: "Party " + model.get('title') + " successfully modified."
+	    };
+	    vent.trigger('notify', message);
+	    vent.trigger('partyEdited', model.get('title'));
+	    this.render();
+	},
+
+	alert: function(model, xhr, options) {
+	    var message = {
+		title: "Failure in Party modification "+ model.get('title') + " (Something went wrong in server)!",
+		text: "Your request failed because: " + xhr.responseText
+	    }
+	    vent.trigger('alert', message);
 	}
     });
 
@@ -362,6 +458,8 @@ define([
 	var rootel = options.el;
 	rootel.html(adminScreen);
 	vent.off(); //hard reset!
+
+	new NotificationArea({el: $('#admin-alert-area', rootel)});
 
 	parties.fetch( {
 	    success: function() {
@@ -373,7 +471,7 @@ define([
 		    nakkitypes.partyId = latestParty.get('id');
 		    
 		    var _ready = _.after(3, function(){
-			new Party_Selector({el:$('#party-selector',rootel), selected: latestParty.title});
+			new Party_Selector({el: $('#party-selector',rootel), selected: latestParty.title});
 			new Party_Viewer({el: $('#party', rootel), model: latestParty});
 			new Nakki_List({el: $('#nakit', rootel), model: latestParty, collection: nakkitypes});
 
