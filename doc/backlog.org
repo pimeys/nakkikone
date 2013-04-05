@@ -394,7 +394,7 @@ used as logging tool after that.
    - to show simpler time stamp
 ** TODO Change alerts to bootstrap notification modals
 ** TODO create jasmine tests for backbone code
-* Improvement ideas [0/3]					     :DESIGN:
+* Improvement ideas [0/4] 					     :DESIGN:
 ** TODO [1/4] Usability stuff
 *** DONE Adding nickname for users
     CLOSED: [2013-04-05 Fri 12:13]
@@ -437,7 +437,10 @@ used as logging tool after that.
 ** Two levels of nakkis
    - special nakki assignment for organizers?
 ** Create separate authentication module
-* Development time defects [3/4]			      :IMPLEMENT:BUG:
+** TODO refactor nakkitype view to be more manageable
+   - nakkitypes.add to .create (more sync with backend)
+   - collect validation errors from backend
+* Development time defects [3/3] 			      :IMPLEMENT:BUG:
 ** DONE after login and reload page, assigned user is empty
    CLOSED: [2013-02-28 Thu 22:29]
    :CLOCK:
@@ -478,6 +481,3 @@ used as logging tool after that.
    - State "DONE"       from "STARTED"    [2013-04-04 Thu 01:15]
    - State "STARTED"    from "TODO"       [2013-04-04 Thu 01:09]
    :END:
-** TODO refactor nakkitype view to be more manageable
-   - nakkitypes.add to .create (more sync with backend)
-   - collect validation errors from backend
