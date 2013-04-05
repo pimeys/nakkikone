@@ -12,8 +12,9 @@ define([
     var SubmitModel = models.Person.extend({
 	defaults: {
 	    name: null,
+	    nick: null,
 	    email: null,
-	    number: "no number given",
+	    number: null,
 	    password: null,
 	    password_confirmation: null
 	},
@@ -21,6 +22,9 @@ define([
 	urlRoot: 'users',
 
 	validate: function(attr, options) {
+	    if (!attr['nick']) {
+		return "nick name missing (mandatory)";
+	    }
 	    if (!attr['name']) {
 		return "name missing (mandatory)";
 	    }

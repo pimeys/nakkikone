@@ -1,3 +1,3 @@
 class OnlyUserNameSerializer < ActiveModel::Serializer
-  attributes :name
+  attribute :nick, :key => :name
 end

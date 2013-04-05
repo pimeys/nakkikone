@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password, :password_confirmation, :name, :number, :role
+  attr_accessible :email, :password, :password_confirmation, :name, :number, :role, :nick
   
   attr_accessor :password
   before_save :encrypt_password
@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
     :in => %w(admin user), 
     :message => "%{value} is not valid role"
   }
+
+  validates_presence_of :name, :nick
   
   def self.authenticate(email, password)
     user = find_by_email(email)
