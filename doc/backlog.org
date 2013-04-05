@@ -200,7 +200,7 @@ used as logging tool after that.
      Was done during feature additions, and would be wasteful now.
    :END:
 ** TODO implement unit tests for server side code
-* UI stuff [17/19] 						  :IMPLEMENT:
+* UI stuff [18/19] 						  :IMPLEMENT:
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -406,8 +406,23 @@ used as logging tool after that.
    - all alerts should be bootstrap notify/alert indications
    - messaging is done via vent to common area in each page
    - needs own view for that
-** TODO Time formatting
+** DONE Time formatting
+   CLOSED: [2013-04-06 Sat 01:31]
+   :CLOCK:
+   CLOCK: [2013-04-05 Fri 23:27]--[2013-04-06 Sat 01:31] =>  2:04
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-06 Sat 01:31]
+   - State "STARTED"    from "TODO"       [2013-04-05 Fri 23:27]
+   :END:
    - to show simpler time stamp
+     - display format for time HH:mm
+     - display format for dates dd.mm.yyyy
+     - make sure that input conversions work
+*** notes
+    - muthafucking moment and languages, pain in the ass, minified
+      doesn't work in current setup
+    - all moments are local setted to use fi...
 ** TODO create jasmine tests for backbone code
 * Improvement ideas [0/4] 					     :DESIGN:
 ** TODO [1/4] Usability stuff

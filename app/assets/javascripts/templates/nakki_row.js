@@ -1,22 +1,18 @@
-define('templates/nakki_row', ['handlebars','underscore'], function ( Handlebars, _) {
+define('templates/nakki_row', [
+    'handlebars',
+    'underscore',
+    'templates/prettyTimeFromSlot'
+], function ( Handlebars, _, timeFormatter) {
     
-    function parseTime(slot, startTime) {
-	var time = new Date(startTime);
-	time.setHours(time.getHours() + slot);
-	time.setMinutes(0);
-	time.setSeconds(0);
-	return time.toTimeString()
-    }
-
     function nakki_row(startTime, titles){
 	var missing = _.map(_.difference(titles, _.pluck(this, 'type')), 
-			  function(el) {
-			      return { type:el };
-			  });
+			    function(el) {
+				return { type:el };
+			    });
 
 	var sortedByType = _.sortBy(_.union(this, missing), 'type');
 
-	var row = "<td>" + parseTime(this[0].slot, startTime) + "</td>";
+	var row = "<td>" + timeFormatter(this[0].slot, startTime) + "</td>";
 	_.each(sortedByType, function(nakki) {
 	    row += "<td>";
 	    if (!!nakki.assign) {

@@ -1,8 +1,13 @@
-define('templates/prettyDate', ['handlebars'], function (Handlebars) {
-    
+define('templates/prettyDate', [
+    'handlebars',
+    'moment',
+    'languages'
+], function (Handlebars, moment) {
+
     function prettyDate(dateJSON){
-	var date = new Date(dateJSON)
-	return new Handlebars.SafeString(date.toLocaleDateString());
+	var date = moment(dateJSON);
+	date.lang('fi'); //todo place somewhere else
+	return new Handlebars.SafeString(date.format("DD.MM.YYYY"));
     };
 
     Handlebars.registerHelper('prettyDate', prettyDate);

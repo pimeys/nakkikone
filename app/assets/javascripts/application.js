@@ -6,6 +6,8 @@ require.config({
         jquery: 'libs/jquery-1.7.2',
         underscore: 'libs/underscore',
         backbone: 'libs/backbone',
+	moment: "libs/moment/moment.min",
+	languages: "libs/moment/langs",
 	
 	handlebars : "libs/Handlebars",
         hbs : 'libs/hbs',
@@ -43,7 +45,9 @@ require.config({
 	'bs' : {
 	    deps: ['jquery'],
 	    exports: 'bs'
-	}
+	},
+	
+	'languages' : ['moment']
     },
 
     hbs: {
@@ -54,6 +58,6 @@ require.config({
 });
 
 //todo cleanup these helpers away... shim... 
-require(['app','templates/nakki_row','templates/prettyDate'],function(app){
+require(['app'],function(app){
     app.initialize();
 });

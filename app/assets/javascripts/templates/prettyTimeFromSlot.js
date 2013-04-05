@@ -1,9 +1,12 @@
-define('templates/prettyTimeFromSlot', ['handlebars'], function (Handlebars) {
+define('templates/prettyTimeFromSlot', [
+    'handlebars',
+    'templates/prettyTime'
+], function (Handlebars, timeFormatter) {
     
     function prettyTimeFromSlot(slot, dateJSON){
 	var date = new Date(dateJSON);
 	date.setHours(date.getHours() + slot);
-	return new Handlebars.SafeString(date.toTimeString());
+	return timeFormatter(date.toJSON());
     };
 
     Handlebars.registerHelper('prettyTimeFromSlot', prettyTimeFromSlot);

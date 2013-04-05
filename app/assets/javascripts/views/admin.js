@@ -5,6 +5,8 @@ define([
     'backbone',
     'collections',
     'models',
+    'moment',
+    'languages',
     'bootstrapDatepicker',
     'bootstrapTimepicker',
     'hbs!templates/admin-screen',
@@ -15,7 +17,7 @@ define([
     'hbs!templates/party-description',
     'hbs!templates/party-editor-form',
     'hbs!templates/alert'
-], function($, _, bb, collections, models, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, alertTmpl) {
+], function($, _, bb, collections, models, moment, languages, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, alertTmpl) {
 
     //TODO fix party creation refresh for nakkitypes editor.
 
@@ -385,6 +387,7 @@ define([
 	edit: function() {
 	    this.$el.html(party_edit({party:this.model.toJSON()}));
 	    $('.datepicker', this.$el).datepicker({
+		format: "dd.mm.yyyy",
 		startDate: new Date(),
 		autoclose: true
 	    });
@@ -403,11 +406,11 @@ define([
 	//todo move to time/date parsing module
 	parseData: function(data) {
 	    var parseDate = function(dateString, timeString) {
-		var date = new Date(dateString);
+		var date = moment(dateString, "DD.MM.YYYY");
 		var time = timeString.split(":");
-		date.setHours(time[0]);
-		date.setMinutes(time[1]);
-		return date;
+		date.hours(time[0]);
+		date.minutes(time[1]);
+		return date.toDate();
 	    };
 
 	    var parsed = {};

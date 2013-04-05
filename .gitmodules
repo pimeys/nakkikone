@@ -13,3 +13,6 @@
 [submodule "lib/assets/bootstrap-timepicker"]
 	path = lib/assets/bootstrap-timepicker
 	url = git://github.com/jdewit/bootstrap-timepicker.git
+[submodule "lib/assets/moment"]
+	path = lib/assets/moment
+	url = git://github.com/timrwood/moment.git
