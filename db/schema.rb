@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20110124034948) do
 
   create_table "parties", :force => true do |t|
     t.string   "title", :null => false, :unique => true
-    t.string   "description"
+    t.text     "description", :limit => 1000
     t.datetime "date", :null => false
     t.datetime "info_date", :null => false
     t.datetime "created_at",    :null => false
