@@ -25,7 +25,7 @@ define([
 
 	initialize: function() {
 	    vent.on('user-created', function(){ location.href='/'}); //todo trigger route to show login page, now reloads whole page..
-	    vent.on('logged-in', function(){ router.navigate('party/by/1', {trigger:true});}); //todo remove or make dynamic query of latest
+	    vent.on('logged-in', function(){ router.navigate('party/id/1', {trigger:true});}); //todo remove or make dynamic query of latest
 	},
 	
 	showAdminScreen: function() {
