@@ -1,7 +1,8 @@
 define([
     'jquery',
-    'backbone'
-], function($, bb) {
+    'backbone',
+    'moment'
+], function($, bb, moment) {
 
     var PartyResource = bb.Model.extend({
 	partyId: 'noparties',
@@ -70,10 +71,10 @@ define([
 
     var Party = bb.Model.extend({
 	defaults: {
-	    title: "Party title",
-	    description: "Osallistumalla nakkiin pääset maksutta bileisiin",
-	    date: new Date(),
-	    infoDate: new Date()
+	    title: "Party Title",
+	    description: "Osallistumalla nakkiin pääset maksutta bileisiin.",
+	    date: moment().add('days', 14).toDate(),
+	    infoDate: moment().add('days', 14).toDate()
 	},
 
 	//TODO remove after UI refactoring

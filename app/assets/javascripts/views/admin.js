@@ -64,6 +64,21 @@ define([
 	}
     });
 
+    var createDefaultNakkiTypes = function(partyModel) {
+	nakkitypes.reset();
+	nakkitypes.partyId = partyModel.id;
+	var defaultNakkiTypes = [
+	    {type: "Ticket Sales", start: 0, end: 6},
+	    {type: "Kiosk", start: 0, end: 6},
+	    {type: "Cloackroom", start: 0, end: 6},
+	    {type: "Bouncer", start: 0, end: 6},
+	    {type: "Light Controller", start: 0, end: 6},
+	]
+	_.each(defaultNakkiTypes, function(el) {
+	    nakkitypes.create(el);
+	});
+    };
+
     var Party_Selector = bb.View.extend({
 	events: {
 	    "change .selector" : "select",
@@ -79,8 +94,15 @@ define([
 	    this.render();
 	},
 
-	render: function(partyTitle){
-	    this.$el.html(selector({parties:parties.toJSONWithClientID(), selected:partyTitle}));
+	render: function(model) { //todo selection flagging with handlebars helper func
+	    var title = model ? model.get('title') : null;
+	    var data = _.map(parties.toJSONWithClientID(), function(el) {
+		if (title && el['title'] === title) {
+		    el['selected'] = true;
+		}
+		return el;
+	    });
+	    this.$el.html(selector({parties: data}));
 	    return this.$el;
 	},
 	
@@ -90,11 +112,18 @@ define([
 	},
 
 	create: function() {
+	    var self = this;
 	    var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
-	    var party = new models.Party({title:partyTitle});
-	    parties.add(party);
-	    vent.trigger('createdParty', party.cid);
-	    this.render(partyTitle);
+	    parties.create({title: partyTitle}, {
+		wait:true,
+		success: function(model, options) {
+		    createDefaultNakkiTypes(model);
+		    vent.trigger('createdParty', model.cid); //todo remove
+		    self.render(model);
+		},
+		error: this.alert
+	    });
+	    
 	},
 
 	destroy: function(){
@@ -223,6 +252,7 @@ define([
 	    vent.on('changeParty', this.refresh);
 	    this.collection.on('add', this.edit);
 	    this.collection.on('remove', this.edit);
+	    this.collection.on('reset', this.render);
 	    vent.on('detach', this.remove);
 	    this.render();
 	},
@@ -237,7 +267,6 @@ define([
 		
 		error: function() {
 		    self.collection.reset();
-		    self.$el.html(nakkilist({nakit:{}}));
 		}
 	    });
 	},
@@ -443,7 +472,7 @@ define([
 		text: "Party " + model.get('title') + " successfully modified."
 	    };
 	    vent.trigger('notify', message);
-	    vent.trigger('partyEdited', model.get('title'));
+	    vent.trigger('partyEdited', model);
 	    this.render();
 	},
 

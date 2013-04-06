@@ -1,7 +1,7 @@
 <form method="post">
   <select name="parties" class="selector">
     {{#each parties}}
-    <option value="{{ this.cid }}" {{#if selected}}selected="true"{{/if}}>{{ this.title }}</option>
+    <option value="{{ this.cid }}" {{#if this.selected }}selected="true"{{/if}}>{{ this.title }}</option>
     {{/each}}
   </select>
 </form>
