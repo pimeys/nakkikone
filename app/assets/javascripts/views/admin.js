@@ -33,11 +33,8 @@ define([
 
     var nakkitypes = new collections.Nakkitypes();
 
-    //todo move to separate error-handling-module
-    var _error = function(col, error) {
-	alert('Failure: ' + error.statusText);
-	//todo proper delegatation to router
-	location.href = '/';
+    var _error = function(collection, xhr, options) {
+	//notify shitty accidents, ignore 403 and 401
     };
 
     var EmailToAll = bb.View.extend({

@@ -183,15 +183,8 @@ define([
 
     //todo move to separate error-handling-module
     var _error = function(col, error) {
-	alert('Failure: ' + error.statusText);
-	//todo proper delegatation to router
-	location.href = '/';
     };
-
-    var _errorDebug = function(col, error) {
-	alert('Failure: ' + error.statusText);
-    };
-    
+   
     var initialize = function(options) {
 	var rootel = options.el;
 	rootel.html(publicScreen);
@@ -227,7 +220,7 @@ define([
 		auxjobs.model2 = model2;
 	    };
 
-	    nakit.fetch({success:_ready, error:_error});
+	    nakit.fetch({success:_ready, error: _error});
 	}, error: _error});
     };
 

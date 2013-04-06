@@ -20,14 +20,25 @@ define([
 	    'admin' : 'showAdminScreen',
 	    'party/:id' : 'showPublicScreen',
 	    'party/id/:id' : 'showPublicScreenById',
-	    'sign_up' : 'showSignUpScreen'
+	    'sign_up' : 'showSignUpScreen',
+	    'login'   : 'startingPage'
 	},
 
 	initialize: function() {
-	    vent.on('user-created', function(){ location.href='/'}); //todo trigger route to show login page, now reloads whole page..
-	    vent.on('logged-in', function(){ router.navigate('party/id/1', {trigger:true});}); //todo remove or make dynamic query of latest
+	    vent.on('user-created', this.startingPage);
+	    vent.on('logged-in', function(hash){ 
+		if(hash) {
+		    router.navigate(hash, {trigger: true});
+		} else {
+		    router.navigate('party/id/1', {trigger: true});
+		}
+	    }); //todo remove or make dynamic query of latest
 	},
 	
+	startingPage: function() {
+	    new authentication.LoginView({el:contentEl});
+	},
+
 	showAdminScreen: function() {
 	    pub.detach();
 	    admin.initialize({el:contentEl});
@@ -50,7 +61,9 @@ define([
 
     var initialize = function() {
 	authentication.initialize(function() {
-	    new authentication.LoginView({el:$('#login')});
+	    if (!authentication.currentUser()) {
+		new authentication.LoginView({el:contentEl});
+	    }
 	    router = new Router();
 	    bb.history.start();
 	});

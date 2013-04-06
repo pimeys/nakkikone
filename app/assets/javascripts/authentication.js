@@ -4,13 +4,14 @@ define([
     'jquery',
     'models',
     'vent',
-    'hbs!templates/navigation'
-], function(Backbone, $, models, vent, navigationTemplate) {
+    'hbs!templates/navigation',
+    'hbs!templates/loginForm'
+], function(Backbone, $, models, vent, navigationTemplate, loginForm) {
 
     //Adding session authentication token to each request.
     Backbone.old_sync = Backbone.sync
     Backbone.sync = function(method, model, options) {
-	var new_options =  _.extend({
+	var new_options = _.extend({
             beforeSend: function(xhr) {
 		var token = $('meta[name="csrf-token"]').attr('content');
 		if (token) xhr.setRequestHeader('X-CSRF-Token', token);
@@ -28,17 +29,39 @@ define([
 	xhr.setRequestHeader("X-CSRF-Token", token);
     });
 
+    var followUpHash;
+
+    $.ajaxSetup({
+	statusCode: {
+	    401: function() {
+		followUpHash = window.location.hash;
+		alert('redirection to login');
+		window.location.hash = 'login';
+	    },
+	    
+	    403: function() {
+		alert('denied');
+		window.location.hash = 'denied';
+	    }
+	}
+    });
+
     var loggedUser;
 
     var Login_View = Backbone.View.extend({
-	events: {'submit':'login'},
+	events: {'submit': 'login'},
 
 	initialize: function() {
 	    _.bindAll(this, 'login');
+	    this.render();
+	},
+
+	render: function() {
+	    this.$el.html(loginForm());
 	},
 
 	login: function() {
-	    var arr = this.$el.serializeArray();
+	    var arr = $('#login', this.$el).serializeArray();
 	    var data = _(arr).reduce(function(acc, field) {
 		acc[field.name] = field.value;
 		return acc;
@@ -47,21 +70,29 @@ define([
 	    $.post('/login', data, function(data) {
 		loggedUser = new models.Person(data);
 		new Navigation({el: $("#navigation"), model: loggedUser}).render();
-		vent.trigger('logged-in');
+		vent.trigger('logged-in', followUpHash);
+		followUpHash = undefined;
 	    });
 	    return false;
 	}
     });
 
     var attemptLoginWithSessionCookie = function(cb) {
-	$.getJSON('/login', function(data) {
-	    loggedUser = new models.Person(data);
-	    console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
-	    new Navigation({el:$("#navigation"), model: loggedUser}).render();
-	    cb();
-	}).error(function() {
-	    console.log("no session cookie present, should do redirect...");
-	    cb();
+	$.ajax({
+	    url: '/login',
+	    dataType: 'json',
+	    success: function(data) {
+		loggedUser = new models.Person(data);
+		console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
+		new Navigation({el:$("#navigation"), model: loggedUser}).render();
+		cb();
+	    }, 
+	    statusCode: {
+		401: function() {
+		    console.log("no session cookie present...");
+		    cb();
+		}
+	    }
 	});
     };
 
