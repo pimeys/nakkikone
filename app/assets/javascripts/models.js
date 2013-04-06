@@ -36,7 +36,7 @@ define([
 	},
 
 	validate: function(attr, options) {
-	    if (!attr['slot']) {
+	    if (!attr['slot'] && attr['slot'] != 0) {
 		return "Nakki slot is undefined";
 	    }
 	    if (!attr['type']) {
