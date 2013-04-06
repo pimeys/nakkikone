@@ -424,7 +424,7 @@ used as logging tool after that.
       doesn't work in current setup
     - all moments are local setted to use fi...
 ** TODO create jasmine tests for backbone code
-* Improvement ideas [2/9] 					     :DESIGN:
+* Improvement ideas [3/9] 					     :DESIGN:
 ** DONE Default Nakkitypes
    CLOSED: [2013-04-06 Sat 11:37]
    :CLOCK:
@@ -446,7 +446,19 @@ used as logging tool after that.
    - State "STARTED"    from "TODO"       [2013-04-05 Fri 11:57]
    :END:
    - showing that in public side
-** TODO Mail to all Parcipitants button
+** DONE Mail to all participants Button
+   CLOSED: [2013-04-06 Sat 15:24]
+   :CLOCK:
+   CLOCK: [2013-04-06 Sat 14:04]--[2013-04-06 Sat 15:24] =>  1:20
+   CLOCK: [2013-04-06 Sat 13:02]--[2013-04-06 Sat 13:15] =>  0:13
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-06 Sat 15:24]
+   - State "STARTED"    from "WAITING"    [2013-04-06 Sat 14:04]
+   - State "STARTED"    from "TODO"       [2013-04-06 Sat 13:02]
+   :END:
+   - simple link to mailto: and all emails of current party
+   - maybe also include webmaster or some other mailing list?
 ** TODO Adding cancellation possibility of nakkis
    - UI that allows user to remove its own nakki reservations
 ** TODO Changing reservation of nakki to single click UI

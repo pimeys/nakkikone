@@ -16,8 +16,9 @@ define([
     'hbs!templates/selector',
     'hbs!templates/party-description',
     'hbs!templates/party-editor-form',
-    'hbs!templates/alert'
-], function($, _, bb, collections, models, moment, languages, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, alertTmpl) {
+    'hbs!templates/alert',
+    'hbs!templates/email-button'
+], function($, _, bb, collections, models, moment, languages, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, alertTmpl, emailButton) {
 
     //TODO fix party creation refresh for nakkitypes editor.
 
@@ -38,6 +39,34 @@ define([
 	//todo proper delegatation to router
 	location.href = '/';
     };
+
+    var EmailToAll = bb.View.extend({
+	events: {
+	    'click .mail-to' : 'sendMail'
+	},
+
+	initialize: function() {
+	    _.bindAll(this);
+	    vent.on('detach', this.remove);
+	    this.listenTo(users, "reset add destroy remove", this.render);
+	    this.listenTo(auxUsers, "reset add destroy remove", this.render);
+	    this.render();
+	},
+	
+	render: function() {
+	    this.$el.html(emailButton({emails: this.allPartyParcipitantsEmails()}));
+	    return this;
+	},
+
+	allPartyParcipitantsEmails: function() {
+	    return _.uniq(_.union(users.pluck('email'),auxUsers.pluck('email'))); 
+	},
+
+	sendMail: function() {
+	    var toAll = _.uniq(this.allPartyParcipitantsEmails());
+	    window.open("mailto:" + toAll, "_email");
+	}
+    });
     
     //TODO refactor to common-module
     var NotificationArea = bb.View.extend({
@@ -510,6 +539,7 @@ define([
 			new Constructors_List({el: $('#constructors', rootel)});
 			new User_List({el: $('#users', rootel)});
 			new Cleaners_List({el: $('#cleaners', rootel)});
+			new EmailToAll({el: $('#email-all', rootel)});
 		    });
 
 		    auxUsers.fetch({success: _ready, error: _error}); 
@@ -520,6 +550,7 @@ define([
 		    new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
 		    new Nakki_List({el:$('#nakit',rootel), model: latestParty, collection: nakkitypes});
 		    new User_List({el:$('#users',rootel)});
+		    new EmailToAll({el: $('#email-all', rootel)});
 		}
 	    },
 	    error: _error

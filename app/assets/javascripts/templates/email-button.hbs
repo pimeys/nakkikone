@@ -1,0 +1,15 @@
+<div id="emails-collapse" class="accordion">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <div class="btn-group">
+	<button class="btn btn-large btn-info accordion-toggle" data-toggle="collapse" data-parent="#email-collapse" href="#list-of-emails">Listing of emails</button>
+	<button class="btn btn-large btn-warning mail-to">Email Parcipinants</button>
+      </div>
+    </div>
+    <div id="list-of-emails" class="accordion-body collapse">
+      <div class="accordion-inner">
+	{{#each emails}}{{this}};{{/each}}
+      </div>
+    </div>
+  </div>
+</div>
