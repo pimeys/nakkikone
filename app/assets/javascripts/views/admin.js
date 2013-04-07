@@ -149,7 +149,7 @@ define([
 		},
 		error: this.alert
 	    });
-	    
+	    return false;
 	},
 
 	destroy: function(){
@@ -164,6 +164,7 @@ define([
 		    error: this.alert
 		});
 	    }
+	    return false;
 	},
 	
 	notify: function(model, options) {
@@ -310,7 +311,8 @@ define([
 	    $('.time-picker',this.$el).timepicker({
 		showMeridian: false,
 		showSeconds: false,
-		minuteStep: 60
+		minuteStep: 60,
+		defaultTime: '22:00'
 	    });
 	    return this;
 	},
