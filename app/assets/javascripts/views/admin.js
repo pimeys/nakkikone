@@ -385,7 +385,7 @@ define([
 		text: "Nakki " + model.get('type') + " successfully created/modified/removed."
 	    };
 	    vent.trigger('notify', message);
-	    vent.trigger('changeParty', parties.at(0));
+	    vent.trigger('changeParty', this.model);
 	    this.render();
 	},
 
