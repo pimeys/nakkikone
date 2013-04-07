@@ -53,7 +53,7 @@ define([
 	events: {'submit': 'login'},
 
 	initialize: function() {
-	    _.bindAll(this, 'login');
+	    _.bindAll(this);
 	    this.render();
 	},
 

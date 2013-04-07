@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       render :json => user, :notice => "Logged in!"
     else
-      raise User::Unauthorized
+      raise User::Unauthenticated
     end
   end
   

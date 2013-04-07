@@ -37,7 +37,9 @@ define([
 	},
 
 	startingPage: function() {
-	    new authentication.LoginView({el:contentEl});
+	    pub.detach();
+	    admin.detach();
+	    loginView.render();
 	},
 
 	showAdminScreen: function() {
@@ -60,11 +62,13 @@ define([
 	}
     });
 
+    var loginView;
+
     var initialize = function(options) {
 	contentEl = options.el;
 	authentication.initialize(function() {
 	    if (!authentication.currentUser()) {
-		new authentication.LoginView({el:contentEl});
+		loginView = new authentication.LoginView({el:contentEl});
 	    }
 	    new ApplicationRouter();
 	    bb.history.start();
