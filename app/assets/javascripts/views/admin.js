@@ -322,8 +322,8 @@ define([
 	    model.destroy({
 		wait:true,
 		
-		success: function() {
-		    self.notify();
+		success: function(model, options) {
+		    self.notify(model, options);
 		    self.render();
 		},
 		
