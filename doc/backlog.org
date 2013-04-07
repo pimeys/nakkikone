@@ -200,7 +200,7 @@ used as logging tool after that.
      Was done during feature additions, and would be wasteful now.
    :END:
 ** TODO implement unit tests for server side code
-* UI stuff [18/20] 						  :IMPLEMENT:
+* UI stuff [19/20] 						  :IMPLEMENT:
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -423,11 +423,15 @@ used as logging tool after that.
     - muthafucking moment and languages, pain in the ass, minified
       doesn't work in current setup
     - all moments are local setted to use fi...
-** STARTED Redirection after login
+** DONE Redirection after login
+   CLOSED: [2013-04-07 Sun 13:59]
    :CLOCK:
-   CLOCK: [2013-04-06 Sat 15:29]
+   CLOCK: [2013-04-07 Sun 13:12]--[2013-04-07 Sun 13:59] =>  0:47
+   CLOCK: [2013-04-06 Sat 15:29]--[2013-04-06 Sat 17:00] =>  1:31
    :END:
    :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 13:59]
+   - State "STARTED"    from "STARTED"    [2013-04-07 Sun 13:12]
    - State "STARTED"    from "TODO"       [2013-04-06 Sat 15:29]
    :END:
    - should be able to go into url after login

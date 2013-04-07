@@ -6,8 +6,37 @@ define([
     'models',
     'vent',
     'hbs!templates/signup-screen',
-    'hbs!templates/outer-template'
-], function($, _, bb, models, vent, signupScreen, outer_template) {
+    'hbs!templates/outer-template',
+    'hbs!templates/alert'
+], function($, _, bb, models, vent, signupScreen, outer_template, alertTmpl) {
+
+    var internalVent = {};
+    _.extend(internalVent, bb.Events);
+
+    //TODO refactor to common-module
+    var NotificationArea = bb.View.extend({
+	initialize: function() {
+	    _.bindAll(this);
+	    vent.on('detach', this.remove);
+	    this.listenTo(internalVent, 'alert', this.showAlert);
+	    this.listenTo(internalVent, 'notify', this.showNotify);
+	    this.render();
+	},
+
+	showAlert: function(message) {
+	    message.type = 'error';
+	    this.appendAlert(message);
+	},
+
+	showNotify: function(message) {
+	    message.type = 'success';
+	    this.appendAlert(message);
+	},	
+
+	appendAlert: function(message) {
+	    this.$el.append(alertTmpl({message: message}));
+	}
+    });
     
     var SubmitModel = models.Person.extend({
 	defaults: {
@@ -22,14 +51,17 @@ define([
 	urlRoot: 'users',
 
 	validate: function(attr, options) {
-	    if (!attr['nick']) {
-		return "nick name missing (mandatory)";
-	    }
 	    if (!attr['name']) {
 		return "name missing (mandatory)";
 	    }
+	    if (!attr['nick']) {
+		return "nick name missing (mandatory)";
+	    }
 	    if (!attr['email']) {
 		return "missing email (mandatory)";
+	    }
+	    if (!attr['password']) {
+		return "you must have a password!"
 	    }
 	    if (attr.password !== attr.password_confirmation) {
 		return "you miss typed your password";
@@ -47,11 +79,15 @@ define([
 
 	initialize: function() {
 	    _.bindAll(this);
-	    this.listenTo(this.model,'invalid',this.notify);
+	    this.listenTo(this.model,'invalid',this.notifyValidation);
 	},
 
-	notify: function() {
-	    alert("Failed to signup: " + this.model.validationError);
+	notifyValidation: function() {
+	    var message = {
+		title: "validation failed!",
+		text: "Your input is invalid: " + this.model.validationError
+	    };
+	    internalVent.trigger('alert', message);
 	},
 
 	render: function() {
@@ -72,17 +108,33 @@ define([
 		    vent.trigger('user-created');
 		},
 
-		error: function(model, xhr, options) {
-		    alert('Failed to signup: ' + xhr.responseText);
-		}
+		error: this.alert
 	    });
 	    return false;
+	},
+
+	notify: function(model, options) {
+	    var message = {
+		title: "Success!",
+		text: "Your " + model.get('type') + " has been succesfully registered for you."
+	    }
+	    internalVent.trigger('notify', message);
+	},
+
+	alert: function(model, xhr, options) {
+	    var message = {
+		title: "Failure (Something went wrong in server)!",
+		text: "Your SignUp request failed because: " + xhr.responseText
+	    };
+	    internalVent.trigger('alert', message);
 	}
     });
     
     var initialize = function(options){
 	var rootDiv = options.el.html(outer_template);
-	new SignUp_Form({el:$('#signup', rootDiv), model: getSubmitUser()}).render();
+	
+	new SignUp_Form({el: $('#signup', rootDiv), model: getSubmitUser()}).render();
+	new NotificationArea({el: $('#signup-alert-area', rootDiv)})
     };
     
     return {initialize:initialize};

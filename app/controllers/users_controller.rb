@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     if user.save
       render :json => user
     else
-      render :text => "failed to signup" #TODO raise exception 
+      render :status => 400, :json => user.errors
     end
   end
   
