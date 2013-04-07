@@ -1,9 +1,13 @@
 <form method="post">
-  <select name="parties" class="selector">
-    {{#each parties}}
-    <option value="{{ this.cid }}" {{#if this.selected }}selected="true"{{/if}}>{{ this.title }}</option>
-    {{/each}}
-  </select>
+  <div class="controls controls-row">
+    <select name="parties" class="selector">
+      {{#each parties}}
+      <option value="{{ this.cid }}" {{#if this.selected }}selected="true"{{/if}}>{{ this.title }}</option>
+      {{/each}}
+    </select>
+    <div class="btn-group">
+      <button class="deletor btn btn-danger">Delete selected</button>
+      <button class="creator btn btn-primary">New Party</button>
+    </div>
+  </div>
 </form>
-<button class="creator btn btn-primary">New Party</button>
-<button class="deletor btn btn-danger">Delete selected</button>

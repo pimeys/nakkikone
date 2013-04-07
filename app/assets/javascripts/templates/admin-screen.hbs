@@ -5,58 +5,71 @@
       <div class="span1"></div>
       <div class="span10">
 	<heading>
-	  <h1 class="text-center">Nakkikone Administrator</h1>
+	  <h1>Nakkikone Administration</h1>
+	  <p><small>Use wisely</small></p>
 	</heading>
+	<hr />
 	<section>
 	  <heading>
-	    <h4>Notifications</h4>
-	  </heading>
-	  <div id="admin-alert-area"></div>
-	</section>
-	<section>
-	  <heading>
-	    <h2>Select party to administer</h2>
+	    <h2>Select Party</h2>
+	    <p><small>Here you can select party which information you're interested in.</small></p>
 	  </heading>
 	  <div id="party-selector"></div>
+	  <h5>Notifications</h5>
+	  <div id="admin-alert-area"></div>
 	</section>
 	<hr />
-	<section class="span12">
-	  <heading>
-	    <h3>Selected Party</h3>
-	  </heading>
-	  <div id="party" class="span12"></div>
-	</section>
-	<section class="span12">
-	  <heading>
-	    <h2>Nakki Table Schema</h2>
-	  </heading>
-	  <div id="nakit"></div>
+	<section id="admin-party-details" class="accordion">
+	  <div class="accordion-group">
+	    <heading class="accordion-heading">
+	      <h3 class="accordion-toggle" data-toggle="collapse" data-parent="admin-party-details" href="#party-details"><a>Party Details</a></h3>
+	      <p><small>Here you can edit timetables and info descriptions of selected party.</small></p>
+	    </heading>
+	    <div id="party-details" class="accordion-body collapse">
+	      <div class="accordion-inner">
+		<div id="party" class=""></div>
+		<hr />
+		<h3>Nakki Table Schema</h3>
+		<p><small> Here you can modify Nakki Table structure. Selected times must be full hours, (e.g. xx:00 -- yy:00) <strong>Remember: Modifying Nakki table schema will reset current reservations!</strong></small></p>
+		<div id="nakit"></div>
+	      </div>
+	    </div>
+	  </div>
 	</section>
 	<hr />
 	<section>
 	  <heading>
-	    <h2>Party Constructors</h2>
+	    <h2>Party Organizers information</h2>
+	    <p><small>Listing all parcipitants of the party.</small></p>
 	  </heading>
-	  <div id="constructors"></div>
-	</section>
-	<section>
-	  <heading>
-	    <h2>List of signed parcipitants</h2>
-	  </heading>
-	  <div id="users"></div>
-	</section>
-	<section>
-	  <heading>
-	    <h2>Party Cleaners</h2>
-	  </heading>
-	  <div id="cleaners"></div>
-	</section>
-	<section>
-	  <heading>
-	    <h2>Notify Parcipitants</h2>
-	  </heading>
-	  <p>Below button opens pop-up to your default mail client for mailing all currently registered parcipitants. List of emails can be checked behind the link as well.</p>
-	  <div id="email-all"></div>
+	  <section>
+	    <heading>
+	      <h3>Constructors</h3>
+	      <p><small>List of responsible person who move and setup party equipment in to place.</small></p>
+	    </heading>
+	    <div id="constructors"></div>
+	  </section>
+	  <section>
+	    <heading>
+	      <h3>Parcipitants</h3>
+	      <p><small>Here is list of parcipitants that have taken tasks(nakki) in the party.</small></p>
+	    </heading>
+	    <div id="users"></div>
+	  </section>
+	  <section>
+	    <heading>
+	      <h3>Taking Down And End Cleaning</h3>
+	      <p><small>These guys clean.</small></p>
+	    </heading>
+	    <div id="cleaners"></div>
+	  </section>
+	  <section>
+	    <heading>
+	      <h3>Notify Parcipitants</h3>
+	    </heading>
+	    <p><small>Below button opens pop-up to your default mail client for mailing all currently registered parcipitants. List of emails can be checked behind the link as well.</small></p>
+	    <div id="email-all"></div>
+	  </section>
 	</section>
       </div>
     </article>
