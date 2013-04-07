@@ -461,6 +461,16 @@ used as logging tool after that.
    - removes all nakki assigments from him/her
    - temporary solution until UX is redesigned
      - now user can cancel itself its reservations
+** DONE The party button to list of parties
+   CLOSED: [2013-04-07 Sun 15:47]
+   :CLOCK:
+   CLOCK: [2013-04-07 Sun 15:19]--[2013-04-07 Sun 15:47] =>  0:28
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 15:47]
+   - State "STARTED"    from "TODO"       [2013-04-07 Sun 15:19]
+   :END:
+   - the party is replaced with parties drop down buttongroup
 ** TODO create jasmine tests for backbone code
 * Improvement ideas [3/9] 					     :DESIGN:
 ** DONE Default Nakkitypes

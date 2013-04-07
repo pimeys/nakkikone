@@ -1,4 +1,11 @@
 <a href="/logout" class="btn pull-right">Log out</a>
-<a href="#party/id/1" class="btn pull-right">The Party</a>
+<div class="btn-group pull-right">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Parties <span class="caret"></span></a>
+  <ul class="dropdown-menu">
+    {{#each parties}}
+    <li><a href="#party/id/{{ this.id }}">{{ this.title }}</a></li>
+    {{/each}}
+  </ul>
+</div>
 {{#if isAdmin }}<a href="#admin" class="btn pull-right">Admin Sreen</a>{{/if}}
 <span class="pull-right name">Hi {{ user.name }} !</span>

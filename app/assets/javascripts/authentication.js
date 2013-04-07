@@ -3,10 +3,11 @@ define([
     'backbone',
     'jquery',
     'models',
+    'collections',
     'vent',
     'hbs!templates/navigation',
     'hbs!templates/loginForm'
-], function(Backbone, $, models, vent, navigationTemplate, loginForm) {
+], function(Backbone, $, models, collections, vent, navigationTemplate, loginForm) {
 
     //Adding session authentication token to each request.
     Backbone.old_sync = Backbone.sync
@@ -46,7 +47,7 @@ define([
 	}
     });
 
-    var loggedUser;
+    var loggedUser; //todo kill with fire!
 
     var Login_View = Backbone.View.extend({
 	events: {'submit': 'login'},
@@ -69,7 +70,7 @@ define([
 
 	    $.post('/login', data, function(data) {
 		loggedUser = new models.Person(data);
-		new Navigation({el: $("#navigation"), model: loggedUser}).render();
+		createNavigation();
 		vent.trigger('logged-in', followUpHash);
 		followUpHash = undefined;
 	    });
@@ -84,7 +85,7 @@ define([
 	    success: function(data) {
 		loggedUser = new models.Person(data);
 		console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
-		new Navigation({el:$("#navigation"), model: loggedUser}).render();
+		createNavigation();
 		cb();
 	    }, 
 	    statusCode: {
@@ -96,9 +97,17 @@ define([
 	});
     };
 
+    //todo this horribility removed to app level... 
+    var createNavigation = function() {
+	var parties = new collections.Parties();
+	parties.fetch({success: function(collection, response, options){
+	    new Navigation({el:$("#navigation"), model: loggedUser, collection: collection}).render();
+	}});
+    };
+
     var Navigation = Backbone.View.extend({
 	render: function() {
-	    this.$el.html(navigationTemplate({user: this.model.toJSON(), isAdmin: this.model.get('role') === 'admin'})).show(); //TODO encapsulate to view..
+	    this.$el.html(navigationTemplate({parties: this.collection.toJSON(), user: this.model.toJSON(), isAdmin: this.model.get('role') === 'admin'})).show(); //TODO encapsulate to view..
 	    return this;
 	}
     });
