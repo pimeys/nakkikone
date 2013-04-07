@@ -47,9 +47,9 @@ define([
 
     var NakkiType = bb.Model.extend({
 	defaults: {
-	    type: "Name of Nakki",
+	    type: null,
 	    start: 0,
-	    end: 0
+	    end: 5
 	},
 
 	//TODO remove after UI refactoring
