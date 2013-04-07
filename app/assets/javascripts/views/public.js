@@ -65,26 +65,31 @@ define([
     var AuxJobsSelect = bb.View.extend({
 	initialize: function() {
 	    _.bindAll(this);
-	    vent.on('assignPerson', this.submit);
-	    vent.on('detach', this.detach);
+	    this.listenTo(vent, 'assignPerson', this.submit);
+	    this.listenTo(vent, 'detach', this.detach);
 	    this.render();
 	},
 	
 	detach: function() {
-	    this.model1.stopListening();
-	    this.model2.stopListening();
+	    this.stopListening();
 	    this.remove();
+	},
+
+	createSingleUseModel: function() {
+	    var model = new AuxJob();
+	    model.partyId = party.get('id');
+	    return model;
 	},
 
 	submit: function(assigned) {
 	    var type = this.$('form').serializeArray()[0].value;
 	    if (type === "both") {
-	    	this.model1.save({type:"clean"}, {wait:true, success:this.notify, error: this.alert});
-		this.model2.save({type:"const"}, {wait:true, success:this.notify, error: this.alert});
+	    	this.createSingleUseModel().save({type:"clean"}, {wait:true, success:this.notify, error: this.alert});
+		this.createSingleUseModel().save({type:"const"}, {wait:true, success:this.notify, error: this.alert});
 	    } else if (type === "none"){
 		return false;
 	    } else {
-		this.model1.save({type:type}, {wait:true, success: this.notify, error: this.alert});
+		this.createSingleUseModel().save({type:type}, {wait:true, success: this.notify, error: this.alert});
 	    }
 	    return false;
 	},
@@ -114,6 +119,7 @@ define([
     var Nakki_Table = bb.View.extend({
 	initialize: function() {
 	    _.bindAll(this);
+	    this.listenTo(this.collection, 'reset', this.render);
 	    vent.on('assignPerson', this.save);
 	    vent.on('detach', this.remove);
 	    this.render();
@@ -168,7 +174,10 @@ define([
     });
     
     var Assign_Form = bb.View.extend({
-	events: {'submit': 'assign'},
+	events: {
+	    'submit': 'assign',
+	    'click .cancel-all': 'unAssignAll'
+	},
 
 	initialize: function() {
 	    _.bindAll(this);
@@ -178,6 +187,23 @@ define([
 	assign: function() {
 	    vent.trigger('assignPerson', this.model);
 	    return false;
+	},
+	
+	unAssignAll: function() {
+	    $.ajax({ 
+		url: '/parties/' + party.id + '/cancel_all',
+		dataType: 'json',
+		type: 'DELETE'
+	    }).success(function(){
+		nakit.fetch({
+		    success: function() {
+			var message = {
+			    title: "Successfully Cancelled Reservations"
+			};
+			vent.trigger('notify', message);
+		    }
+		});
+	    });
 	}
     });
 
@@ -203,24 +229,16 @@ define([
 	party.fetch({url:partyFindUrl, success:function(){
 	    nakit.partyId = party.get('id');
 
-	    //todo remove these when refactoring single click UI responses
-	    var model1 = new AuxJob();
-	    model1.partyId = party.get('id');;
-	    var model2 = new AuxJob();
-	    model2.partyId = party.get('id');;
-
 	    var _ready = function(){
 	        new Party_Viewer({el:$('#party-description',rootel), model: party}); 
-		new Nakki_Table({el:$('#nakki-table',rootel)});
+		new Nakki_Table({el:$('#nakki-table',rootel), collection: nakit});
 	        new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
 		
 		//todo refactor to oblivion
 		var auxjobs = new AuxJobsSelect({el: $('#auxJob-selector', rootel)});
-		auxjobs.model1 = model1;
-		auxjobs.model2 = model2;
 	    };
 
-	    nakit.fetch({success:_ready, error: _error});
+	    nakit.fetch({success: _ready, error: _error});
 	}, error: _error});
     };
 

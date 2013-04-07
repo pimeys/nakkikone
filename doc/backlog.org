@@ -69,7 +69,7 @@ used as logging tool after that.
     - handlebars template helpers silently fails
     - hbs compiles templates to javasript, is it needed to filter static html as well?
 ** TODO install jasmine plugin
-* Backend stuff [10/11] 					  :IMPLEMENT:
+* Backend stuff [11/12] 					  :IMPLEMENT:
 ** DONE [#A] serialized user model don't have all attributes!!
    CLOSED: [2013-03-02 Sat 19:06]
    :CLOCK:
@@ -199,8 +199,18 @@ used as logging tool after that.
    - State "CANCELLED"  from "TODO"       [2013-04-05 Fri 12:41] \\
      Was done during feature additions, and would be wasteful now.
    :END:
+** DONE User Cancellation Service
+   CLOSED: [2013-04-07 Sun 14:31]
+   :CLOCK:
+   CLOCK: [2013-04-07 Sun 14:13]--[2013-04-07 Sun 14:31] =>  0:18
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 14:31]
+   - State "STARTED"    from "TODO"       [2013-04-07 Sun 14:13]
+   :END:
+   - removes user from all partys nakkis
 ** TODO implement unit tests for server side code
-* UI stuff [19/20] 						  :IMPLEMENT:
+* UI stuff [21/22] 						  :IMPLEMENT:
 ** DONE [#A] selector for pre and post building
    CLOSED: [2013-03-19 Tue 21:48]
    :CLOCK:
@@ -423,7 +433,7 @@ used as logging tool after that.
     - muthafucking moment and languages, pain in the ass, minified
       doesn't work in current setup
     - all moments are local setted to use fi...
-** DONE Redirection after login
+** DONE Redirection After login
    CLOSED: [2013-04-07 Sun 13:59]
    :CLOCK:
    CLOCK: [2013-04-07 Sun 13:12]--[2013-04-07 Sun 13:59] =>  0:47
@@ -437,6 +447,20 @@ used as logging tool after that.
    - should be able to go into url after login
    - as redirection is handled in UI, it should quite straightforward
      to store url in ?goto= parameter.
+** DONE Nakki reservation cancellation
+   CLOSED: [2013-04-07 Sun 15:18]
+   :CLOCK:
+   CLOCK: [2013-04-07 Sun 14:35]--[2013-04-07 Sun 15:18] =>  0:43
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 15:18]
+   - State "STARTED"    from "WAITING"    [2013-04-07 Sun 15:00]
+   - State "STARTED"    from "TODO"       [2013-04-07 Sun 14:47]
+   :END:
+   - cancellation button for user
+   - removes all nakki assigments from him/her
+   - temporary solution until UX is redesigned
+     - now user can cancel itself its reservations
 ** TODO create jasmine tests for backbone code
 * Improvement ideas [3/9] 					     :DESIGN:
 ** DONE Default Nakkitypes
