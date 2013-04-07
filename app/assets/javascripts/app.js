@@ -13,9 +13,7 @@ define([
 
     var contentEl = $('#content');
 
-    var router;
-
-    var Router = bb.Router.extend({
+    var ApplicationRouter = bb.Router.extend({
 	routes: {
 	    'admin' : 'showAdminScreen',
 	    'party/:id' : 'showPublicScreen',
@@ -25,16 +23,19 @@ define([
 	},
 
 	initialize: function() {
+	    _.bindAll(this);
 	    vent.on('user-created', this.startingPage);
-	    vent.on('logged-in', function(hash){ 
-		if(hash) {
-		    router.navigate(hash, {trigger: true});
-		} else {
-		    router.navigate('party/id/1', {trigger: true});
-		}
-	    }); //todo remove or make dynamic query of latest
+	    vent.on('logged-in', this.loggedIn);
 	},
 	
+	loggedIn: function(hash) {
+	    if(hash) {
+		this.navigate(hash, {trigger: true});
+	    } else {
+		this.navigate('party/id/1', {trigger: true});
+	    }
+	},
+
 	startingPage: function() {
 	    new authentication.LoginView({el:contentEl});
 	},
@@ -64,7 +65,7 @@ define([
 	    if (!authentication.currentUser()) {
 		new authentication.LoginView({el:contentEl});
 	    }
-	    router = new Router();
+	    new ApplicationRouter();
 	    bb.history.start();
 	});
     };
