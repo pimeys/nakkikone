@@ -73,8 +73,8 @@ define([
 	defaults: {
 	    title: "Party Title",
 	    description: "Osallistumalla nakkiin pääset maksutta bileisiin.",
-	    date: moment().add('days', 14).toDate(),
-	    infoDate: moment().add('days', 14).toDate()
+	    date: moment().add('days', 14).hours(22).minutes(0).toDate(),
+	    infoDate: moment().add('days', 14).hours(21).minutes(0).toDate()
 	},
 
 	//TODO remove after UI refactoring
