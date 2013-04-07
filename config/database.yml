@@ -11,3 +11,10 @@ test:
   username: nakki
   password: nakki
   pool: 5
+
+production:
+  adapter: mysql2
+  database: nakkikone_production
+  username: nakki
+  password: nakki
+  pool: 5
