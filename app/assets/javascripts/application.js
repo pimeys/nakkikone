@@ -57,7 +57,6 @@ require.config({
     }
 });
 
-//todo cleanup these helpers away... shim... 
-require(['app'],function(app){
-    app.initialize();
+require(['app', 'jquery'],function(app, $){
+    app.initialize({el: $('#content')});
 });

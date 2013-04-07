@@ -38,6 +38,8 @@ class PartiesController < ApplicationController
     party = nil;
     if (params[:by_title])
       party = Party.where(:title => params[:id]).first
+    elsif (params[:id].to_i == 0) #TODO remove and resolve in frontend.
+      party = Party.order("date DESC").first
     else
       party = Party.find(params[:id])
     end

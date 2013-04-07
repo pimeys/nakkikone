@@ -220,7 +220,7 @@ define([
 
 	//todo hide to model
 	var partyFindUrl = '/parties/';
-	if (options.partyId) {
+	if (options.partyId || options.partyId == 0) {
 	    partyFindUrl += options.partyId;
 	} else if (options.partyTitle) {
 	    partyFindUrl += options.partyTitle + '?by_title=true';

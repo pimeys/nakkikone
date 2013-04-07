@@ -11,7 +11,7 @@ define([
     'views/signup'
 ], function($, bb, authentication, models, collections, vent, admin, pub, signup) {
 
-    var contentEl = $('#content');
+    var contentEl;
 
     var ApplicationRouter = bb.Router.extend({
 	routes: {
@@ -32,7 +32,7 @@ define([
 	    if(hash) {
 		this.navigate(hash, {trigger: true});
 	    } else {
-		this.navigate('party/id/1', {trigger: true});
+		this.navigate('party/id/0', {trigger: true});
 	    }
 	},
 
@@ -60,7 +60,8 @@ define([
 	}
     });
 
-    var initialize = function() {
+    var initialize = function(options) {
+	contentEl = options.el;
 	authentication.initialize(function() {
 	    if (!authentication.currentUser()) {
 		new authentication.LoginView({el:contentEl});
