@@ -134,7 +134,7 @@ define([
 	
 	select: function(target) {
 	    var partyId = this.$('form').serializeArray()[0].value;
-	    vent.trigger('changeParty', partyId);
+	    vent.trigger('changeParty', parties.get(partyId));
 	},
 
 	create: function() {
@@ -144,7 +144,7 @@ define([
 		wait:true,
 		success: function(model, options) {
 		    createDefaultNakkiTypes(model);
-		    vent.trigger('createdParty', model.cid); //todo remove
+		    vent.trigger('createdParty', model); //todo remove
 		    self.render(model);
 		},
 		error: this.alert
@@ -194,15 +194,15 @@ define([
 
 	initialize: function(){
 	    _.bindAll(this);
-	    vent.on('changeParty', this.refresh);
+	    vent.on('changeParty createdParty', this.refresh);
 	    vent.on('detach', this.remove);
 	    this.listenTo(this.collection, 'remove', this.render);
 	    this.render();
 	},
 	
-	refresh: function(partyId) {
+	refresh: function(model) {
 	    var self = this;
-	    var party = parties.get(partyId);
+	    var party = model;
 
 	    this.collection.partyId = party.get('id');
 	    this.collection.fetch({
@@ -236,7 +236,6 @@ define([
 		text: "User " + model.get('name') + " successfully removed from parcipitants list."
 	    };
 	    vent.trigger('notify', message);
-	    vent.trigger('changeParty', parties.at(0));
 	    this.collection.remove(model);
 	    this.render();
 	},
@@ -275,7 +274,7 @@ define([
 
 	initialize: function(){
 	    _.bindAll(this);
-	    vent.on('changeParty', this.refresh);
+	    vent.on('changeParty createdParty', this.refresh);
 	    this.collection.on('add', this.edit);
 	    this.collection.on('remove', this.edit);
 	    this.collection.on('reset', this.render);
@@ -283,9 +282,9 @@ define([
 	    this.render();
 	},
 	
-	refresh: function(partyId) {
+	refresh: function(model) {
 	    var self = this;
-	    this.model = parties.get(partyId);
+	    this.model = model;
 
 	    this.collection.partyId = this.model.get('id');
 	    this.collection.fetch({
