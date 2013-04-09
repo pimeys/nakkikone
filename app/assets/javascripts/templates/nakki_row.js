@@ -16,11 +16,11 @@ define('templates/nakki_row', [
 	_.each(sortedByType, function(nakki) {
 	    row += "<td>";
 	    if (!!nakki.assign) {
-	    	row += nakki.assign;
+	    	row += '<span class="reserved">'+ nakki.assign +'</span>';
 	    } else if (!!nakki.id) {
 	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/> Take'; 
 	    } else {
-		row += '<span class="disabled">Not In Use<span>';
+		row += '<span class="disabled">Disabled<span>';
 	    }
 	    row += "</td>";
 	});

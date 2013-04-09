@@ -50,12 +50,25 @@ body {
 }
 #content {
 }
+.reserved {
+	color: #2a2;
+}
+.descr {
+	padding-left: 2%;
+}
+.whiteshadow {
+	text-shadow: 0px 1px 2px #FFF;
+}
 .disabled{
 	color: #EEE;
 }
-footer p{
+footer {
+	text-align: right;
 	margin-top: 5%;
 }
+
+
+
 
 /* Large desktop */
 @media (min-width: 1200px) { 
