@@ -53,7 +53,7 @@ define([
 	},
 	
 	showOwnDetailsEditor: function() {
-	    signup.initialize({el:contentEl});
+//	    signup.initializeWithEditDetails({el:contentEl, currentUser: authentication.currentUser});
 	},
 
 	showPublicScreen: function(title) {

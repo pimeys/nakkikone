@@ -6,9 +6,11 @@ define([
     'models',
     'vent',
     'hbs!templates/signup-screen',
+    'hbs!templates/edit-screen',
     'hbs!templates/outer-template',
+    'hbs!templates/edit-own-details',
     'hbs!templates/alert'
-], function($, _, bb, models, vent, signupScreen, outer_template, alertTmpl) {
+], function($, _, bb, models, vent, signupScreen, editScreen, outer_template, edit_own_details, alertTmpl) {
 
     var internalVent = {};
     _.extend(internalVent, bb.Events);
@@ -130,6 +132,30 @@ define([
 	    internalVent.trigger('alert', message);
 	}
     });
+
+    var Edit_Form = SignUp_Form.extend({
+	render: function() {
+	    return this.$el.html(editScreen({user: this.model.toJSON()}));
+	},
+
+	save: function() {
+	    var arr = this.$el.serializeArray();
+	    var data = _(arr).reduce(function(acc, field) {
+		acc[field.name] = field.value;
+		return acc;
+	    }, {});
+	    var self = this;
+	    this.model.save(data, {
+		wait:true,
+		success: function() {
+		    alert('Successfully changed your details');
+		},
+
+		error: this.alert
+	    });
+	    return false;
+	}
+    });
     
     var initialize = function(options){
 	var rootDiv = options.el.html(outer_template);
@@ -137,6 +163,13 @@ define([
 	new SignUp_Form({el: $('#signup', rootDiv), model: getSubmitUser()}).render();
 	new NotificationArea({el: $('#signup-alert-area', rootDiv)});
     };
+
+    var initializeWithEditDetails = function(options){
+	var rootDiv = options.el.html(edit_own_details);
+	
+	new Edit_Form({el: $('#signup', rootDiv), model: options.currentUser()}).render();
+	new NotificationArea({el: $('#signup-alert-area', rootDiv)});
+    };
     
-    return {initialize:initialize};
+    return {initialize:initialize, initializeWithEditDetails:initializeWithEditDetails};
 });
