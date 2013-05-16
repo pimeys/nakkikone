@@ -1,11 +1,13 @@
 <table class="table table-striped">
   <tr>
+    <td><h4>Nick</h4></td>
     <td><h4>Name</h4></td>
     <td><h4>Email</h4></td>
     <td><h4>Phone</h4></td>
     <td><h4>Remove</h4></td></tr>
   {{#each persons}}
   <tr>
+    <td>{{ this.nick }}</td>
     <td>{{ this.name }}</td>
     <td>{{ this.email }}</td>
     <td>{{ this.number }}</td>

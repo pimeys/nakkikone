@@ -53,6 +53,9 @@ body {
 .reserved {
 	color: #2a2;
 }
+.text-warning {
+	color: #a22;
+}
 .descr {
 	padding-left: 2%;
 }
