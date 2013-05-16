@@ -61,11 +61,12 @@ define([
 		return "missing email (mandatory)";
 	    }
 	    if (!attr['password']) {
-		return "you must have a password!"
+		return "you must have a password!";
 	    }
 	    if (attr.password !== attr.password_confirmation) {
 		return "you miss typed your password";
 	    }
+	    return null;
 	}
     });
 
@@ -91,7 +92,7 @@ define([
 	},
 
 	render: function() {
-	    return this.$el.html(signupScreen({user:this.model.toJSON()}));
+	    return this.$el.html(signupScreen({user: this.model.toJSON()}));
 	},
 
 	save: function() {
@@ -104,7 +105,7 @@ define([
 	    this.model.save(data, {
 		wait:true, 
 		success: function() {
-		    alert('Succesfully created new user! Go on and login.')
+		    alert('Succesfully created new user! Go on and login.');
 		    vent.trigger('user-created');
 		},
 
@@ -117,7 +118,7 @@ define([
 	    var message = {
 		title: "Success!",
 		text: "Your " + model.get('type') + " has been succesfully registered for you."
-	    }
+	    };
 	    internalVent.trigger('notify', message);
 	},
 
@@ -134,7 +135,7 @@ define([
 	var rootDiv = options.el.html(outer_template);
 	
 	new SignUp_Form({el: $('#signup', rootDiv), model: getSubmitUser()}).render();
-	new NotificationArea({el: $('#signup-alert-area', rootDiv)})
+	new NotificationArea({el: $('#signup-alert-area', rootDiv)});
     };
     
     return {initialize:initialize};
