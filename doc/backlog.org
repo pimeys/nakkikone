@@ -472,7 +472,7 @@ used as logging tool after that.
    :END:
    - the party is replaced with parties drop down buttongroup
 ** TODO create jasmine tests for backbone code
-* Improvement ideas [3/9] 					     :DESIGN:
+* Improvement ideas [4/9] 					     :DESIGN:
 ** DONE Default Nakkitypes
    CLOSED: [2013-04-06 Sat 11:37]
    :CLOCK:
@@ -507,7 +507,11 @@ used as logging tool after that.
    :END:
    - simple link to mailto: and all emails of current party
    - maybe also include webmaster or some other mailing list?
-** TODO Adding cancellation possibility of nakkis
+** DONE Adding cancellation possibility of nakkis
+   CLOSED: [2013-05-16 Thu 19:44]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-05-16 Thu 19:44]
+   :END:
    - UI that allows user to remove its own nakki reservations
 ** TODO Changing reservation of nakki to single click UI
    - pressing nakki will reserve it to user
@@ -527,6 +531,17 @@ used as logging tool after that.
       - time edits as well?
 ** TODO [#C] Document backend design and functionality
 ** TODO User Management
+*** WAITING Modify own details
+    :CLOCK:
+    CLOCK: [2013-05-16 Thu 19:44]--[2013-05-16 Thu 20:14] =>  0:30
+    :END:
+    :LOGBOOK:
+    - State "STARTED"    from "TODO"       [2013-05-16 Thu 19:44]
+    :END:
+    
+    - opened from navigation button
+    - reuses sign up form for it
+    - needs service for updating current user data
 *** TODO Screen to administrate nakkikone users
 **** TODO reset password
 **** TODO remove user

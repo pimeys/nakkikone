@@ -19,6 +19,7 @@ define([
 	    'party/:id' : 'showPublicScreen',
 	    'party/id/:id' : 'showPublicScreenById',
 	    'sign_up' : 'showSignUpScreen',
+	    'edit-own-details' : 'showOwnDetailsEditor',
 	    'login'   : 'startingPage'
 	},
 
@@ -48,6 +49,10 @@ define([
 	},
 
 	showSignUpScreen: function() {
+	    signup.initialize({el:contentEl});
+	},
+	
+	showOwnDetailsEditor: function() {
 	    signup.initialize({el:contentEl});
 	},
 
