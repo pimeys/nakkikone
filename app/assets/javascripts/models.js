@@ -42,6 +42,7 @@ define([
 	    if (!attr['type']) {
 		return "Nakki type is undefined";
 	    }
+	    return null;
 	}
     });
 

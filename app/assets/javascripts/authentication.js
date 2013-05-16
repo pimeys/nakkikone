@@ -10,14 +10,14 @@ define([
 ], function(Backbone, $, models, collections, vent, navigationTemplate, loginForm) {
 
     //Adding session authentication token to each request.
-    Backbone.old_sync = Backbone.sync
+    Backbone.old_sync = Backbone.sync;
     Backbone.sync = function(method, model, options) {
 	var new_options = _.extend({
             beforeSend: function(xhr) {
 		var token = $('meta[name="csrf-token"]').attr('content');
 		if (token) xhr.setRequestHeader('X-CSRF-Token', token);
             }
-    }, options)
+    }, options);
 	Backbone.old_sync(method, model, new_options);
     };
     
@@ -116,6 +116,6 @@ define([
 	initialize: attemptLoginWithSessionCookie,
 	LoginView: Login_View, 
 	Signup: null,
-	currentUser: function() {return loggedUser},
-    }
+	currentUser: function() {return loggedUser;}
+    };
 });
