@@ -26,7 +26,7 @@ define([
     _.extend(vent, bb.Events);
 
     var parties = new collections.Parties();
-    
+
     var users = new collections.Users();
 
     var auxUsers = new collections.AuxUsers();
@@ -98,8 +98,8 @@ define([
 	    {type: "Kiosk", start: 0, end: 6},
 	    {type: "Cloackroom", start: 0, end: 6},
 	    {type: "Bouncer", start: 0, end: 6},
-	    {type: "Light Controller", start: 0, end: 6},
-	]
+	    {type: "Light Controller", start: 0, end: 6}
+	];
 	_.each(defaultNakkiTypes, function(el) {
 	    nakkitypes.create(el);
 	});
@@ -181,7 +181,7 @@ define([
 	    var message = {
 		title: "Failure (Something went wrong in server)!",
 		text: "Your assignment request failed because: " + xhr.responseText
-	    }
+	    };
 	    vent.trigger('alert', message);
 	}
     });
@@ -245,7 +245,7 @@ define([
 	    var message = {
 		title: "Failure (Something went wrong in server)!",
 		text: "Your assignment request failed because: " + xhr.responseText
-	    }
+	    };
 	    vent.trigger('alert', message);
 	}
     });
@@ -394,7 +394,7 @@ define([
 	    var message = {
 		title: "Failure in nakkitype "+ model.get('type') + " (Something went wrong in server)!",
 		text: "Your assignment request failed because: " + xhr.responseText
-	    }
+	    };
 	    vent.trigger('alert', message);
 	}
     });
@@ -404,7 +404,7 @@ define([
 	    'change .selector' : 'select',
 	    'click .editor'    : 'edit',
 	    'submit'           : 'save',
-	    'click .cancel'    : 'render',
+	    'click .cancel'    : 'render'
 	},
 	
 	initialize: function(){
@@ -426,7 +426,7 @@ define([
 	    var message = {
 		title: "Party edit validation",
 		text: "Input is invalid, " + this.model.validationError
-	    }
+	    };
 	    vent.trigger('alert', message);
 	},
 	
@@ -507,7 +507,7 @@ define([
 	    var message = {
 		title: "Failure in Party modification "+ model.get('title') + " (Something went wrong in server)!",
 		text: "Your request failed because: " + xhr.responseText
-	    }
+	    };
 	    vent.trigger('alert', message);
 	}
     });
@@ -540,9 +540,9 @@ define([
 			new EmailToAll({el: $('#email-all', rootel)});
 		    });
 
-		    auxUsers.fetch({success: _ready, error: _error}); 
-		    users.fetch({success: _ready, error: _error}); 
-		    nakkitypes.fetch({success: _ready, error: _error}); 
+		    auxUsers.fetch({success: _ready, error: _error});
+		    users.fetch({success: _ready, error: _error});
+		    nakkitypes.fetch({success: _ready, error: _error});
 		} else {
 		    new Party_Selector({el:$('#party-selector',rootel)});
 		    new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});

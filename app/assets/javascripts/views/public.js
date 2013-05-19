@@ -54,7 +54,7 @@ define([
 	    vent.on('detach', this.remove);
 	    this.render();
 	},
-	
+
 	render: function(){
 	    this.$el.html(party_description({party:this.model.toJSON(), editable:false}));
 	    return this;
@@ -69,7 +69,7 @@ define([
 	    this.listenTo(vent, 'detach', this.detach);
 	    this.render();
 	},
-	
+
 	detach: function() {
 	    this.stopListening();
 	    this.remove();
@@ -98,7 +98,7 @@ define([
 	    var message = {
 		title: "Success!",
 		text: "Your " + model.get('type') + " has been succesfully registered for you."
-	    }
+	    };
 	    vent.trigger('notify', message);
 	},
 
@@ -106,7 +106,7 @@ define([
 	    var message = {
 		title: "Failure (Something went wrong in server)!",
 		text: "Your assignment request failed because: " + xhr.responseText
-	    }
+	    };
 	    vent.trigger('alert', message);
 	},
 
@@ -159,7 +159,7 @@ define([
 	    var message = {
 		title: "Success!",
 		text: "Your " + model.get('type') + " has been succesfully registered for you."
-	    }
+	    };
 	    vent.trigger('notify', message);
 	},
 
@@ -168,11 +168,11 @@ define([
 	    var message = {
 		title: "Failure (Something went wrong in server)!",
 		text: "Your assignment request failed because: " + xhr.responseText
-	    }
+	    };
 	    vent.trigger('alert', message);
 	}
     });
-    
+
     var Assign_Form = bb.View.extend({
 	events: {
 	    'submit': 'assign',
@@ -183,14 +183,14 @@ define([
 	    _.bindAll(this);
 	    vent.on('detach', this.remove);
 	},
-	
+
 	assign: function() {
 	    vent.trigger('assignPerson', this.model);
 	    return false;
 	},
-	
+
 	unAssignAll: function() {
-	    $.ajax({ 
+	    $.ajax({
 		url: '/parties/' + party.id + '/cancel_all',
 		dataType: 'json',
 		type: 'DELETE'

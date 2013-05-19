@@ -2,7 +2,7 @@ class AuxUserSerializer < ActiveModel::Serializer
   attributes :id, :email, :name, :number
 
   attribute :nakkiname, :key => :type
-  
+
   # todo kill this unholy bastard
   def id
     object.id
