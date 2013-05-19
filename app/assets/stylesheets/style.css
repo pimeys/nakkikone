@@ -53,6 +53,10 @@ body {
 .reserved {
 	color: #2a2;
 }
+.take{
+	color: #722;
+	padding: 3px 0 0 4px;
+}
 .text-warning {
 	color: #a22;
 }

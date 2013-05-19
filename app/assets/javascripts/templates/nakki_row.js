@@ -18,7 +18,7 @@ define('templates/nakki_row', [
 	    if (!!nakki.assign) {
 	    	row += '<span class="reserved">'+ nakki.assign +'</span>';
 	    } else if (!!nakki.id) {
-	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/><p class="take">Take</p>'; 
+	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/><span class="take">Take</span>'; 
 	    } else {
 		row += '<span class="disabled">Disabled<span>';
 	    }
