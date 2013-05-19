@@ -18,6 +18,7 @@ RailStrap::Application.routes.draw do
     delete "aux_parcipitants/:id" => "aux_nakit#destroy"
 
     #services for regular users
+    get "aux_parcipitants_names" => "parcipitants#aux_index_only_names"
     delete "cancel_all" => "parcipitants#cancel_all_from_current_user"
   end
   

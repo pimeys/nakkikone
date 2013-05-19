@@ -10,8 +10,9 @@ define([
     'hbs!templates/party-description',
     'hbs!templates/nakki-table', 
     'hbs!templates/aux-job-selector',
+    'hbs!templates/aux-job-counter',
     'hbs!templates/alert'
-], function($, _, bb, collections, models, bs, publicScreen, party_description, nakki_table, auxJobSelector, alertTmpl) {
+], function($, _, bb, collections, models, bs, publicScreen, party_description, nakki_table, auxJobSelector, auxjobList, alertTmpl) {
 
     var vent = {};
     _.extend(vent, bb.Events);
@@ -22,6 +23,10 @@ define([
 
     var party = new models.Party();
     var nakit = new collections.Nakit();
+    var AuxUsers = collections.AuxUsers.extend({
+	resource: 'aux_parcipitants_names'
+    });
+    var auxUsers = new AuxUsers();
 
     //TODO refactor to common-module
     var NotificationArea = bb.View.extend({
@@ -207,15 +212,40 @@ define([
 	}
     });
 
+    var AuxJobList = bb.View.extend({
+	titleForList: "ovrride this",
+	filterRules: {type: "none"},
+
+	initialize: function(){
+	    _.bindAll(this);
+	    this.render();
+	},
+
+	render: function(){
+	    var filtered = new bb.Collection().add(this.collection.where(this.filterRules));
+	    this.$el.html(auxjobList({name: this.titleForList ,count: filtered.size(), auxJobs: filtered.toJSON()}));
+	}
+    });
+
+    var CleanJobList = AuxJobList.extend({
+	titleForList: "Volenteers for cleaning",
+	filterRules: {type: "clean"}
+    });
+
+    var ConstJobList = AuxJobList.extend({
+	titleForList: "Volenteers for constructing",
+	filterRules: {type: "const"}
+    });
+
     //todo move to separate error-handling-module
     var _error = function(col, error) {
     };
-   
+
     var initialize = function(options) {
 	var rootel = options.el;
 	rootel.html(publicScreen);
 	vent.off(); //hard reset!
-	
+
 	new NotificationArea({el: $('#alert-area', rootel)});
 
 	//todo hide to model
@@ -228,17 +258,21 @@ define([
 
 	party.fetch({url:partyFindUrl, success:function(){
 	    nakit.partyId = party.get('id');
+	    auxUsers.partyId = party.get('id');
 
-	    var _ready = function(){
-	        new Party_Viewer({el:$('#party-description',rootel), model: party}); 
+	    var _ready = _.after(2, function(){
+		new Party_Viewer({el:$('#party-description',rootel), model: party}); 
 		new Nakki_Table({el:$('#nakki-table',rootel), collection: nakit});
-	        new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
-		
+		new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
+
 		//todo refactor to oblivion
 		var auxjobs = new AuxJobsSelect({el: $('#auxJob-selector', rootel)});
-	    };
+		new CleanJobList({el: $('#auxJob-constructors', rootel), collection: auxUsers});
+		new ConstJobList({el: $('#auxJob-cleaners', rootel), collection: auxUsers});
+	    });
 
 	    nakit.fetch({success: _ready, error: _error});
+	    auxUsers.fetch({success: _ready, error: _error});
 	}, error: _error});
     };
 
