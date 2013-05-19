@@ -119,7 +119,7 @@ define([
 	notify: function(model, options) {
 	    var message = {
 		title: "Success!",
-		text: "Your " + model.get('type') + " has been succesfully registered for you."
+		text: ""
 	    };
 	    internalVent.trigger('notify', message);
 	},
@@ -127,7 +127,7 @@ define([
 	alert: function(model, xhr, options) {
 	    var message = {
 		title: "Failure (Something went wrong in server)!",
-		text: "Your SignUp request failed because: " + xhr.responseText
+		text: "Your request failed because: " + xhr.responseText
 	    };
 	    internalVent.trigger('alert', message);
 	}
@@ -145,7 +145,7 @@ define([
 		return acc;
 	    }, {});
 	    var self = this;
-	    this.model.save(data, {
+	    this.model.save(data, {url: "yourself",
 		wait:true,
 		success: function() {
 		    alert('Successfully changed your details');
@@ -155,7 +155,7 @@ define([
 	    });
 	    return false;
 	}
-    });
+   });
     
     var initialize = function(options){
 	var rootDiv = options.el.html(outer_template);

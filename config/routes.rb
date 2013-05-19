@@ -3,6 +3,7 @@ RailStrap::Application.routes.draw do
   root :to => "users#home" #TODO point to somewhere else
 
   get "sign_up" => "users#new", :as => "sign_up"
+  put "yourself" => "users#update"
 
   get "login" => "sessions#new"
   post "login" => "sessions#create", :as => "login"
