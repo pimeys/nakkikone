@@ -267,8 +267,8 @@ define([
 
 		//todo refactor to oblivion
 		var auxjobs = new AuxJobsSelect({el: $('#auxJob-selector', rootel)});
-		new CleanJobList({el: $('#auxJob-constructors', rootel), collection: auxUsers});
-		new ConstJobList({el: $('#auxJob-cleaners', rootel), collection: auxUsers});
+		new CleanJobList({el: $('#auxJob-cleaners', rootel), collection: auxUsers});
+		new ConstJobList({el: $('#auxJob-constructors', rootel), collection: auxUsers});
 	    });
 
 	    nakit.fetch({success: _ready, error: _error});
