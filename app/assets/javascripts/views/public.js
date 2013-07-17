@@ -229,12 +229,12 @@ define([
     });
 
     var CleanJobList = AuxJobList.extend({
-	titleForList: "Volenteers for cleaning",
+	titleForList: "Number of Taking it Down:",
 	filterRules: {type: "clean"}
     });
 
     var ConstJobList = AuxJobList.extend({
-	titleForList: "Volenteers for constructing",
+	titleForList: "Number of Builders:",
 	filterRules: {type: "const"}
     });
 

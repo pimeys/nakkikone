@@ -66,16 +66,26 @@ body {
 .whiteshadow {
 	text-shadow: 0px 1px 2px #FFF;
 }
+.selector {
+	width: 165px;
+}
+
 .disabled{
 	color: #EEE;
 }
+#admin-alert-area {
+	overflow-y: auto;
+	position: relative;
+	height: 130px;
+}
+
 footer {
 	text-align: right;
 	margin-top: 5%;
 }
 
-
-
+#auxJob-constructors .list-of-nicks {display:none;}
+#auxJob-cleaners .list-of-nicks {display:none;}
 
 /* Large desktop */
 @media (min-width: 1200px) { 

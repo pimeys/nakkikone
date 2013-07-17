@@ -1,73 +1,73 @@
 <div class="row-fluid">
   <div class="span12">
     <div class="row-fluid"><div class="span12"></div></div>
-    <article id="admin" class="row-fluid">
+    <article id="admin" class="row-fluid portrait" >
       <div class="span1"></div>
       <div class="span10">
 	<heading>
 	  <h1>Nakkikone Administration</h1>
 	</heading>
-	<hr />
-	<section class="span6">
+	<hr class="noprint" />
+	<section class="span6 noprint">
 	  <heading>
-	    <h2>Select Party</h2>
-	    <p><small>Here you can select party which information you're interested in.</small></p>
+	    <h2 >Select Party</h2>
+	    <p ><small>Here you can select party which information you're interested in.</small></p>
 	  </heading>
 	  <div id="party-selector"></div>
 	</section>
-	<section class="span5">
+	<section class="span5 noprint">
 	  <h5>Notifications:</h5>
 	  <div id="admin-alert-area"></div>
 	</section>
 	<section id="admin-party-details" class="accordion span12">
 	  <div class="accordion-group">
-	    <heading class="accordion-heading">
+	    <heading class="accordion-heading noprint">
 	      <a class="accordion-toggle" data-toggle="collapse" data-parent="admin-party-details" href="#party-details"><h2>Edit Party Details</h2></a>
 	      <p class="descr"><i class="icon-edit"></i> Here you can edit timetables and info descriptions of selected party.</p>
 	    </heading>
 	    <div id="party-details" class="accordion-body collapse">
 	      <div class="accordion-inner">
 		<div id="party" class=""></div>
-		<hr />
-		<h3>Nakki Table Schema</h3>
-		<p>Here you can modify Nakki Table structure. Selected times must be full hours, (e.g. xx:00 -- yy:00) </p>
-		<p><strong>Remember: Modifying Nakki table schema will reset current reservations!</strong></p>
-		<div id="nakit"></div>
+		<hr class="noprint" />
+		<h3 class="noprint">Nakki Table Schema</h3>
+		<p class="noprint">Here you can modify Nakki Table structure. Selected times must be full hours, (e.g. xx:00 -- yy:00) </p>
+		<p class="noprint"><strong>Remember: Modifying Nakki table schema will reset current reservations!</strong></p>
+		<div id="nakit" class="noprint"></div>
 	      </div>
 	    </div>
 	  </div>
 	</section>
-	<hr />
+	<hr class="noprint"/>
 	<section id="admin-participants" class="accordion span12">
           <div class="accordion-group">
-	   <heading class="accordion-heading">
+	   <heading class="accordion-heading noprint">
 	    <a class="accordion-toggle" data-toggle="collapse" data-parent="admin-participants" href="#participants-details"><h2>Party Organizers information</h2></a>
 	    <p class="descr"><i class="icon-plus"></i> Listing all of the parcipitants and their information of selected party.</p>
 	   </heading>
             <div id="participants-details" class="accordion-body collapse">
               <div class="accordion-inner">
-	  <section>
+	  <section class="participants">
 	    <heading>
 	      <h3>Parcipitants</h3>
 	      <p><small>Here is list of parcipitants that have taken tasks(nakki) in the party.</small></p>
 	    </heading>
 	    <div id="users"></div>
 	  </section>
-	  <section>
+	  <section class="noprint">
 	    <heading>
 	      <h3>Constructors</h3>
 	      <p><small>List of responsible persons who move and setup party equipment in to place.</small></p>
 	    </heading>
 	    <div id="constructors"></div>
 	  </section>
-	  <section>
+	  <section class="noprint">
 	    <heading>
 	      <h3>Taking Down And End Cleaning</h3>
 	      <p><small>These guys clean.</small></p>
 	    </heading>
 	    <div id="cleaners"></div>
-	  </section>
-	  <section>
+	  </section class="noprint">
+	  <section class="noprint">
 	    <heading>
 	      <h3>Notify Parcipitants</h3>
 	    </heading>
