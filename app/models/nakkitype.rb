@@ -11,4 +11,5 @@ class Nakkitype < ActiveRecord::Base
     :too_long => "#{count} character is maximum allowed"
   }
   validates :party_id, :presence => true
+  validates_uniqueness_of :name, :scope => [:party_id]
 end

@@ -16,6 +16,8 @@ class NakkitypesController < ApplicationController
 
     if nakkitype.save
       render :json => nakkitype
+    else
+      render :status => 500, :text => nakkitype.errors.full_messages
     end
   end
 
@@ -27,6 +29,8 @@ class NakkitypesController < ApplicationController
 
     if nakkitype
       render :json => nakkitype
+    else
+      render :status => 500, :text => nakkitype.errors.full_messages
     end
   end
 
