@@ -133,6 +133,7 @@ define([
 	render: function(){ 
 	    var startingTime = party.get('date');
 	    var data = _.sortBy(_.groupBy(nakit.toJSON(),'slot'),'type');
+	    data = _.sortBy(data, function(item) { return parseInt(item[0].slot, 10);});
 	    var titles = _.uniq(_.pluck(nakit.toJSON(),'type'));
 	    this.$el.html(nakki_table({titles: titles.sort(), nakit: _.toArray(data), startTime: startingTime.toJSON()}));
 	    return this;
