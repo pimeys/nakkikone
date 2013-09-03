@@ -86,13 +86,18 @@ define([
 	},	
 
 	appendAlert: function(message) {
-	    this.$el.append(alertTmpl({message: message}));
+	    if (message.type == 'success'){
+	        this.$el.append(alertTmpl({message: message}));
 		if (this.$el.children().length > 0){
 			var that = this;
 		    setTimeout(function(){
 			  that.$el.find(":first-child").remove();
-		    },1500);
+		    },15000);
 		}
+	     }
+	     else if (message.type = 'error'){
+		 this.$el.prepend(alertTmpl({message: message}));
+	     }
 	}
 	
     });
