@@ -324,6 +324,8 @@ define([
 		showMeridian: false,
 		showSeconds: false,
 		minuteStep: 60,
+		template: 'modal',
+		modalBackdrop: true,
 		defaultTime: '22:00'
 	    });
 	    return this;
