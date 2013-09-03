@@ -24,9 +24,6 @@ class Party < ActiveRecord::Base
       if record.date.past?
         record.errors[:date] << "Party Date must be in future"
       end
-      if record.info_date > record.date
-        record.errors[:info_date] << "Party Info date must be before actual party start"
-      end
     end
   end
 

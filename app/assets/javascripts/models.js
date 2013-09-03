@@ -98,9 +98,6 @@ define([
 	    if (!attr['date'] || !attr['infoDate']) {
 		return "Important dates are missing";
 	    }
-	    if (attr['date'] < attr['infoDate']) {
-		return "Info time can't be after party has started";
-	    }
 	}
     });
 
