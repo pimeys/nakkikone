@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'capistrano'
+
 gem 'rails', '3.2.6'
 gem 'json'
 gem "bcrypt-ruby", :require => "bcrypt"
