@@ -140,6 +140,9 @@ define([
 		}
 		return el;
 	    });
+	    if (!title){ // Select last Party in intialize
+		data[(data.length-1)]['selected'] = true;
+	    }
 	    this.$el.html(selector({parties: data}));
 	    return this.$el;
 	},
@@ -538,13 +541,14 @@ define([
 	    success: function() {
 		//TODO remove this stuff
 		if (parties.length > 0) {
-		    latestParty = parties.at(0);
+			
+		    latestParty = parties.last();
 		    users.partyId = latestParty.get('id');
 		    auxUsers.partyId = latestParty.get('id');
 		    nakkitypes.partyId = latestParty.get('id');
 		    
 		    var _ready = _.after(3, function(){
-			new Party_Selector({el: $('#party-selector',rootel), selected: latestParty.title});
+			new Party_Selector({el: $('#party-selector',rootel), selected: latestParty.get('title')}); // latestParty.title is allways null!!
 			new Party_Viewer({el: $('#party', rootel), model: latestParty});
 			new Nakki_List({el: $('#nakit', rootel), model: latestParty, collection: nakkitypes});
 
