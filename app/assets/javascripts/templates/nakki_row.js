@@ -15,10 +15,10 @@ define('templates/nakki_row', [
 	var row = "<td>" + timeFormatter(this[0].slot, startTime) + "</td>";
 	_.each(sortedByType, function(nakki) {
 	    row += "<td>";
-	    if (!!nakki.assign) {
+	    if (!!nakki.assign && nakki.assign !== "Disabled") { //TODO remove coupling to admin nick
 	    	row += '<span class="reserved">'+ nakki.assign +'</span>';
-	    } else if (!!nakki.id) {
-	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/><span class="take">Take</span>'; 
+	    } else if (!!nakki.id && nakki.assign !== "Disabled") {
+	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/><span class="take">Take</span>';
 	    } else {
 		row += '<span class="disabled">Disabled<span>';
 	    }
