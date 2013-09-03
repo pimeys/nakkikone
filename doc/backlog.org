@@ -472,6 +472,12 @@ used as logging tool after that.
    :END:
    - the party is replaced with parties drop down buttongroup
 ** TODO create jasmine tests for backbone code
+* Deployment [0/1]
+** TODO Capistrano to nakkikone
+   :PROPERTIES:
+   :ID:       659fa20a-c186-4cba-b463-9e3efa2a677f
+   :END:
+   product deployment with it. Current Way is hack...
 * Improvement ideas [4/9] 					     :DESIGN:
 ** DONE Default Nakkitypes
    CLOSED: [2013-04-06 Sat 11:37]
