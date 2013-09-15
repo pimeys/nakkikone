@@ -472,13 +472,17 @@ used as logging tool after that.
    :END:
    - the party is replaced with parties drop down buttongroup
 ** TODO create jasmine tests for backbone code
-* Deployment [0/1]
-** WAITING Capistrano to nakkikone
+* Deployment [1/2]
+** DONE Capistrano to nakkikone
+   CLOSED: [2013-09-15 Sun 22:42]
    :CLOCK:
+   CLOCK: [2013-09-15 Sun 22:13]--[2013-09-15 Sun 22:25] =>  0:12
    CLOCK: [2013-09-15 Sun 21:25]--[2013-09-15 Sun 21:55] =>  0:30
    CLOCK: [2013-09-04 Wed 21:19]--[2013-09-04 Wed 22:21] =>  1:02
    :END:
    :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-09-15 Sun 22:42]
+   - State "STARTED"    from "WAITING"    [2013-09-15 Sun 22:13]
    - State "STARTED"    from "WAITING"    [2013-09-15 Sun 21:53]
    - State "STARTED"    from "TODO"       [2013-09-04 Wed 22:19]
    :END:
@@ -489,7 +493,10 @@ used as logging tool after that.
 
    - needs to decide from where the deployment is done, in domain itself or ...
    - backups copies from production db
+   - [X] verified that works.
 
+** TODO Update Capistrano usage
+   - lets use cat production deploy!
 * Improvement ideas [4/9] 					     :DESIGN:
 ** DONE Default Nakkitypes
    CLOSED: [2013-04-06 Sat 11:37]
