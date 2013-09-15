@@ -18,7 +18,7 @@ This documentation is organizing initial backlog. After deployment
 github issues tools should be used for feature requests. This will be
 used as logging tool after that.
 
-* Framework stuff [3/4]						  :IMPLEMENT:
+* Framework stuff [3/4]					  :IMPLEMENT:
 ** DONE update requirejs
    CLOSED: [2013-02-24 Sun 19:45]
    :LOGBOOK:
@@ -473,11 +473,23 @@ used as logging tool after that.
    - the party is replaced with parties drop down buttongroup
 ** TODO create jasmine tests for backbone code
 * Deployment [0/1]
-** TODO Capistrano to nakkikone
+** WAITING Capistrano to nakkikone
+   :CLOCK:
+   CLOCK: [2013-09-15 Sun 21:25]--[2013-09-15 Sun 21:55] =>  0:30
+   CLOCK: [2013-09-04 Wed 21:19]--[2013-09-04 Wed 22:21] =>  1:02
+   :END:
+   :LOGBOOK:
+   - State "STARTED"    from "WAITING"    [2013-09-15 Sun 21:53]
+   - State "STARTED"    from "TODO"       [2013-09-04 Wed 22:19]
+   :END:
    :PROPERTIES:
    :ID:       659fa20a-c186-4cba-b463-9e3efa2a677f
    :END:
    product deployment with it. Current Way is hack...
+
+   - needs to decide from where the deployment is done, in domain itself or ...
+   - backups copies from production db
+
 * Improvement ideas [4/9] 					     :DESIGN:
 ** DONE Default Nakkitypes
    CLOSED: [2013-04-06 Sat 11:37]
