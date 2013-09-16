@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :require_login, :only => [:new, :create, :home]
+  skip_before_filter :require_login, :only => [:new, :create, :home, :reset_password]
 
   def new
     user = User.new
@@ -29,5 +29,20 @@ class UsersController < ApplicationController
   end
 
   def home
+  end
+
+  def reset_password
+    user = User.where(:email => params[:email]).first
+    if user
+      new_password = User.generate_random_password(8)
+      user.password = new_password
+      user.password_confirmation = new_password
+      if user.save
+        PasswordResetMailer.password_reset(user, new_password).deliver
+        render :status => 200, :text => "done"
+      else
+        render :status => 400, :json => errors
+      end
+    end
   end
 end
