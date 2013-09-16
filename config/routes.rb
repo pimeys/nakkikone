@@ -5,6 +5,8 @@ RailStrap::Application.routes.draw do
   get "sign_up" => "users#new", :as => "sign_up"
   put "yourself" => "users#update"
 
+  get "reset_password" => "users#reset_password"
+
   get "login" => "sessions#new"
   post "login" => "sessions#create", :as => "login"
  

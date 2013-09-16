@@ -38,6 +38,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.generate_random_password(length)
+    o = [('a'..'z'), ('A'..'Z'), (0 .. 9)].map { |i| i.to_a }.flatten
+    return (0...length).map{ o[rand(o.length)] }.join
+  end
+
   class Unauthorized < StandardError
   end
 
