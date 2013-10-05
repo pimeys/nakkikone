@@ -1,8 +1,14 @@
 define(['backbone','underscore','models'],function(bb, _, models){
 
     var PartyResources = bb.Collection.extend({
+	_party: undefined,
 	partyId: 'noparties',
 	resource: 'no-resource',
+	
+	partyDate: function() {
+	    return this._party.get('date');
+	},
+
 	url: function() {
 	    return '/parties/' + this.partyId + '/' + this.resource;
 	}

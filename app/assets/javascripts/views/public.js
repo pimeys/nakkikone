@@ -5,6 +5,7 @@ define([
     'backbone',
     'collections',
     'models',
+    'components/nakki-table',
     'bs',
     'hbs!templates/public-screen',
     'hbs!templates/party-description',
@@ -12,7 +13,7 @@ define([
     'hbs!templates/aux-job-selector',
     'hbs!templates/aux-job-counter',
     'hbs!templates/alert'
-], function($, _, bb, collections, models, bs, publicScreen, party_description, nakki_table, auxJobSelector, auxjobList, alertTmpl) {
+], function($, _, bb, collections, models, nakkiTable, bs, publicScreen, party_description, nakki_table, auxJobSelector, auxjobList, alertTmpl) {
 
     var vent = {};
     _.extend(vent, bb.Events);
@@ -46,7 +47,7 @@ define([
 	showNotify: function(message) {
 	    message.type = 'success';
 	    this.appendAlert(message);
-	},	
+	},
 
 	appendAlert: function(message) {
 	    this.$el.append(alertTmpl({message: message}));
@@ -118,64 +119,6 @@ define([
 	render: function(){
 	    this.$el.html(auxJobSelector());
 	    return this;
-	}
-    });
-
-    var Nakki_Table = bb.View.extend({
-	initialize: function() {
-	    _.bindAll(this);
-	    this.listenTo(this.collection, 'reset', this.render);
-	    vent.on('assignPerson', this.save);
-	    vent.on('detach', this.remove);
-	    this.render();
-	},
-
-	render: function(){ 
-	    var startingTime = party.get('date');
-	    var data = _.sortBy(_.groupBy(nakit.toJSON(),'slot'),'type');
-	    data = _.sortBy(data, function(item) { return parseInt(item[0].slot, 10);});
-	    var titles = _.uniq(_.pluck(nakit.toJSON(),'type'));
-	    this.$el.html(nakki_table({titles: titles.sort(), nakit: _.toArray(data), startTime: startingTime.toJSON()}));
-	    return this;
-	},
-
-	save: function(assignedPerson){
-	    var ids = _.map(this.$('form').serializeArray(), function(el) {
-		return el.value;
-	    });
-	    if (ids.length == 0) {
-		return false;
-	    }
-	    this.returned = _.after(ids.length, this.render); //todo safe?
-	    var self = this;
-	    _.each(ids, function(current){
-		var model = nakit.get(current);
-		model.save({assign: assignedPerson.id}, 
-			   { 
-			       wait: true, 
-			       success: self.notify, 
-			       error: self.alert
-			   });
-	    });
-	    return false;
-	},
-
-	notify: function(model, options) {
-	    this.returned();
-	    var message = {
-		title: "Success!",
-		text: "Your " + model.get('type') + " has been succesfully registered for you."
-	    };
-	    vent.trigger('notify', message);
-	},
-
-	alert: function(model, xhr, options) {
-	    this.returned();
-	    var message = {
-		title: "Failure (Something went wrong in server)!",
-		text: "Your assignment request failed because: " + xhr.responseText
-	    };
-	    vent.trigger('alert', message);
 	}
     });
 
@@ -258,12 +201,14 @@ define([
 	}
 
 	party.fetch({url:partyFindUrl, success:function(){
+	    nakit._party = party;
 	    nakit.partyId = party.get('id');
 	    auxUsers.partyId = party.get('id');
 
 	    var _ready = _.after(2, function(){
 		new Party_Viewer({el:$('#party-description',rootel), model: party}); 
-		new Nakki_Table({el:$('#nakki-table',rootel), collection: nakit});
+
+		nakkiTable.createComponent({el:$('#nakki-table',rootel), collection: nakit}, vent);
 		new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
 
 		//todo refactor to oblivion
