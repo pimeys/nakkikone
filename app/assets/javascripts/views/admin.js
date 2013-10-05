@@ -5,6 +5,7 @@ define([
     'backbone',
     'collections',
     'models',
+    'components/notification-area',
     'moment',
     'languages',
     'bootstrapDatepicker',
@@ -16,9 +17,8 @@ define([
     'hbs!templates/selector',
     'hbs!templates/party-description',
     'hbs!templates/party-editor-form',
-    'hbs!templates/alert',
     'hbs!templates/email-button'
-], function($, _, bb, collections, models, moment, languages, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, alertTmpl, emailButton) {
+], function($, _, bb, collections, models, notificationArea, moment, languages, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, emailButton) {
 
     //TODO fix party creation refresh for nakkitypes editor.
 
@@ -63,43 +63,6 @@ define([
 	    var toAll = _.uniq(this.allPartyParcipitantsEmails());
 	    window.open("mailto:" + toAll, "_email");
 	}
-    });
-    
-    //TODO refactor to common-module
-    var NotificationArea = bb.View.extend({
-	initialize: function() {
-	    _.bindAll(this);
-	    vent.on('detach', this.remove);
-	    this.listenTo(vent, 'alert', this.showAlert);
-	    this.listenTo(vent, 'notify', this.showNotify);
-	    this.render();
-	},
-
-	showAlert: function(message) {
-	    message.type = 'error';
-	    this.appendAlert(message);
-	},
-
-	showNotify: function(message) {
-	    message.type = 'success';
-	    this.appendAlert(message);
-	},	
-
-	appendAlert: function(message) {
-	    if (message.type == 'success'){
-	        this.$el.append(alertTmpl({message: message}));
-		if (this.$el.children().length > 0){
-			var that = this;
-		    setTimeout(function(){
-			  that.$el.find(":first-child").remove();
-		    },15000);
-		}
-	     }
-	     else if (message.type = 'error'){
-		 this.$el.prepend(alertTmpl({message: message}));
-	     }
-	}
-	
     });
 
     var createDefaultNakkiTypes = function(partyModel) {
@@ -535,7 +498,7 @@ define([
 	rootel.html(adminScreen);
 	vent.off(); //hard reset!
 
-	new NotificationArea({el: $('#admin-alert-area', rootel)});
+	notificationArea.createComponent({el: $('#admin-alert-area', rootel)}, vent);
 
 	parties.fetch( {
 	    success: function() {

@@ -6,14 +6,13 @@ define([
     'collections',
     'models',
     'components/nakki-table',
+    'components/notification-area',
     'bs',
     'hbs!templates/public-screen',
     'hbs!templates/party-description',
-    'hbs!templates/nakki-table', 
     'hbs!templates/aux-job-selector',
-    'hbs!templates/aux-job-counter',
-    'hbs!templates/alert'
-], function($, _, bb, collections, models, nakkiTable, bs, publicScreen, party_description, nakki_table, auxJobSelector, auxjobList, alertTmpl) {
+    'hbs!templates/aux-job-counter'
+], function($, _, bb, collections, models, nakkiTable, notificationArea, bs, publicScreen, party_description, auxJobSelector, auxjobList) {
 
     var vent = {};
     _.extend(vent, bb.Events);
@@ -28,31 +27,6 @@ define([
 	resource: 'aux_parcipitants_names'
     });
     var auxUsers = new AuxUsers();
-
-    //TODO refactor to common-module
-    var NotificationArea = bb.View.extend({
-	initialize: function() {
-	    _.bindAll(this);
-	    vent.on('detach', this.remove);
-	    this.listenTo(vent, 'alert', this.showAlert);
-	    this.listenTo(vent, 'notify', this.showNotify);
-	    this.render();
-	},
-
-	showAlert: function(message) {
-	    message.type = 'error';
-	    this.appendAlert(message);
-	},
-
-	showNotify: function(message) {
-	    message.type = 'success';
-	    this.appendAlert(message);
-	},
-
-	appendAlert: function(message) {
-	    this.$el.append(alertTmpl({message: message}));
-	}
-    });
 
     var Party_Viewer = bb.View.extend({
 	initialize: function(){
@@ -190,7 +164,7 @@ define([
 	rootel.html(publicScreen);
 	vent.off(); //hard reset!
 
-	new NotificationArea({el: $('#alert-area', rootel)});
+	notificationArea.createComponent({el: $('#alert-area', rootel)}, vent);
 
 	//todo hide to model
 	var partyFindUrl = '/parties/';
