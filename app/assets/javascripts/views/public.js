@@ -5,14 +5,14 @@ define([
     'backbone',
     'collections',
     'models',
+    'components/party-viewer',
     'components/nakki-table',
     'components/notification-area',
     'bs',
     'hbs!templates/public-screen',
-    'hbs!templates/party-description',
     'hbs!templates/aux-job-selector',
     'hbs!templates/aux-job-counter'
-], function($, _, bb, collections, models, nakkiTable, notificationArea, bs, publicScreen, party_description, auxJobSelector, auxjobList) {
+], function($, _, bb, collections, models, partyViewer, nakkiTable, notificationArea, bs, publicScreen, auxJobSelector, auxjobList) {
 
     var vent = {};
     _.extend(vent, bb.Events);
@@ -27,19 +27,6 @@ define([
 	resource: 'aux_parcipitants_names'
     });
     var auxUsers = new AuxUsers();
-
-    var Party_Viewer = bb.View.extend({
-	initialize: function(){
-	    _.bindAll(this);
-	    vent.on('detach', this.remove);
-	    this.render();
-	},
-
-	render: function(){
-	    this.$el.html(party_description({party:this.model.toJSON(), editable:false}));
-	    return this;
-	}
-    });
 
     // horrible piece of shit, please die.
     var AuxJobsSelect = bb.View.extend({
@@ -179,9 +166,8 @@ define([
 	    nakit.partyId = party.get('id');
 	    auxUsers.partyId = party.get('id');
 
-	    var _ready = _.after(2, function(){
-		new Party_Viewer({el:$('#party-description',rootel), model: party}); 
-
+	    var _ready = _.after(2, function() {
+		partyViewer.createComponent({el: $('#party-description',rootel), model: party}, vent); 
 		nakkiTable.createComponent({el:$('#nakki-table',rootel), collection: nakit}, vent);
 		new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
 
