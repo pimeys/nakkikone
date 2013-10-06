@@ -7,51 +7,18 @@ define([
     'models',
     'components/party-viewer',
     'components/nakki-table',
+    'components/assign-form',
     'components/notification-area',
     'components/aux-jobs',
     'bs',
     'hbs!templates/public-screen'
-], function($, _, bb, collections, models, partyViewer, nakkiTable, notificationArea, auxJobs, bs, publicScreen) {
+], function($, _, bb, collections, models, partyViewer, nakkiTable, assignForm, notificationArea, auxJobs, bs, publicScreen) {
 
     var vent = {};
     _.extend(vent, bb.Events);
 
     var party = new models.Party();
     var nakit = new collections.Nakit();
-
-    var Assign_Form = bb.View.extend({
-	events: {
-	    'submit': 'assign',
-	    'click .cancel-all': 'unAssignAll'
-	},
-
-	initialize: function() {
-	    _.bindAll(this);
-	    vent.on('detach', this.remove);
-	},
-
-	assign: function() {
-	    vent.trigger('assignPerson', this.model);
-	    return false;
-	},
-
-	unAssignAll: function() {
-	    $.ajax({
-		url: '/parties/' + party.id + '/cancel_all',
-		dataType: 'json',
-		type: 'DELETE'
-	    }).success(function(){
-		nakit.fetch({
-		    success: function() {
-			var message = {
-			    title: "Successfully Cancelled Reservations"
-			};
-			vent.trigger('notify', message);
-		    }
-		});
-	    });
-	}
-    });
 
     //todo move to separate error-handling-module
     var _error = function(col, error) {
@@ -83,9 +50,9 @@ define([
 	    auxUsers.partyId = party.get('id');
 
 	    var _ready = _.after(2, function() {
-		partyViewer.createComponent({el: $('#party-description',rootel), model: party}, vent); 
-		nakkiTable.createComponent({el:$('#nakki-table',rootel), collection: nakit}, vent);
-		new Assign_Form({el:$('#assign',rootel), model: options.currentUser()});
+		partyViewer.createComponent({el: $('#party-description',rootel), model: party }, vent); 
+		nakkiTable.createComponent({el:$('#nakki-table',rootel), collection: nakit }, vent);
+		assignForm.createComponent({el:$('#assign',rootel), model: options.currentUser()}, vent, party);
 
 		auxJobs.createSelector({el: $('#auxJob-selector', rootel), model: party}, vent);
 		auxJobs.createCleanersList({el: $('#auxJob-cleaners', rootel), collection: auxUsers}, vent);
