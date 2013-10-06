@@ -54,7 +54,7 @@ define([
 	},
 	
 	showForgotDialog: function() {
-	    var email = prompt("write here your account password");
+	    var email = prompt("write here your account email");
 	    $.get("/reset_password?email=" + email, function(data) {
 		alert("Email has sent to email address, go check your mails");
 	    }).fail(function(data) {
