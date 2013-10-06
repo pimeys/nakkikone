@@ -14,8 +14,6 @@ define([
     'hbs!templates/email-button'
 ], function($, _, bb, collections, models, notificationArea, usersList, partySelector, partyEditor, nakkiEditor, adminScreen, emailButton) {
 
-    //TODO fix party creation refresh for nakkitypes editor.
-
     var vent = {};
     _.extend(vent, bb.Events);
 
@@ -59,6 +57,37 @@ define([
 	}
     });
 
+    var createFirstParty = function() {
+	var title = prompt("We noticed that there are no parties, lets create one! Give title to first nakkikone party");
+	parties.create( {title: title}, {
+	    success: function() {
+		initialize();
+	    }, 
+	    error: _error
+	});
+    };
+
+    var setToLatest = function() {
+	var party = parties.last();
+	users.partyId = party.get('id');
+	auxUsers.partyId = party.get('id');
+	nakkitypes.partyId = party.get('id');
+	return party;
+    };
+
+    var collectionsReady = function(rootel, party) {
+	partySelector.createComponent({el: $('#party-selector',rootel), collection: parties, model: party}, vent);
+	partyEditor.createComponent({el: $('#party', rootel), collection: parties, model: party}, vent);
+	nakkiEditor.createComponent({el: $('#nakit', rootel), collection: nakkitypes, model: party}, vent);
+
+	usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
+
+	usersList.createConstructors({el: $('#constructors', rootel), collection: auxUsers}, vent);
+	usersList.createCleaners({el: $('#cleaners', rootel), collection: auxUsers}, vent);
+
+	new EmailToAll({el: $('#email-all', rootel)});
+    };
+
     var initialize = function(options) {
 	var latestParty;
 	var rootel = options.el;
@@ -69,36 +98,18 @@ define([
 
 	parties.fetch( {
 	    success: function() {
-		//TODO remove this stuff
 		if (parties.length > 0) {
+		    latestParty = setToLatest();
 
-		    latestParty = parties.last();
-		    users.partyId = latestParty.get('id');
-		    auxUsers.partyId = latestParty.get('id');
-		    nakkitypes.partyId = latestParty.get('id');
-
-		    var _ready = _.after(3, function(){
-			partySelector.createComponent({el: $('#party-selector',rootel), collection: parties, model: latestParty}, vent);
-			partyEditor.createComponent({el: $('#party', rootel), collection: parties, model: latestParty}, vent);
-			nakkiEditor.createComponent({el: $('#nakit', rootel), model: latestParty, collection: nakkitypes}, vent);
-
-			usersList.createConstructors({el: $('#constructors', rootel), collection: auxUsers}, vent);
-			usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
-			usersList.createCleaners({el: $('#cleaners', rootel), collection: auxUsers}, vent);
-
-			new EmailToAll({el: $('#email-all', rootel)});
+		    var _ready = _.after(3, function() {
+			collectionsReady(rootel, latestParty);
 		    });
 
 		    auxUsers.fetch({success: _ready, error: _error});
 		    users.fetch({success: _ready, error: _error});
 		    nakkitypes.fetch({success: _ready, error: _error});
-		} else { //TODO remove?
-		    partySelector.createComponent({el: $('#party-selector',rootel), collection: parties}, vent);
-		    partyEditor.createComponent({el:$('#party',rootel), collection: parties, model: new models.Party({title:'No parties yet'})}, vent);
-		    nakkiEditor.createComponent({el: $('#nakit', rootel), collection: nakkitypes}, vent);
-
-		    usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
-		    new EmailToAll({el: $('#email-all', rootel)});
+		} else { 
+		    createFirstParty();
 		}
 	    },
 	    error: _error
