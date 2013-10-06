@@ -7,6 +7,7 @@ define([
     'models',
     'components/notification-area',
     'components/users-list',
+    'components/party-selector',
     'moment',
     'languages',
     'bootstrapDatepicker',
@@ -14,11 +15,10 @@ define([
     'hbs!templates/admin-screen',
     'hbs!templates/nakit',
     'hbs!templates/edit-nakkis',
-    'hbs!templates/selector',
     'hbs!templates/party-description',
     'hbs!templates/party-editor-form',
     'hbs!templates/email-button'
-], function($, _, bb, collections, models, notificationArea, usersList, moment, languages, bootstarpDP, bootstarpTP, adminScreen, nakkilist, nakkilist_edit, selector, party_description, party_edit, emailButton) {
+], function($, _, bb, collections, models, notificationArea, usersList, partySelector, moment, languages, bootstarpDP, bootstarpTP, adminScreen, nakkilist, nakkilist_edit, party_description, party_edit, emailButton) {
 
     //TODO fix party creation refresh for nakkitypes editor.
 
@@ -79,91 +79,7 @@ define([
 	    nakkitypes.create(el);
 	});
     };
-
-    var Party_Selector = bb.View.extend({
-	events: {
-	    "change .selector" : "select",
-	    "click .creator"  : "create",
-	    "click .deletor"  : "destroy"
-	},
-
-	initialize: function() {
-	    _.bindAll(this);
-	    parties.on('add', this.render);
-	    vent.on('partyEdited', this.render);
-	    vent.on('detach', this.remove);
-	    this.render();
-	},
-
-	render: function(model) { //todo selection flagging with handlebars helper func
-	    var title = model ? model.get('title') : null;
-	    var data = _.map(parties.toJSONWithClientID(), function(el) {
-		if (title && el['title'] === title) {
-		    el['selected'] = true;
-		}
-		return el;
-	    });
-	    if (!title){ // Select last Party in intialize
-		data[(data.length-1)]['selected'] = true;
-	    }
-	    this.$el.html(selector({parties: data}));
-	    return this.$el;
-	},
-	
-	select: function(target) {
-	    var partyId = this.$('form').serializeArray()[0].value;
-	    vent.trigger('changeParty', parties.get(partyId));
-	},
-
-	create: function() {
-	    var self = this;
-	    var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
-	    parties.create({title: partyTitle}, {
-		wait:true,
-		success: function(model, options) {
-		    createDefaultNakkiTypes(model);
-		    vent.trigger('createdParty', model); //todo remove
-		    self.render(model);
-		},
-		error: this.alert
-	    });
-	    return false;
-	},
-
-	destroy: function(){
-	    var self = this;
-	    var partyId = this.$('form').serializeArray()[0].value;
-	    var model = parties.get(partyId);
-	    var r = confirm("Are you sure to want to delete party " + model.get('title') + " ?");
-	    if (r) {
-		model.destroy({
-		    wait: true, 
-		    success: this.notify,
-		    error: this.alert
-		});
-	    }
-	    return false;
-	},
-	
-	notify: function(model, options) {
-	    var message = {
-		title: 'Success',
-		text: "Party " + model.get('title') + " successfully removed."
-	    };
-	    vent.trigger('notify', message);
-	    vent.trigger('changeParty', parties.at(0));
-	    this.render();
-	},
-
-	alert: function(model, xhr, options) {
-	    var message = {
-		title: "Failure (Something went wrong in server)!",
-		text: "Your assignment request failed because: " + xhr.responseText
-	    };
-	    vent.trigger('alert', message);
-	}
-    });
-
+ 
     //TODO refactor to use maybe subviews for each models 
     var Nakki_List = bb.View.extend({
 	events: {
@@ -433,7 +349,7 @@ define([
 		    nakkitypes.partyId = latestParty.get('id');
 		    
 		    var _ready = _.after(3, function(){
-			new Party_Selector({el: $('#party-selector',rootel), selected: latestParty.get('title')}); // latestParty.title is allways null!!
+			partySelector.createComponent({el: $('#party-selector',rootel), collection: parties, model: latestParty}, vent);
 			new Party_Viewer({el: $('#party', rootel), model: latestParty});
 			new Nakki_List({el: $('#nakit', rootel), model: latestParty, collection: nakkitypes});
 
@@ -448,9 +364,10 @@ define([
 		    users.fetch({success: _ready, error: _error});
 		    nakkitypes.fetch({success: _ready, error: _error});
 		} else { //TODO remove?
-		    new Party_Selector({el:$('#party-selector',rootel)});
+		    partySelector.createComponent({el: $('#party-selector',rootel), collection: parties}, vent);
 		    new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
 		    new Nakki_List({el:$('#nakit',rootel), model: latestParty, collection: nakkitypes});
+
 		    usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
 		    new EmailToAll({el: $('#email-all', rootel)});
 		}
