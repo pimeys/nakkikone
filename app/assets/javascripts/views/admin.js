@@ -6,19 +6,19 @@ define([
     'collections',
     'models',
     'components/notification-area',
+    'components/users-list',
     'moment',
     'languages',
     'bootstrapDatepicker',
     'bootstrapTimepicker',
     'hbs!templates/admin-screen',
-    'hbs!templates/users',
     'hbs!templates/nakit',
     'hbs!templates/edit-nakkis',
     'hbs!templates/selector',
     'hbs!templates/party-description',
     'hbs!templates/party-editor-form',
     'hbs!templates/email-button'
-], function($, _, bb, collections, models, notificationArea, moment, languages, bootstarpDP, bootstarpTP, adminScreen, userlist, nakkilist, nakkilist_edit, selector, party_description, party_edit, emailButton) {
+], function($, _, bb, collections, models, notificationArea, usersList, moment, languages, bootstarpDP, bootstarpTP, adminScreen, nakkilist, nakkilist_edit, selector, party_description, party_edit, emailButton) {
 
     //TODO fix party creation refresh for nakkitypes editor.
 
@@ -162,84 +162,6 @@ define([
 	    };
 	    vent.trigger('alert', message);
 	}
-    });
-
-    var User_List = bb.View.extend({
-	collection: users, //TODO maybe as an constructor parameter
-
-	events: {
-	    'click .unassign': 'unassign'
-	},
-
-	initialize: function(){
-	    _.bindAll(this);
-	    vent.on('changeParty createdParty', this.refresh);
-	    vent.on('detach', this.remove);
-	    this.listenTo(this.collection, 'remove', this.render);
-	    this.render();
-	},
-	
-	refresh: function(model) {
-	    var self = this;
-	    var party = model;
-
-	    this.collection.partyId = party.get('id');
-	    this.collection.fetch({
-		success: this.render, 
-		
-		error: function(){
-		    this.collection.reset();
-		    self.$el.html('none');
-		}
-	    });
-	},
-
-	render: function() {
-	    this.$el.html(userlist({persons:this.collection.toJSON()}));
-	    return this;
-	},
-	
-	unassign: function(event) {
-	    var self = this;
-	    var cancelledUser = this.collection.get($(event.target).data('id'));
-	    cancelledUser.partyId = this.collection.partyId;
-	    cancelledUser.destroy({
-		success: this.notify,
-		error: this.error
-	    });
-	},
-
-	notify: function(model, options) {
-	    var message = {
-		title: 'Success',
-		text: "User " + model.get('name') + " successfully removed from parcipitants list."
-	    };
-	    vent.trigger('notify', message);
-	    this.collection.remove(model);
-	    this.render();
-	},
-
-	alert: function(model, xhr, options) {
-	    var message = {
-		title: "Failure (Something went wrong in server)!",
-		text: "Your assignment request failed because: " + xhr.responseText
-	    };
-	    vent.trigger('alert', message);
-	}
-    });
-
-    var Constructors_List = User_List.extend({
-	collection: auxUsers,
-	filterRules: {type: 'const'},
-
-	render: function(){
-	    this.$el.html(userlist({persons: new bb.Collection().add(this.collection.where(this.filterRules)).toJSON()})); //TODO please kill me now
-	    return this;
-	}
-    });
-
-    var Cleaners_List = Constructors_List.extend({
-	filterRules: {type: 'clean'}
     });
 
     //TODO refactor to use maybe subviews for each models 
@@ -515,20 +437,21 @@ define([
 			new Party_Viewer({el: $('#party', rootel), model: latestParty});
 			new Nakki_List({el: $('#nakit', rootel), model: latestParty, collection: nakkitypes});
 
-			new Constructors_List({el: $('#constructors', rootel)});
-			new User_List({el: $('#users', rootel)});
-			new Cleaners_List({el: $('#cleaners', rootel)});
+			usersList.createConstructors({el: $('#constructors', rootel), collection: auxUsers}, vent);
+			usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
+			usersList.createCleaners({el: $('#cleaners', rootel), collection: auxUsers}, vent);
+
 			new EmailToAll({el: $('#email-all', rootel)});
 		    });
 
 		    auxUsers.fetch({success: _ready, error: _error});
 		    users.fetch({success: _ready, error: _error});
 		    nakkitypes.fetch({success: _ready, error: _error});
-		} else {
+		} else { //TODO remove?
 		    new Party_Selector({el:$('#party-selector',rootel)});
 		    new Party_Viewer({el:$('#party',rootel), model: new models.Party({title:'No parties yet'})});
 		    new Nakki_List({el:$('#nakit',rootel), model: latestParty, collection: nakkitypes});
-		    new User_List({el:$('#users',rootel)});
+		    usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
 		    new EmailToAll({el: $('#email-all', rootel)});
 		}
 	    },
