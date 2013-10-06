@@ -66,14 +66,19 @@ define([
 	    signup.initializeWithEditDetails({el:contentEl, currentUser: authentication.currentUser});
 	},
 
+	_showPublicScreen: function(party) {
+admin.detach();
+	    pub.initialize({el:contentEl, party: party, currentUser: authentication.currentUser});
+	},
+
 	showPublicScreen: function(title) {
-	    admin.detach();
-	    pub.initialize({el:contentEl, partyTitle:title, currentUser: authentication.currentUser});
+	    var party = new models.PartyFinder({title:title});
+	    this._showPublicScreen(party);
 	},
 
 	showPublicScreenById: function(id) {
-	    admin.detach();
-	    pub.initialize({el:contentEl, partyId:id, currentUser: authentication.currentUser});
+	    var party = new models.PartyFinder({id:id});
+	    this._showPublicScreen(party);
 	}
     });
 

@@ -17,7 +17,6 @@ define([
     var vent = {};
     _.extend(vent, bb.Events);
 
-    var party = new models.Party();
     var nakit = new collections.Nakit();
 
     //todo move to separate error-handling-module
@@ -36,15 +35,8 @@ define([
 
 	notificationArea.createComponent({el: $('#alert-area', rootel)}, vent);
 
-	//todo hide to model
-	var partyFindUrl = '/parties/';
-	if (options.partyId || options.partyId == 0) {
-	    partyFindUrl += options.partyId;
-	} else if (options.partyTitle) {
-	    partyFindUrl += options.partyTitle + '?by_title=true';
-	}
-
-	party.fetch({url:partyFindUrl, success:function(){
+	var party = options.party;
+	party.fetch({success: function() {
 	    nakit._party = party;
 	    nakit.partyId = party.get('id');
 	    auxUsers.partyId = party.get('id');
