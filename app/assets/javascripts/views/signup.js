@@ -5,41 +5,16 @@ define([
     'backbone',
     'models',
     'vent',
+    'components/notification-area',
     'hbs!templates/signup-screen',
     'hbs!templates/edit-screen',
     'hbs!templates/outer-template',
-    'hbs!templates/edit-own-details',
-    'hbs!templates/alert'
-], function($, _, bb, models, vent, signupScreen, editScreen, outer_template, edit_own_details, alertTmpl) {
+    'hbs!templates/edit-own-details'
+], function($, _, bb, models, vent, noficationArea, signupScreen, editScreen, outer_template, edit_own_details) {
 
     var internalVent = {};
     _.extend(internalVent, bb.Events);
 
-    //TODO refactor to common-module
-    var NotificationArea = bb.View.extend({
-	initialize: function() {
-	    _.bindAll(this);
-	    vent.on('detach', this.remove);
-	    this.listenTo(internalVent, 'alert', this.showAlert);
-	    this.listenTo(internalVent, 'notify', this.showNotify);
-	    this.render();
-	},
-
-	showAlert: function(message) {
-	    message.type = 'error';
-	    this.appendAlert(message);
-	},
-
-	showNotify: function(message) {
-	    message.type = 'success';
-	    this.appendAlert(message);
-	},	
-
-	appendAlert: function(message) {
-	    this.$el.append(alertTmpl({message: message}));
-	}
-    });
-    
     var SubmitModel = models.Person.extend({
 	defaults: {
 	    name: null,
@@ -156,19 +131,19 @@ define([
 	    return false;
 	}
    });
-    
+
     var initialize = function(options){
 	var rootDiv = options.el.html(outer_template);
 	
 	new SignUp_Form({el: $('#signup', rootDiv), model: getSubmitUser()}).render();
-	new NotificationArea({el: $('#signup-alert-area', rootDiv)});
+	noficationArea.createComponent({el: $('#signup-alert-area', rootDiv)}, internalVent);
     };
 
     var initializeWithEditDetails = function(options){
 	var rootDiv = options.el.html(edit_own_details);
 	
 	new Edit_Form({el: $('#signup', rootDiv), model: options.currentUser()}).render();
-	new NotificationArea({el: $('#signup-alert-area', rootDiv)});
+	noficationArea.createComponent({el: $('#signup-alert-area', rootDiv)}, internalVent);
     };
     
     return {initialize:initialize, initializeWithEditDetails:initializeWithEditDetails};
