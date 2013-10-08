@@ -8,8 +8,9 @@ define([
     'vent',
     'views/admin',
     'views/public',
-    'views/signup'
-], function($, bb, authentication, models, collections, vent, admin, pub, signup) {
+    'views/signup',
+    'views/edit-details'
+], function($, bb, authentication, models, collections, vent, admin, pub, signup, editDetails) {
 
     var contentEl;
 
@@ -63,7 +64,7 @@ define([
 	},
 
 	showOwnDetailsEditor: function() {
-	    signup.initializeWithEditDetails({el:contentEl, currentUser: authentication.currentUser});
+	    editDetails.initialize({el:contentEl, currentUser: authentication.currentUser});
 	},
 
 	_showPublicScreen: function(party) {
