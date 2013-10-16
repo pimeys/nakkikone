@@ -10,9 +10,10 @@ define([
     'components/party-selector',
     'components/party-editor',
     'components/nakkitype-editor',
+    'components/email',
     'hbs!templates/admin-screen',
     'hbs!templates/email-button'
-], function($, _, bb, collections, models, notificationArea, usersList, partySelector, partyEditor, nakkiEditor, adminScreen, emailButton) {
+], function($, _, bb, collections, models, notificationArea, usersList, partySelector, partyEditor, nakkiEditor, email,  adminScreen, emailButton) {
 
     var vent = {};
     _.extend(vent, bb.Events);
@@ -28,34 +29,6 @@ define([
     var _error = function(collection, xhr, options) {
 	//notify shitty accidents, ignore 403 and 401
     };
-
-    var EmailToAll = bb.View.extend({
-	events: {
-	    'click .mail-to' : 'sendMail'
-	},
-
-	initialize: function() {
-	    _.bindAll(this);
-	    vent.on('detach', this.remove);
-	    this.listenTo(users, "reset add destroy remove", this.render);
-	    this.listenTo(auxUsers, "reset add destroy remove", this.render);
-	    this.render();
-	},
-	
-	render: function() {
-	    this.$el.html(emailButton({emails: this.allPartyParcipitantsEmails()}));
-	    return this;
-	},
-
-	allPartyParcipitantsEmails: function() {
-	    return _.uniq(_.union(users.pluck('email'),auxUsers.pluck('email'))); 
-	},
-
-	sendMail: function() {
-	    var toAll = _.uniq(this.allPartyParcipitantsEmails());
-	    window.open("mailto:" + toAll, "_email");
-	}
-    });
 
     var createFirstParty = function() {
 	var title = prompt("We noticed that there are no parties, lets create one! Give title to first nakkikone party");
@@ -84,8 +57,7 @@ define([
 
 	usersList.createConstructors({el: $('#constructors', rootel), collection: auxUsers}, vent);
 	usersList.createCleaners({el: $('#cleaners', rootel), collection: auxUsers}, vent);
-
-	new EmailToAll({el: $('#email-all', rootel)});
+	email.createComponent({el: $('#email-all', rootel)}, vent, users, auxUsers);
     };
 
     var initialize = function(options) {
