@@ -28,13 +28,24 @@ define([
     });
     var auxUsers = new AuxUsers();
 
+    //todo tobe removed
+    var bindCancelRefresh = function () {
+	var withReset = function(collection) {
+	    return function() {collection.fetch({reset:true});};
+	};
+	nakit.listenTo(vent, 're-fetch-collections', withReset(nakit));
+	auxUsers.listenTo(vent, 're-fetch-collections', withReset(auxUsers));
+    };
+
+    //todo this should be done diffentenly, now blocks good event binding from collections
     var initialize = function(options) {
 	var rootel = options.el;
 	rootel.html(publicScreen);
-	vent.off(); //hard reset!
+	vent.off(); //hard reset! todo this needs to be removed
 
+	bindCancelRefresh();
 	notificationArea.createComponent({el: $('#alert-area', rootel)}, vent);
-
+	
 	var party = options.party;
 	party.fetch({success: function() {
 	    nakit._party = party;
@@ -46,7 +57,7 @@ define([
 		nakkiTable.createComponent({el:$('#nakki-table',rootel), collection: nakit }, vent);
 		assignForm.createComponent({el:$('#assign',rootel), model: options.currentUser()}, vent, party);
 
-		auxJobs.createSelector({el: $('#auxJob-selector', rootel), model: party}, vent);
+		auxJobs.createSelector({el: $('#auxJob-selector', rootel), model: party, collection: auxUsers}, vent);
 		auxJobs.createCleanersList({el: $('#auxJob-cleaners', rootel), collection: auxUsers}, vent);
 		auxJobs.createConstructorsList({el: $('#auxJob-constructors', rootel), collection: auxUsers}, vent);
 	    });

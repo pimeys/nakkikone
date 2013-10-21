@@ -39,14 +39,27 @@ define([
 	submit: function(assigned) {
 	    var type = this.$('form').serializeArray()[0].value;
 	    if (type === "both") {
-	    	this.createSingleUseModel().save({type:"clean"}, {wait:true, success:this.notify, error: this.alert});
-		this.createSingleUseModel().save({type:"const"}, {wait:true, success:this.notify, error: this.alert});
-	    } else if (type === "none"){
+		var _doFetch = _.after(2, this.doFetch);
+	    	this.createSingleUseModel().save({type: "clean"}, {wait:true, success: this.notifyAndFetch(_doFetch), error: this.alert});
+		this.createSingleUseModel().save({type: "const"}, {wait:true, success: this.notifyAndFetch(_doFetch), error: this.alert});
+	    } else if (type === "none") {
 		return false;
 	    } else {
-		this.createSingleUseModel().save({type:type}, {wait:true, success: this.notify, error: this.alert});
+		this.createSingleUseModel().save({type: type}, {wait:true, success: this.notifyAndFetch(this.doFetch), error: this.alert});
 	    }
 	    return false;
+	},
+
+	doFetch: function(count) {
+	    this.collection.fetch({reset: true});
+	},
+
+	notifyAndFetch: function(doFetch) {
+	    var self = this;
+	    return function(model, options) {
+		self.notify(model, options);
+		doFetch();
+	    };
 	},
 
 	notify: function(model, options) {

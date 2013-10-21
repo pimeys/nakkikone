@@ -16,8 +16,8 @@ define([
 	initialize: function() {
 	    _.bindAll(this);
 	    this.listenTo(this.collection, 'reset', this.render);
-	    vent.on('assignPerson', this.save);
-	    vent.on('detach', this.remove);
+	    this.listenTo(vent, 'assignPerson', this.save);
+	    this.listenTo(vent, 'detach', this.remove);
 	    this.render();
 	},
 
@@ -35,7 +35,7 @@ define([
 		    }));
 	},
 
-	render: function(){
+	render: function() {
 	    var collectionJSON = this.collection.toJSON();
 	    this.$el.html(nakki_table({
 		titles: this.parseTitles(collectionJSON),
@@ -45,7 +45,7 @@ define([
 	    return this;
 	},
 
-	save: function(assignedPerson){
+	save: function(assignedPerson) {
 	    var ids = _.map(this.$('form').serializeArray(), function(el) {
 		return el.value;
 	    });

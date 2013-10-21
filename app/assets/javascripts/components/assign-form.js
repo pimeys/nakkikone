@@ -9,13 +9,13 @@ define([
 
     var Assign_Form = bb.View.extend({
 	events: {
-	    'submit': 'assign',
+	    'click .assign': 'assign',
 	    'click .cancel-all': 'unAssignAll'
 	},
 
 	initialize: function() {
 	    _.bindAll(this);
-	    vent.on('detach', this.remove);
+	    this.listenTo(vent, 'detach', this.remove);
 	},
 
 	assign: function() {
@@ -35,6 +35,7 @@ define([
 		vent.trigger('notify', message);
 		vent.trigger('re-fetch-collections');
 	    });
+	    return false;
 	}
     });
 
