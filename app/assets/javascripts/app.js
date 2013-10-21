@@ -63,11 +63,10 @@ define([
 
 	showForgotDialog: function() {
 	    var email = prompt("write here your account email");
-	    $.get("/reset_password?email=" + email, function(data) {
-		alert("Email has sent to email address, go check your mails");
-	    }).fail(function(data) {
-		alert("something went wrong, contact webmaster@entropy.fi");
-	    });
+	    if (email) {
+		sendResetMail(email);
+	    }
+	    window.location.hash = 'login';
 	},
 
 	showOwnDetailsEditor: function() {
@@ -89,6 +88,14 @@ define([
 	    this._showPublicScreen(party);
 	}
     });
+
+    var sendResetMail = function(email) {
+	$.get("/reset_password?email=" + email, function(data) {
+	    alert("Email has sent to email address, go check your mails");
+	}).fail(function(data) {
+	    alert("something went wrong, contact webmaster@entropy.fi");
+	});
+    };
 
     var afterAuth = function() {
 	if (!authentication.currentUser()) {
