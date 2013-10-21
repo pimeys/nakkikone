@@ -31,50 +31,20 @@ define([
     });
 
     var followUpHash;
+    var loggedUser; //todo kill with fire!
 
     $.ajaxSetup({
 	statusCode: {
 	    401: function() {
-		followUpHash = window.location.hash;
+		followUpHash = followUpHash || window.location.hash;
 		alert('redirection to login');
 		window.location.hash = 'login';
 	    },
-	    
+
 	    403: function() {
 		alert('denied');
 		window.location.hash = 'denied';
 	    }
-	}
-    });
-
-    var loggedUser; //todo kill with fire!
-
-    var Login_View = Backbone.View.extend({
-	events: {'submit': 'login'},
-
-	initialize: function() {
-	    _.bindAll(this);
-	    this.render();
-	},
-
-	render: function() {
-	    this.$el.html(loginForm());
-	},
-
-	login: function() {
-	    var arr = $('#login', this.$el).serializeArray();
-	    var data = _(arr).reduce(function(acc, field) {
-		acc[field.name] = field.value;
-		return acc;
-	    }, {});
-
-	    $.post('/login', data, function(data) {
-		loggedUser = new models.Person(data);
-		createNavigation();
-		vent.trigger('logged-in', followUpHash);
-		followUpHash = undefined;
-	    });
-	    return false;
 	}
     });
 
@@ -84,38 +54,33 @@ define([
 	    dataType: 'json',
 	    success: function(data) {
 		loggedUser = new models.Person(data);
-		console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
-		createNavigation();
+		window.console.log("logged in with session cookie (user:" + loggedUser.get("name") + ")");
+		vent.trigger('logged-in');
 		cb();
-	    }, 
+	    },
 	    statusCode: {
 		401: function() {
-		    console.log("no session cookie present...");
+		    window.console.log("no session cookie present...");
 		    cb();
 		}
 	    }
 	});
     };
 
-    //todo this horribility removed to app level... 
-    var createNavigation = function() {
-	var parties = new collections.Parties();
-	parties.fetch({success: function(collection, response, options){
-	    new Navigation({el:$("#navigation"), model: loggedUser, collection: collection}).render();
-	}});
-    };
-
-    var Navigation = Backbone.View.extend({
-	render: function() {
-	    this.$el.html(navigationTemplate({parties: this.collection.toJSON(), user: this.model.toJSON(), isAdmin: this.model.get('role') === 'admin'})).show(); //TODO encapsulate to view..
-	    return this;
-	}
-    });
-
     return {
 	initialize: attemptLoginWithSessionCookie,
-	LoginView: Login_View, 
-	Signup: null,
-	currentUser: function() {return loggedUser;}
+
+	getFollowUp: function() {
+	    var hash = followUpHash;
+	    followUpHash = undefined;
+	    return hash;
+	},
+
+	currentUser: function() {return loggedUser;},
+
+	//todo figure out how to remove this and set user only internally... 
+	setLoggedUser: function(user) {
+	    loggedUser = user;
+	}
     };
 });

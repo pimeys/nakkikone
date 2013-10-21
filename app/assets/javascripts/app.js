@@ -2,15 +2,16 @@
 define([
     'jquery',
     'backbone',
-    'authentication',
     'models',
-    'collections',
+    'authentication',
     'vent',
+    'components/login',
+    'components/navigation',
     'views/admin',
     'views/public',
     'views/signup',
     'views/edit-details'
-], function($, bb, authentication, models, collections, vent, admin, pub, signup, editDetails) {
+], function($, bb, models, authentication, vent, login, navigation, admin, pub, signup, editDetails) {
 
     var contentEl;
 
@@ -27,11 +28,13 @@ define([
 
 	initialize: function() {
 	    _.bindAll(this);
-	    vent.on('user-created', this.startingPage);
-	    vent.on('logged-in', this.loggedIn);
+	    this.listenTo(vent.itself(), 'user-created', this.startingPage);
+	    this.listenTo(vent.itself(), 'logged-in', this.loggedIn);
 	},
-	
-	loggedIn: function(hash) {
+
+	loggedIn: function() {
+	    this.createNavigation();
+	    var hash = authentication.getFollowUp();
 	    if(hash) {
 		this.navigate(hash, {trigger: true});
 	    } else {
@@ -39,10 +42,14 @@ define([
 	    }
 	},
 
+	createNavigation: function() {
+	    navigation.createNavigation();
+	},
+
 	startingPage: function() {
 	    pub.detach();
 	    admin.detach();
-	    loginView.render();
+	    login.createComponent({el:contentEl});
 	},
 
 	showAdminScreen: function() {
@@ -53,7 +60,7 @@ define([
 	showSignUpScreen: function() {
 	    signup.initialize({el:contentEl});
 	},
-	
+
 	showForgotDialog: function() {
 	    var email = prompt("write here your account email");
 	    $.get("/reset_password?email=" + email, function(data) {
@@ -68,7 +75,7 @@ define([
 	},
 
 	_showPublicScreen: function(party) {
-admin.detach();
+	    admin.detach();
 	    pub.initialize({el:contentEl, party: party, currentUser: authentication.currentUser});
 	},
 
@@ -83,17 +90,17 @@ admin.detach();
 	}
     });
 
-    var loginView;
+    var afterAuth = function() {
+	if (!authentication.currentUser()) {
+	    login.createComponent({el:contentEl});
+	}
+    };
 
     var initialize = function(options) {
 	contentEl = options.el;
-	authentication.initialize(function() {
-	    if (!authentication.currentUser()) {
-		loginView = new authentication.LoginView({el:contentEl});
-	    }
-	    new ApplicationRouter();
-	    bb.history.start();
-	});
+	new ApplicationRouter();
+	bb.history.start();
+	authentication.initialize(afterAuth);
     };
 
     return {initialize: initialize};

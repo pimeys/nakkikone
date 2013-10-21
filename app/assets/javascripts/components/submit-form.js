@@ -78,7 +78,7 @@ define([
 		wait:true, 
 		success: function() {
 		    alert('Succesfully created new user! Go on and login.');
-		    this.vent.trigger('user-created');
+		    self.vent.trigger('user-created');
 		},
 
 		error: this.alert
