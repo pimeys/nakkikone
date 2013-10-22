@@ -119,7 +119,9 @@ define([
 	},
 
 	parseData: function(data) {
-	    data.start = this.parseSlotFromTime(data.start, this.model.get('date')); 
+	    delete data.hour;
+	    delete data.minute;
+	    data.start = this.parseSlotFromTime(data.start, this.model.get('date'));
 	    data.end = this.parseSlotFromTime(data.end, this.model.get('date'));
 	    return data;
 	},
@@ -135,17 +137,23 @@ define([
 		}, {});
 		var model = self.collection.get(data["cid"]);
 		delete data['cid'];
-		model.save(self.parseData(data), {
-		    success: self.notify,
-		    error: self.alert
-		});
+		
+		var modelData = self.parseData(data);
+		if(model.set(modelData) && model.hasChanged()) {
+		    model.save(modelData, {
+			success: self.notify,
+			error: self.alert
+		    });
+		}
 	    });
+
 	    var errors = _.reduce(this.collection.models, function(memo, model) {
 		if (!!model.validationError) {
 		    memo[model.cid] = model.validationError;
 		};
 		return memo;
 	    }, {});
+
 	    if (!_.isEmpty(errors)) {
 		_.each(_.keys(errors), function(el) {
 		    var message = {
