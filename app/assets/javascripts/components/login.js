@@ -28,9 +28,21 @@ define([
 		return acc;
 	    }, {});
 
-	    $.post('/login', data, function(data) {
-		authentication.setLoggedUser(new models.Person(data));
-		vent.trigger('logged-in');
+	    $.ajax({
+		type: "POST",
+		url: '/login',
+		dataType: 'json',
+		data: data,
+		success: function(data) {
+		    authentication.setLoggedUser(new models.Person(data));
+		    vent.trigger('logged-in');
+		},
+		statusCode: {
+		    401: function() {
+			//todo use notify to signal wrong password...
+			alert("failed to login, try again or use forgot password.");
+		    }
+		}
 	    });
 	    return false;
 	}

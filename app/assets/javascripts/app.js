@@ -49,7 +49,7 @@ define([
 	startingPage: function() {
 	    pub.detach();
 	    admin.detach();
-	    login.createComponent({el:contentEl});
+	    initLogin();
 	},
 
 	showAdminScreen: function() {
@@ -89,6 +89,12 @@ define([
 	}
     });
 
+    var loginView;
+    var initLogin = function() {
+	loginView = loginView || login.createComponent({el:contentEl});
+	loginView.render();
+    };
+
     var sendResetMail = function(email) {
 	$.get("/reset_password?email=" + email, function(data) {
 	    alert("Email has sent to email address, go check your mails");
@@ -99,7 +105,7 @@ define([
 
     var afterAuth = function() {
 	if (!authentication.currentUser()) {
-	    login.createComponent({el:contentEl});
+	    initLogin();
 	}
     };
 
