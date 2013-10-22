@@ -1,4 +1,9 @@
-define(['backbone','underscore','models'],function(bb, _, models){
+define([
+    'backbone',
+    'underscore',
+    'models',
+    'moment'
+],function(bb, _, models, moment){
 
     var PartyResources = bb.Collection.extend({
 	_party: undefined,
@@ -31,6 +36,12 @@ define(['backbone','underscore','models'],function(bb, _, models){
     var Parties = bb.Collection.extend({
 	model: models.Party,
 	url: '/parties',
+
+	onlyFutureParties: function() {
+	    return new Parties(this.filter(function(party) {
+		return moment().subtract('days', 1).isBefore(party.get('date'));
+	    }));
+	},
 
 	//TODO remove when UI refactoring has been done
 	toJSONWithClientID: function() {

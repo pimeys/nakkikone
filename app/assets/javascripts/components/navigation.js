@@ -25,8 +25,17 @@ define([
 	},
 
 	render: function() {
-	    this.$el.html(navigationTemplate({parties: this.collection.toJSON(), user: this.model.toJSON(), isAdmin: this.model.get('role') === 'admin'})).show(); //TODO encapsulate to view..
+	    var shownParties = this.isUserAdmin() ? this.collection : this.collection.onlyFutureParties();
+	    this.$el.html(navigationTemplate({
+		parties: shownParties.toJSON(), 
+		user: this.model.toJSON(), 
+		isAdmin: this.isUserAdmin() }))
+		.show();
 	    return this;
+	},
+
+	isUserAdmin: function() {
+	    return this.model.get('role') === 'admin';
 	}
     });
 
