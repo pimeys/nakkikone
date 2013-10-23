@@ -55,7 +55,7 @@ module RailStrap
     config.active_record.whitelist_attributes = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '2.2'
+    config.assets.version = '2.3'
  
     # Enable the asset pipeline (enabled by default)
     config.assets.enabled = true
