@@ -7,6 +7,7 @@
     <td>{{ this.type }}</td>
     <td>{{ prettyTimeFromSlot this.start ../party.date }}</td>
     <td>{{ prettyTimeFromSlot this.end ../party.date }}</td>
+    <td><button class="deletor btn btn-danger btn-tiny" value="{{ this.cid }}">Delete</button></td>
   </tr>
   {{/each}}
 </table>

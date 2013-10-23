@@ -2,19 +2,18 @@
 // This file is automatically included by javascript_include_tag :defaults
 require.config({
     paths: {
-	text: 'libs/text',
-        jquery: 'libs/jquery-1.7.2',
-        underscore: 'libs/underscore',
-        backbone: 'libs/backbone',
-	moment: "libs/moment/moment.min",
-	languages: "libs/moment/langs",
+        underscore: "underscore/underscore",
+        backbone: "backbone/backbone",
+	moment: "moment/min/moment.min",
+	languages: "moment/min/langs",
 	
-	handlebars : "libs/Handlebars",
-        hbs : 'libs/hbs',
-        i18nprecompile : "libs/hbs/i18nprecompile",
-        json2 : "libs/hbs/json2",
-	bootstrapDatepicker: "libs/bootstrap-datepicker",
-	bootstrapTimepicker: "libs/bootstrap-timepicker",
+	handlebars : "require-handlebars-plugin/Handlebars",
+        hbs : "require-handlebars-plugin/hbs",
+        i18nprecompile : "require-handlebars-plugin/hbs/i18nprecompile",
+        json2 : "require-handlebars-plugin/hbs/json2",
+
+	bootstrapDatepicker: "bootstrap-datepicker/js/bootstrap-datepicker",
+	bootstrapTimepicker: "bootstrap-timepicker/js/bootstrap-timepicker",
 	bs: "libs/bootstrap.min"
     },
 

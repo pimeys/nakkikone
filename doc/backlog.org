@@ -497,7 +497,7 @@ used as logging tool after that.
 
 ** TODO Update Capistrano usage
    - lets use cat production deploy!
-* Improvement ideas [4/9] 					     :DESIGN:
+* Improvement ideas [5/9] 					     :DESIGN:
 ** DONE Default Nakkitypes
    CLOSED: [2013-04-06 Sat 11:37]
    :CLOCK:
@@ -578,7 +578,11 @@ used as logging tool after that.
 ** Two levels of nakkis
    - special nakki assignment for organizers?
 ** Create separate authentication module
-** TODO refactor nakkitype view to be more manageable
+** DONE refactor nakkitype view to be more manageable
+   CLOSED: [2013-10-23 Wed 21:33]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-10-23 Wed 21:33]
+   :END:
    - nakkitypes.add to .create (more sync with backend)
    - collect validation errors from backend
 * Development time defects [3/3] 			      :IMPLEMENT:BUG:
@@ -622,3 +626,115 @@ used as logging tool after that.
    - State "DONE"       from "STARTED"    [2013-04-04 Thu 01:15]
    - State "STARTED"    from "TODO"       [2013-04-04 Thu 01:09]
    :END:
+* Issues
+** requirejs-rails configuration too simple
+   
+   My configuration requirements aren't matched with the
+   requirejs-rails basic configuration, see issue [[https://github.com/jwhitley/requirejs-rails/issues/85][#85]] for more
+   details. 
+   
+   #+BEGIN_SRC ruby :tangle ../config/requirejs.yml
+     paths:
+       text: "libs/text"
+       underscore: "underscore/underscore"
+       backbone: "backbone/backbone"
+       moment: "moment/min/moment.min"
+       languages: "moment/min/langs"
+     
+       handlebars : "require-handlebars-plugin/Handlebars"
+       hbs : "require-handlebars-plugin/hbs"
+       i18nprecompile : "require-handlebars-plugin/hbs/i18nprecompile"
+       json2 : "require-handlebars-plugin/hbs/json2"
+     
+       bootstrapDatepicker: "bootstrap-datepicker/js/bootstrap-datepicker"
+       bootstrapTimepicker: "bootstrap-timepicker/js/bootstrap-timepicker"
+       bs: "libs/bootstrap.min"
+     
+     shim:
+       'underscore':
+       exports: '_'
+     
+       'backbone':
+       deps: ['underscore', 'jquery']
+       exports: 'Backbone'
+     
+       'bootstrapDatepicker':
+       deps: ['jquery']
+       exports: 'bootstrapDatepicker'
+     
+       'bootstrapTimepicker':
+       deps: ['jquery']
+       exports: 'bootstrapTimepicker'
+     
+       'bs' :
+       deps: ['jquery']
+       exports: 'bs'
+     
+       'languages' : ['moment']
+     
+     modules:
+       - name: 'application'
+   #+END_SRC
+*** Relevance
+    Problematic here is that this issue has been untouched over 8 month ATM.
+** Asset precompilation
+   
+   =requirejs-rails= doesn't work in this aspect. With that simple
+   =requirejs.yml= and requirejs-rails version =0.9.0= eventually
+   fails to:
+   
+   #+BEGIN_EXAMPLE
+   bundle exec rake assets:precompile RAILS_ENV=production --trace
+   ** Invoke assets:precompile (first_time)
+   ** Invoke requirejs:precompile:external (first_time)
+   ** Invoke requirejs:test_node (first_time)
+   ** Execute requirejs:test_node
+   ** Execute requirejs:precompile:external
+   /home/user-home/.rvm/rubies/ruby-1.9.3-p194/bin/ruby /home/user-home/.rvm/gems/ruby-1.9.3-p194@global/bin/rake requirejs:precompile:all RAILS_ENV=production RAILS_GROUPS=assets --trace
+   ** Invoke requirejs:precompile:all (first_time)
+   ** Invoke requirejs:precompile:prepare_source (first_time)
+   ** Invoke requirejs:setup (first_time)
+   ** Invoke assets:environment (first_time)
+   ** Invoke requirejs:precompile:disable_js_compressor (first_time)
+   ** Execute requirejs:precompile:disable_js_compressor
+   ** Execute assets:environment
+   ** Invoke environment (first_time)
+   ** Execute environment
+   ** Execute requirejs:setup
+   ** Invoke requirejs:clean (first_time)
+   ** Invoke requirejs:setup 
+   ** Execute requirejs:clean
+   ** Execute requirejs:precompile:prepare_source
+   ** Invoke requirejs:precompile:generate_rjs_driver (first_time)
+   ** Invoke requirejs:setup 
+   ** Execute requirejs:precompile:generate_rjs_driver
+   ** Invoke requirejs:precompile:run_rjs (first_time)
+   ** Invoke requirejs:setup 
+   ** Invoke requirejs:test_node (first_time)
+   ** Execute requirejs:test_node
+   ** Execute requirejs:precompile:run_rjs
+   
+   node.js:201
+   throw e; // process.nextTick error, or 'error' event on first tick
+   ^
+   Error: TypeError: Cannot read property 'exports' of null
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1440:34
+   
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:14166:23
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:15358:30
+   at Object.execCb (/home/user-home.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1773:33)
+   at Object.check (/home/user-home.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1083:51)
+   at Object.enable (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1324:22)
+   at Object.init (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:982:26)
+   at Object.require (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1579:28)
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1857:24
+   at Function.optimize (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:15368:13)
+   at /home/user-home/repos/nakkikone/tmp/rjs_driver.js:61:15
+   rake aborted!
+   Asset compilation with node failed.
+   #+END_EXAMPLE
+   
+   With =0.9.1= fails same way as in issue [[https://github.com/jwhitley/requirejs-rails/issues/101][#101]].
+
+*** Relevance
+    Thinking future plans, this might not be relevant enough to be fixed.
