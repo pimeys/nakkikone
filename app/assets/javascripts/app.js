@@ -2,14 +2,16 @@
 define([
     'jquery',
     'backbone',
-    'authentication',
     'models',
-    'collections',
+    'authentication',
     'vent',
+    'components/login',
+    'components/navigation',
     'views/admin',
     'views/public',
-    'views/signup'
-], function($, bb, authentication, models, collections, vent, admin, pub, signup) {
+    'views/signup',
+    'views/edit-details'
+], function($, bb, models, authentication, vent, login, navigation, admin, pub, signup, editDetails) {
 
     var contentEl;
 
@@ -26,11 +28,13 @@ define([
 
 	initialize: function() {
 	    _.bindAll(this);
-	    vent.on('user-created', this.startingPage);
-	    vent.on('logged-in', this.loggedIn);
+	    this.listenTo(vent.itself(), 'user-created', this.startingPage);
+	    this.listenTo(vent.itself(), 'logged-in', this.loggedIn);
 	},
-	
-	loggedIn: function(hash) {
+
+	loggedIn: function() {
+	    this.createNavigation();
+	    var hash = authentication.getFollowUp();
 	    if(hash) {
 		this.navigate(hash, {trigger: true});
 	    } else {
@@ -38,10 +42,14 @@ define([
 	    }
 	},
 
+	createNavigation: function() {
+	    navigation.createNavigation();
+	},
+
 	startingPage: function() {
 	    pub.detach();
 	    admin.detach();
-	    loginView.render();
+	    initLogin();
 	},
 
 	showAdminScreen: function() {
@@ -52,42 +60,60 @@ define([
 	showSignUpScreen: function() {
 	    signup.initialize({el:contentEl});
 	},
-	
+
 	showForgotDialog: function() {
-	    var email = prompt("write here your account password");
-	    $.get("/reset_password?email=" + email, function(data) {
-		alert("Email has sent to email address, go check your mails");
-	    }).fail(function(data) {
-		alert("something went wrong, contact webmaster@entropy.fi");
-	    });
+	    var email = prompt("write here your account email");
+	    if (email) {
+		sendResetMail(email);
+	    }
+	    window.location.hash = 'login';
 	},
 
 	showOwnDetailsEditor: function() {
-	    signup.initializeWithEditDetails({el:contentEl, currentUser: authentication.currentUser});
+	    editDetails.initialize({el:contentEl, currentUser: authentication.currentUser});
+	},
+
+	_showPublicScreen: function(party) {
+	    admin.detach();
+	    pub.initialize({el:contentEl, party: party, currentUser: authentication.currentUser});
 	},
 
 	showPublicScreen: function(title) {
-	    admin.detach();
-	    pub.initialize({el:contentEl, partyTitle:title, currentUser: authentication.currentUser});
+	    var party = new models.PartyFinder({title:title});
+	    this._showPublicScreen(party);
 	},
 
 	showPublicScreenById: function(id) {
-	    admin.detach();
-	    pub.initialize({el:contentEl, partyId:id, currentUser: authentication.currentUser});
+	    var party = new models.PartyFinder({id:id});
+	    this._showPublicScreen(party);
 	}
     });
 
     var loginView;
+    var initLogin = function() {
+	loginView = loginView || login.createComponent({el:contentEl});
+	loginView.render();
+    };
+
+    var sendResetMail = function(email) {
+	$.get("/reset_password?email=" + email, function(data) {
+	    alert("Email has sent to email address, go check your mails");
+	}).fail(function(data) {
+	    alert("something went wrong, contact webmaster@entropy.fi");
+	});
+    };
+
+    var afterAuth = function() {
+	if (!authentication.currentUser()) {
+	    initLogin();
+	}
+    };
 
     var initialize = function(options) {
 	contentEl = options.el;
-	authentication.initialize(function() {
-	    if (!authentication.currentUser()) {
-		loginView = new authentication.LoginView({el:contentEl});
-	    }
-	    new ApplicationRouter();
-	    bb.history.start();
-	});
+	new ApplicationRouter();
+	bb.history.start();
+	authentication.initialize(afterAuth);
     };
 
     return {initialize: initialize};

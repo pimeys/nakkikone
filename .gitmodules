@@ -1,18 +1,18 @@
-[submodule "lib/assets/require-handlebars-plugin"]
-	path = lib/assets/require-handlebars-plugin
+[submodule "vendor/assets/javascripts/require-handlebars-plugin"]
+	path = vendor/assets/javascripts/require-handlebars-plugin
 	url = git://github.com/SlexAxton/require-handlebars-plugin.git
-[submodule "lib/assets/backbone"]
-	path = lib/assets/backbone
+[submodule "vendor/assets/javascripts/backbone"]
+	path = vendor/assets/javascripts/backbone
 	url = git://github.com/documentcloud/backbone.git
-[submodule "lib/assets/underscore"]
-	path = lib/assets/underscore
+[submodule "vendor/assets/javascripts/underscore"]
+	path = vendor/assets/javascripts/underscore
 	url = git://github.com/documentcloud/underscore.git
-[submodule "lib/assets/bootstrap-datepicker"]
-	path = lib/assets/bootstrap-datepicker
+[submodule "vendor/assets/javascripts/bootstrap-datepicker"]
+	path = vendor/assets/javascripts/bootstrap-datepicker
 	url = git://github.com/eternicode/bootstrap-datepicker.git
-[submodule "lib/assets/bootstrap-timepicker"]
-	path = lib/assets/bootstrap-timepicker
+[submodule "vendor/assets/javascripts/bootstrap-timepicker"]
+	path = vendor/assets/javascripts/bootstrap-timepicker
 	url = git://github.com/jdewit/bootstrap-timepicker.git
-[submodule "lib/assets/moment"]
-	path = lib/assets/moment
+[submodule "vendor/assets/javascripts/moment"]
+	path = vendor/assets/javascripts/moment
 	url = git://github.com/timrwood/moment.git

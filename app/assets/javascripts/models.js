@@ -55,7 +55,7 @@ define([
 
 	//TODO remove after UI refactoring
 	toJSONWithClientID: function() {
-	    data = this.toJSON();
+	    var data = this.toJSON();
 	    data.cid = this.cid;
 	    return data;
 	},
@@ -67,6 +67,7 @@ define([
 	    if (attr['start'] >= attr['end']) {
 		return "Range start can't be after ending.";
 	    };
+	    return null;
 	}
     });
 
@@ -80,7 +81,7 @@ define([
 
 	//TODO remove after UI refactoring
 	toJSONWithClientID: function() {
-	    data = this.toJSON();
+	    var data = this.toJSON();
 	    data.cid = this.cid;
 	    return data;
 	},
@@ -98,6 +99,23 @@ define([
 	    if (!attr['date'] || !attr['infoDate']) {
 		return "Important dates are missing";
 	    }
+	    return null;
+	}
+    });
+
+    var PartyFinder = Party.extend({
+	defaults: {},
+
+	urlRoot: '/parties/',
+	
+	url: function() {
+	    var partyFindUrl;
+	    if (this.id || this.id == 0) {
+		partyFindUrl = this.id;
+	    } else if (this.get('title')) {
+		partyFindUrl = this.get('title') + '?by_title=true';
+	    }
+	    return this.urlRoot + partyFindUrl;
 	}
     });
 
@@ -106,6 +124,7 @@ define([
 	Nakkitype: NakkiType,
 	Nakki: Nakki,
 	Party: Party,
+	PartyFinder: PartyFinder,
 	PartyResource: PartyResource
     };
 });
