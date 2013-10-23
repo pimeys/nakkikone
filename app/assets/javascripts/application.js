@@ -2,8 +2,6 @@
 // This file is automatically included by javascript_include_tag :defaults
 require.config({
     paths: {
-	text: "libs/text",
-        jquery: "libs/jquery-1.7.2",
         underscore: "underscore/underscore",
         backbone: "backbone/backbone",
 	moment: "moment/min/moment.min",
