@@ -44,5 +44,6 @@ class UsersController < ApplicationController
         render :status => 400, :json => errors
       end
     end
+    render :status => 200, :text => "done"
   end
 end
