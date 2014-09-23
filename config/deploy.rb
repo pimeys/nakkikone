@@ -12,7 +12,7 @@ set :deploy_to, "/var/railsapps/#{application}"
 set :deploy_via, :remote_cache
 
 set :user, "entropy"
-set :domain, "entropy.fi"
+set :domain, "entropy-host"
 set :use_sudo, false 
 server domain, :app, :web, :db, :primary => true
 
