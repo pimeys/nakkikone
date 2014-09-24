@@ -39,11 +39,12 @@ class UsersController < ApplicationController
       user.password_confirmation = new_password
       if user.save
         PasswordResetMailer.password_reset(user, new_password).deliver
-        render :status => 200, :text => "done"
+        return render :status => 200, :text => "done"
       else
-        render :status => 400, :json => errors
+        return render :status => 400, :json => errors
       end
+    else 
+      return render :status => 200, :text => "done"
     end
-    render :status => 200, :text => "done"
   end
 end
