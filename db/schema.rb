@@ -11,44 +11,53 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110124034948) do
+ActiveRecord::Schema.define(:version => 20150325165111) do
+
+  create_table "aux_nakkis", :force => true do |t|
+    t.string  "nakkiname", :null => false
+    t.integer "user_id"
+    t.integer "party_id",  :null => false
+  end
+
+  create_table "nakkis", :force => true do |t|
+    t.integer "slot",         :null => false
+    t.integer "user_id"
+    t.integer "nakkitype_id", :null => false
+  end
+
+  create_table "nakkitype_infos", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "nakkitype_infos", ["id"], :name => "index_nakkitype_infos_on_id"
+
+  create_table "nakkitypes", :force => true do |t|
+    t.string  "name",     :null => false
+    t.integer "party_id", :null => false
+  end
+
+  create_table "parties", :force => true do |t|
+    t.string   "title",       :null => false
+    t.text     "description"
+    t.datetime "date",        :null => false
+    t.datetime "info_date",   :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
-    t.string   "email", :null => false, :unique => true
-    t.string   "name",  :null => false
+    t.string   "email",         :null => false
+    t.string   "name",          :null => false
     t.string   "nick"
     t.string   "number"
-    t.string   "role", :null => false
+    t.string   "role",          :null => false
     t.string   "password_hash", :null => false
     t.string   "password_salt", :null => false
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-  end
-
-  create_table "parties", :force => true do |t|
-    t.string   "title", :null => false, :unique => true
-    t.text     "description"
-    t.datetime "date", :null => false
-    t.datetime "info_date", :null => false
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  create_table "nakkitypes", :force => true do |t|
-    t.string   "name", :null => false
-    t.integer  "party_id", :null => false
-  end
-
-  create_table "nakkis", :force => true do |t|
-    t.integer  "slot", :null => false
-    t.integer  "user_id"
-    t.integer  "nakkitype_id", :null => false
-  end
-
-  create_table "aux_nakkis", :force => true do |t|
-    t.string   "nakkiname", :null => false
-    t.integer  "user_id"
-    t.integer  "party_id", :null => false
   end
 
 end
