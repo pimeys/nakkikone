@@ -1,0 +1,34 @@
+class NakkitypeInfosController < ApplicationController
+  skip_before_filter :require_login ##TODO remove
+  #before_filter :admin_access #TODO enable
+
+  def index
+    render :json => NakkitypeInfo.all, :root => false
+  end
+
+  def create
+    info = NakkitypeInfo.new( :title => params[:title],
+                              :description => params[:description])
+    if info.save
+      render :json => info
+    else
+      render :status => 400, :json => info.errors
+    end
+  end
+
+  def update
+    info = NakkitypeInfo.find params[:id]
+
+    if info.update_attributes( :title => params[:title],
+                               :description => params[:description])
+      render :json => info
+    else
+      render :status => 400, :json => info.errors
+    end
+  end
+
+  def destroy
+    NakkitypeInfo.destroy(params[:id])
+    render :json => {}
+  end
+end

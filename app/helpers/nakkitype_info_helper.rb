@@ -1,0 +1,2 @@
+module NakkitypeInfoHelper
+end
