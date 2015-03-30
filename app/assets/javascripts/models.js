@@ -71,6 +71,19 @@ define([
 	}
     });
 
+    var NakkitypeInfo = bb.Model.extend({
+	defaults: {
+	    title: "Nakin nimi",
+	    description: "Nakin kuvaus tähän."
+	},
+
+	toJSONWithClientID: function() {
+	    var data = this.toJSON();
+	    data.cid = this.cid;
+	    return data;
+	}
+    });
+    
     var Party = bb.Model.extend({
 	defaults: {
 	    title: "Party Title",
@@ -122,6 +135,7 @@ define([
     return {
 	Person: Person, 
 	Nakkitype: NakkiType,
+	NakkitypeInfo: NakkitypeInfo,
 	Nakki: Nakki,
 	Party: Party,
 	PartyFinder: PartyFinder,

@@ -10,10 +10,25 @@ define([
     'components/party-selector',
     'components/party-editor',
     'components/nakkitype-editor',
+    'components/nakkitype-infos',
     'components/email',
     'hbs!templates/admin-screen',
     'hbs!templates/email-button'
-], function($, _, bb, collections, models, notificationArea, usersList, partySelector, partyEditor, nakkiEditor, email,  adminScreen, emailButton) {
+], function(
+    $,
+    _,
+    bb,
+    collections,
+    models,
+    notificationArea,
+    usersList,
+    partySelector,
+    partyEditor,
+    nakkiEditor,
+    nakkitypeInfoEditor,
+    email,
+    adminScreen,
+    emailButton) {
 
     var vent = {};
     _.extend(vent, bb.Events);
@@ -25,6 +40,8 @@ define([
     var auxUsers = new collections.AuxUsers();
 
     var nakkitypes = new collections.Nakkitypes();
+
+    var nakkitypeInfos = new collections.NakkitypeInfos();
 
     var _error = function(collection, xhr, options) {
 	//notify shitty accidents, ignore 403 and 401
@@ -51,6 +68,7 @@ define([
     var collectionsReady = function(rootel, party) {
 	partySelector.createComponent({el: $('#party-selector',rootel), collection: parties, model: party}, vent);
 	partyEditor.createComponent({el: $('#party', rootel), collection: parties, model: party}, vent);
+	nakkitypeInfoEditor.createComponent({el: $('#nakki-infos',rootel), collection: nakkitypeInfos});
 	nakkiEditor.createComponent({el: $('#nakit', rootel), collection: nakkitypes, model: party}, vent);
 
 	usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
@@ -73,13 +91,14 @@ define([
 		if (parties.length > 0) {
 		    latestParty = setToLatest();
 
-		    var _ready = _.after(3, function() {
+		    var _ready = _.after(4, function() {
 			collectionsReady(rootel, latestParty);
 		    });
 
 		    auxUsers.fetch({success: _ready, error: _error});
 		    users.fetch({success: _ready, error: _error});
 		    nakkitypes.fetch({success: _ready, error: _error});
+		    nakkitypeInfos.fetch({success: _ready, error: _error}); //TODO this really doesn't belong here
 		} else { 
 		    createFirstParty();
 		}

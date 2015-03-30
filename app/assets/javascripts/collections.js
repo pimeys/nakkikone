@@ -64,11 +64,21 @@ define([
 	}
     });
 
+    var NakkiTypeInfos = bb.Collection.extend({
+	model: models.NakkitypeInfo,
+	url: '/nakkitype_infos',
+
+	toJSONWithClientID: function() {
+	    return this.map(function(model){ return model.toJSONWithClientID(); });
+	}
+    });
+
     return {
 	Users: Users,
 	AuxUsers: AuxUsers,
 	Parties: Parties,
 	Nakit: Nakit,
-	Nakkitypes: NakkiTypes 
+	Nakkitypes: NakkiTypes,
+	NakkitypeInfos: NakkiTypeInfos
     };
 });
