@@ -2,12 +2,15 @@ class NakkitypeInfosController < ApplicationController
   skip_before_filter :require_login ##TODO remove
   #before_filter :admin_access #TODO enable
 
+  include NakkitypeInfoHelper
+
   def index
     render :json => NakkitypeInfo.all, :root => false
   end
 
   def create
-    info = NakkitypeInfo.new( :title => params[:title],
+    title = if params[:title].eql? "_generate_" then generate_name_from_seq else params[:title] end
+    info = NakkitypeInfo.new( :title => title,
                               :description => params[:description])
     if info.save
       render :json => info

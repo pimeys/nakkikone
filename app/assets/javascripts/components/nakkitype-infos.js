@@ -140,8 +140,8 @@ define([
 
 	create: function() {
 	    var newModel = this.collection.create({
-		title: "new nakki info",
-		description: "create informative description here...",
+		title: "_generate_",
+		description: "TODO create informative description here...",
 		wait: true
 	    });
 	    this.editor.setModel(newModel);
