@@ -15,6 +15,8 @@ define([
 
     var vent;
 
+    var nakkitypeInfos;
+
     var defaultNakkiTypes = [
 	{type: "Ticket Sales", start: 0, end: 6},
 	{type: "Kiosk", start: 0, end: 6},
@@ -82,7 +84,8 @@ define([
 
 	edit: function(){
 	    this.$el.html(nakkilist_edit({
-		nakkitypes: this.collection.toJSONWithClientID(), 
+		nakkitypeInfos: nakkitypeInfos.toJSON(),
+		nakkitypes: this.collection.toJSONWithClientID(),
 		party: this.model.toJSON() 
 	    }));
 	    $('.time-picker', this.$el).timepicker({
@@ -188,6 +191,7 @@ define([
     return {
 	createComponent: function(options, _vent) {
 	    vent = _vent;
+	    nakkitypeInfos = options.nakkitypeInfos;
 	    return new Nakki_Editor(options);
 	}
     };

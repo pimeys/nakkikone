@@ -69,7 +69,7 @@ define([
 	partySelector.createComponent({el: $('#party-selector',rootel), collection: parties, model: party}, vent);
 	partyEditor.createComponent({el: $('#party', rootel), collection: parties, model: party}, vent);
 	nakkitypeInfoEditor.createComponent({el: $('#nakki-infos',rootel), collection: nakkitypeInfos}, vent);
-	nakkiEditor.createComponent({el: $('#nakit', rootel), collection: nakkitypes, model: party}, vent);
+	nakkiEditor.createComponent({el: $('#nakit', rootel), collection: nakkitypes, model: party, nakkitypeInfos: nakkitypeInfos}, vent);
 
 	usersList.createUsers({el: $('#users', rootel), collection: users}, vent);
 

@@ -1,5 +1,5 @@
 class Nakkitype < ActiveRecord::Base
-  attr_accessible :name, :nakkitype_info_id
+  attr_accessible :name, :nakkitype_info_id ##FIXME remove name attribute
 
   belongs_to :party
   has_many :nakkis, :dependent => :delete_all
