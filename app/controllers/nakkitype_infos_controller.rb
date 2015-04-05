@@ -1,6 +1,5 @@
 class NakkitypeInfosController < ApplicationController
-  skip_before_filter :require_login ##TODO remove
-  #before_filter :admin_access #TODO enable
+  before_filter :admin_access
 
   include NakkitypeInfoHelper
 
