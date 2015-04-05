@@ -137,7 +137,6 @@ define([
 		}, {});
 		var model = self.collection.get(data["cid"]);
 		delete data['cid'];
-		
 		var modelData = self.parseData(data);
 		if(model.set(modelData) && model.hasChanged()) {
 		    model.save(modelData, {

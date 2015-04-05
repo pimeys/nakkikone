@@ -13,6 +13,8 @@ define([
 	    nakkitype_info_details_template,
 	    info_selector) {
 
+    var vent; //FIXME replace with global notification bus
+
     var NakkiTypeEditorView = bb.View.extend({
 	events: {
 	    "click .save" : 'save',
@@ -22,12 +24,14 @@ define([
 	initialize: function() {
 	    _.bindAll(this);
 	    this.listenTo(this.model, 'change', this.render);
+	    this.listenTo(this.model, 'invalid', this.alertValidationError);
 	},
 
 	setModel: function(newModel) {
 	    this.stopListening(this.model);
 	    this.model = newModel;
 	    this.listenTo(this.model, 'change', this.render);
+	    this.listenTo(this.model, 'invalid', this.alertValidationError);
 	},
 
 	render: function() {
@@ -49,13 +53,10 @@ define([
 	    var self = this;
 	    this.model.save(data, {
 		success: function() {
-		    //FIXME this notify?
+		    self.notify(self.model);
 		    self.$el.html("select nakki info...");
 		},
-		error: function(err) {
-		    //FIXME this notify?
-		    console.alert("something went wrong in saving");
-		},
+		error: this.alert,
 		wait: true
 	    });
 	},
@@ -64,15 +65,36 @@ define([
 	    var self = this;
 	    this.model.destroy({
 		success: function() {
-		    //FIXME this notify?
+		    self.notify(self.model);
 		    self.$el.html("select nakki info...");
 		},
-		error: function(err) {
-		    //FIXME this notify?
-		    console.alert("something went wrong in saving");
-		},
+		error: this.alert,
 		wait: true
 	    });
+	},
+
+	notify: function(model, options) {
+	    var message = {
+		title: 'Success',
+		text: "Nakki info " + model.get('title') + " successfully modified/removed."
+	    };
+	    vent.trigger('notify', message);
+	},
+
+	alert: function(model, xhr, options) {
+	    var message = {
+		title: "Failure to operate for "+ model.get('title') + " (Something went wrong in server)!",
+		text: "Your assignment request failed because: " + xhr.responseText
+	    };
+	    vent.trigger('alert', message);
+	},
+
+	alertValidationError: function() {
+	    var message = {
+		title: "Validation error for modifying values:",
+		text: this.model.validationError
+	    };
+	    vent.trigger('alert', message);
 	}
     });
 
@@ -127,8 +149,9 @@ define([
     });
 
     return {
-	createComponent: function(options) {
-	    return new NakkitypeInfoView(options); 
+	createComponent: function(options, _vent) {
+	    vent = _vent;
+	    return new NakkitypeInfoView(options);
 	}
     };
 });

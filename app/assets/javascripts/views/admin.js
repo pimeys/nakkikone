@@ -52,7 +52,7 @@ define([
 	parties.create( {title: title}, {
 	    success: function() {
 		initialize();
-	    }, 
+	    },
 	    error: _error
 	});
     };
@@ -68,7 +68,7 @@ define([
     var collectionsReady = function(rootel, party) {
 	partySelector.createComponent({el: $('#party-selector',rootel), collection: parties, model: party}, vent);
 	partyEditor.createComponent({el: $('#party', rootel), collection: parties, model: party}, vent);
-	nakkitypeInfoEditor.createComponent({el: $('#nakki-infos',rootel), collection: nakkitypeInfos});
+	nakkitypeInfoEditor.createComponent({el: $('#nakki-infos',rootel), collection: nakkitypeInfos}, vent);
 	nakkiEditor.createComponent({el: $('#nakit', rootel), collection: nakkitypes, model: party}, vent);
 
 	usersList.createUsers({el: $('#users', rootel), collection: users}, vent);

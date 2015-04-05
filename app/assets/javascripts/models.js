@@ -73,7 +73,7 @@ define([
 
     var NakkitypeInfo = bb.Model.extend({
 	defaults: {
-	    title: "Nakin nimi",
+	    title: "Name of the nakki",
 	    description: "Nakin kuvaus tähän."
 	},
 
@@ -81,6 +81,16 @@ define([
 	    var data = this.toJSON();
 	    data.cid = this.cid;
 	    return data;
+	},
+
+	validate: function(attr, options) {
+	    if (!attr['title']) {
+		return "info type title is missing";
+	    }
+	    if (!attr['description']) {
+		return "info type description is missing";
+	    }
+	    return null;
 	}
     });
     
