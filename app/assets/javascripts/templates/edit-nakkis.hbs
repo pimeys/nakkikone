@@ -8,7 +8,11 @@
   <form>
     <input type="hidden" name="cid" value="{{ this.cid }}" />
     <div class="span3">
-      <input type="text" name="type" class="input-small" value="{{ this.type }}" />
+      <select name="nakkitype_info_id" class="selector">
+        {{#each ../nakkitypeInfos}}
+	<option value="{{ this.id }}" {{isSelected this.title ../this.type}}>{{ this.title }}</option>
+	{{/each}}
+      <select>
     </div>
     <div class="span3">
       <div class="input-append bootstrap-timepicker">

@@ -7,14 +7,14 @@ class Party < ActiveRecord::Base
   validates :title, :presence => true, :uniqueness => true, :length => {
     :minimum => 3,
     :maximum => 50,
-    :too_short => "#{count} character is minimum allowed",
-    :too_long => "#{count} character is maximum allowed"
+    :too_short => "#{count} character is minimum allowed", ##TODO fix count to real value
+    :too_long => "#{count} character is maximum allowed" ##TODO fix count to real value
   }
   validates :description, :presence => true, :length => {
     :minimum => 3,
     :maximum => 1000,
-    :too_short => "#{count} character is minimum allowed",
-    :too_long => "#{count} character is maximum allowed"
+    :too_short => "#{count} character is minimum allowed", ##TODO fix count to real value
+    :too_long => "#{count} character is maximum allowed" ##TODO fix count to real value
   }
   validates :date, :presence => true
   validates :info_date, :presence => true

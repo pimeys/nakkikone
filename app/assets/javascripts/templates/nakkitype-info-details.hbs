@@ -1,0 +1,23 @@
+<section class="row-fluid">
+  <heading>
+    <p>Change selected nakki info description and title</p>
+  </heading>
+  <form>
+    <div class="control-group">
+      <label class="control-label" >Title:</label> 
+      <div class="controls">
+	<input type="text" name="title" value="{{ this.title }}"/>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label" >Description:</label> 
+      <div class="controls">
+	<textarea rows="8" class="span12" name="description" placeholder=".input-block-level" value="{{ this.description }}">{{ this.description }}</textarea>
+      </div>
+    </div>
+  </form>
+  <div class="btn-group">
+    <button class="save btn btn-primary">Save Changes</button>
+    <button class="delete btn btn-danger">Delete Nakki Info</button>
+  </div>
+</section>

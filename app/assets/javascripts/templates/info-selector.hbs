@@ -1,0 +1,6 @@
+<select name="nakki-info" class="selector">
+  <option value="">select one to edit</option>
+  {{#each infos}}
+  <option value="{{ this.cid }}">{{ this.title }}</option>
+  {{/each}}
+</select>
