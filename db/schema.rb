@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150325165111) do
+ActiveRecord::Schema.define(:version => 20150405200213) do
 
   create_table "aux_nakkis", :force => true do |t|
     t.string  "nakkiname", :null => false
@@ -35,9 +35,12 @@ ActiveRecord::Schema.define(:version => 20150325165111) do
   add_index "nakkitype_infos", ["id"], :name => "index_nakkitype_infos_on_id"
 
   create_table "nakkitypes", :force => true do |t|
-    t.string  "name",     :null => false
-    t.integer "party_id", :null => false
+    t.string  "name",              :null => false
+    t.integer "party_id",          :null => false
+    t.integer "nakkitype_info_id", :null => false
   end
+
+  add_index "nakkitypes", ["nakkitype_info_id"], :name => "index_nakkitypes_on_nakkitype_info_id"
 
   create_table "parties", :force => true do |t|
     t.string   "title",       :null => false
