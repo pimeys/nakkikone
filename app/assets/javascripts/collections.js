@@ -64,6 +64,11 @@ define([
 	}
     });
 
+    var NakkiInfosForParty = PartyResources.extend({
+	model: models.Nakkitype,
+	resource: 'nakkitype_infos'
+    });
+
     var NakkiTypeInfos = bb.Collection.extend({
 	model: models.NakkitypeInfo,
 	url: '/nakkitype_infos',
@@ -79,6 +84,7 @@ define([
 	Parties: Parties,
 	Nakit: Nakit,
 	Nakkitypes: NakkiTypes,
-	NakkitypeInfos: NakkiTypeInfos
+	NakkitypeInfos: NakkiTypeInfos,
+	NakkiInfosForParty: NakkiInfosForParty
     };
 });

@@ -18,6 +18,11 @@ RailStrap::Application.routes.draw do
 
   resources :parties do
     resources :parcipitants, :nakkitypes, :nakit, :aux_nakit
+
+    # listing nakki info descriptions
+    get "nakkitype_infos" => "nakkitype_infos#party_index"
+    
+    # auxiliary listing and delete
     get "aux_parcipitants" => "parcipitants#aux_index"
     delete "aux_parcipitants/:id" => "aux_nakit#destroy"
 

@@ -1,7 +1,14 @@
 class NakkitypeInfosController < ApplicationController
   before_filter :admin_access
+  skip_before_filter :admin_access, :only => [:party_index]
 
   include NakkitypeInfoHelper
+
+  def party_index
+    current_party = get_current_party
+    nakkitype_descriptions = current_party.nakkitypes.map { |n| n.nakkitype_info }
+    render :json => nakkitype_descriptions, :root => false
+  end
 
   def index
     render :json => NakkitypeInfo.all, :root => false
