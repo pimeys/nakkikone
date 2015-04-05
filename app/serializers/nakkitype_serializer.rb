@@ -1,5 +1,5 @@
 class NakkitypeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :start, :end
+  attributes :id, :name, :start, :end, :nakkitype_info
 
   attribute :name, :key => :type
 

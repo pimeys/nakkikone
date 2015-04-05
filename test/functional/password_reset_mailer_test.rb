@@ -1,4 +1,4 @@
-require 'test_helper'
+require_relative '../minitest_helper'
 
 class PasswordResetMailerTest < ActionMailer::TestCase
   # test "the truth" do

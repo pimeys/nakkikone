@@ -10,11 +10,12 @@ class NakkitypesController < ApplicationController
 
   def update
     nakkitype = Nakkitype.find(params[:id])
-    nakkitype.name = params[:type]
-
-    reset_nakki_slots(nakkitype, params[:start], params[:end])
-
+    nakkitype_info = NakkitypeInfo.find(params[:nakkitype_info_id])
+    nakkitype.name = nakkitype_info.title ##TODO for backward combatibility
+    nakkitype.nakkitype_info = nakkitype_info
+    
     if nakkitype.save
+      reset_nakki_slots(nakkitype, params[:start], params[:end])
       render :json => nakkitype
     else
       render :status => 500, :text => nakkitype.errors.full_messages
@@ -23,11 +24,11 @@ class NakkitypesController < ApplicationController
 
   def new
     current_party = get_current_party
-    nakkitype = current_party.nakkitypes.create(:name => params[:type])
+    nakkitype_info = NakkitypeInfo.find(params[:nakkitype_info_id]) ##TODO for backward combatibility
+    nakkitype = current_party.nakkitypes.create(:name => nakkitype_info.title, :nakkitype_info_id => params[:nakkitype_info_id])
 
-    reset_nakki_slots(nakkitype, params[:start], params[:end])
-
-    if nakkitype
+    if nakkitype.save
+      reset_nakki_slots(nakkitype, params[:start], params[:end])
       render :json => nakkitype
     else
       render :status => 500, :text => nakkitype.errors.full_messages
