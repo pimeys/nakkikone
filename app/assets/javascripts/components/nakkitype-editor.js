@@ -17,14 +17,6 @@ define([
 
     var nakkitypeInfos;
 
-    var defaultNakkiTypes = [
-	{type: "Ticket Sales", start: 0, end: 6},
-	{type: "Kiosk", start: 0, end: 6},
-	{type: "Cloackroom", start: 0, end: 6},
-	{type: "Bouncer", start: 0, end: 6},
-	{type: "Light Controller", start: 0, end: 6}
-    ];
-
     //TODO refactor to use maybe subviews for each models 
     var Nakki_Editor = bb.View.extend({
 	events: {
@@ -37,7 +29,7 @@ define([
 	initialize: function(){
 	    _.bindAll(this);
 	    vent.on('changeParty', this.refresh);
-	    vent.on('createdParty', this.createDefaults);
+	    vent.on('createdParty', this.refresh);
 	    vent.on('detach', this.remove);
 	    this.listenTo(this.collection, 'add remove', this.edit);
 	    this.listenTo(this.collection, 'reset', this.render);
@@ -47,18 +39,6 @@ define([
 	setParty: function(model) {
 	    this.model = model;
 	    this.collection.partyId = this.model.get('id');
-	},
-
-	createDefaults: function(party) {
-	    this.setParty(party);
-	    this.createDefaultNakkiTypes();
-	},
-
-	createDefaultNakkiTypes: function() {
-	    this.collection.reset();
-	    _.each(defaultNakkiTypes, function(el) {
-		this.collection.create(el, {wait:true});
-	    }, this);
 	},
 
 	refresh: function(model) {
