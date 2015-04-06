@@ -12,7 +12,7 @@ set :deploy_to, "/var/railsapps/#{application}"
 set :deploy_via, :remote_cache
 
 set :user, "entropy"
-set :domain, "entropy-host"
+set :domain, "entropy-host" #this host alias should be configured to your .ssh configuration where one does the deployment
 set :use_sudo, false 
 server domain, :app, :web, :db, :primary => true
 
