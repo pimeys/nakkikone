@@ -84,9 +84,11 @@ define([
 	rootel.html(adminScreen);
 	vent.off(); //hard reset!
 
+	vent.on('changeParty', toggleSectionsOpen);
+	
 	notificationArea.createComponent({el: $('#admin-alert-area', rootel)}, vent);
 
-	parties.fetch( {
+	parties.fetch({
 	    success: function() {
 		if (parties.length > 0) {
 		    latestParty = setToLatest();
@@ -113,4 +115,13 @@ define([
 	    vent.trigger('detach');
 	}
     };
+
+    function toggleSectionsOpen() {
+	var accordionsToOpen = $('#party-details, #nakki-timetable');
+	accordionsToOpen.filter(isOpen).collapse('show');
+
+	function isOpen() {
+	    return !$(this).hasClass("in");
+	}
+    }
 });
