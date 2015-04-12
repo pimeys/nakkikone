@@ -26,25 +26,17 @@ define([
 	},
 
 	render: function() {
-	    var selectedModel = this.model ? this.model : this.collection.last();
-	    var parsedData = _.map(this.collection.toJSONWithClientID(), function(el) {
-	    	if (el.cid === selectedModel.cid) {
-	    	    el['selected'] = true;
-	    	}
-	    	return el;
-	    });
-	    if (!_.isEmpty(parsedData) && _.isEmpty(_.pluck('selected', parsedData))){
-	    	_.last(parsedData)['selected'] = true;
-	    }
 	    this.$el.html(selector({
-		parties: parsedData
+		parties: this.collection.toJSONWithClientID()
 	    }));
 	    return this.$el;
 	},
 
 	select: function(target) {
 	    var partyId = this.$('form').serializeArray()[0].value;
-	    vent.trigger('changeParty', this.collection.get(partyId));
+	    if (partyId) {
+		vent.trigger('changeParty', this.collection.get(partyId));
+	    }
 	},
 
 	create: function() {
