@@ -11,11 +11,10 @@ class NakkitypesController < ApplicationController
   def update
     nakkitype = Nakkitype.find(params[:id])
     nakkitype_info = NakkitypeInfo.find(params[:nakkitype_info_id])
-    nakkitype.name = nakkitype_info.title ##TODO for backward combatibility
     nakkitype.nakkitype_info = nakkitype_info
-    
+
     if nakkitype.save
-      reset_nakki_slots(nakkitype, params[:start], params[:end])
+      reset_nakki_slots(nakkitype, params[:start_time], params[:end_time])
       render :json => nakkitype
     else
       render :status => 500, :text => nakkitype.errors.full_messages
@@ -24,11 +23,10 @@ class NakkitypesController < ApplicationController
 
   def new
     current_party = get_current_party
-    nakkitype_info = NakkitypeInfo.find(params[:nakkitype_info_id]) ##TODO for backward combatibility
-    nakkitype = current_party.nakkitypes.create(:name => nakkitype_info.title, :nakkitype_info_id => params[:nakkitype_info_id])
+    nakkitype = current_party.nakkitypes.create(:name => 'obsolete-attribute', :nakkitype_info_id => params[:nakkitype_info_id])
 
     if nakkitype.save
-      reset_nakki_slots(nakkitype, params[:start], params[:end])
+      reset_nakki_slots(nakkitype, params[:start_time], params[:end_time])
       render :json => nakkitype
     else
       render :status => 500, :text => nakkitype.errors.full_messages
@@ -47,13 +45,13 @@ class NakkitypesController < ApplicationController
 
   def validate_start_end_range
     render :status => 400, :json => {:message => "start/end range validation failed, must be start < end."} if 
-      params[:start].nil? ||
-      params[:end].nil? ||
-      params[:start] >= params[:end]
+      params[:start_time].nil? ||
+      params[:end_time].nil? ||
+      params[:start_time] >= params[:end_time]
   end
 
   def reset_nakki_slots(nakkitype, start, endz)
     nakkitype.nakkis.clear
-    (start..endz).each{ |i| nakkitype.nakkis.create(:slot  => i) } 
+    (start..endz).each{ |i| nakkitype.nakkis.create(:slot  => i) }
   end
 end
