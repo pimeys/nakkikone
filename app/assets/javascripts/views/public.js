@@ -21,7 +21,7 @@ define([
     var nakit = new collections.Nakit();
 
     var nakkiInfos = new collections.NakkiInfosForParty();
-    
+
     //todo move to separate error-handling-module
     var _error = function(col, error) {
     };

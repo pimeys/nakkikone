@@ -3,30 +3,41 @@ define('templates/nakki_row', [
     'underscore',
     'templates/prettyTimeFromSlot'
 ], function ( Handlebars, _, timeFormatter) {
-    
-    function nakki_row(startTime, titles){
-	var missing = _.map(_.difference(titles, _.pluck(this, 'type')), 
-			    function(el) {
-				return { type:el };
-			    });
+    function nakki_row(startTime, nakkiCellPositions) {
+	var rowTime = timeFormatter(_.first(this).slot, startTime);
 
-	var sortedByType = _.sortBy(_.union(this, missing), 'type');
-
-	var row = "<td>" + timeFormatter(this[0].slot, startTime) + "</td>";
-	_.each(sortedByType, function(nakki) {
-	    row += "<td>";
-	    if (!!nakki.assign && nakki.assign !== "Disabled") { //TODO remove coupling to admin nick
-	    	row += '<span class="reserved">'+ nakki.assign +'</span>';
-	    } else if (!!nakki.id && nakki.assign !== "Disabled") {
-	    	row += '<input type="checkbox" name="selection" value="' + nakki.id + '"/><span class="take">Take</span>';
+	var nakkiToNakkitypeMap = _.reduce(this, function(m, v) {
+	    m[String(v.nakkitype_id)] = v;
+	    return m;
+	}, {});
+	
+	var slotCells = _.map(nakkiCellPositions, function(nakkitype_id) {
+	    var nakki = nakkiToNakkitypeMap[String(nakkitype_id)];
+	    if (!nakki || nakki.assign === "Disabled") {
+		return disabledSlot();
+	    } else if (nakki.assign) {
+		return reservedSlot(nakki.assign);
 	    } else {
-		row += '<span class="disabled">Disabled<span>';
+ 		return freeSlot(nakki.id);
 	    }
-	    row += "</td>";
 	});
+
+	var row = "<td>" + [rowTime].concat(slotCells).join("</td><td>") + "</td>";
 	return new Handlebars.SafeString(row);
-    };
+    }
 
     Handlebars.registerHelper('nakki_row', nakki_row);
     return nakki_row;
+
+    function disabledSlot() {
+	return '<span class="disabled">Disabled<span>';
+    }
+    
+    function reservedSlot(text) {
+	return '<span class="reserved">'+ text +'</span>';
+    }
+
+    function freeSlot(id) {
+	return '<input type="checkbox" name="selection" value="' + id + '"/><span class="take">Take</span>';
+    }
 });
