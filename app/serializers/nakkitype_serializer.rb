@@ -1,23 +1,13 @@
 class NakkitypeSerializer < ActiveModel::Serializer
-  attributes :id, :name, :start, :end, :nakkitype_info
+  attributes :id, :start_time, :end_time
 
-  attribute :name, :key => :type
+  attribute :nakkitype_info, :key => :info
 
-  def start
-    #TODO remove, not needed with params validation
-    if object.nakkis.empty?
-      0
-    else
-      object.nakkis.first.slot
-    end
+  def start_time
+    object.nakkis.first.slot
   end
 
-  def end
-    #TODO remove, not needed with params validation
-    if object.nakkis.empty?
-      0
-    else
-      object.nakkis.last.slot
-    end
+  def end_time
+    object.nakkis.last.slot
   end
 end

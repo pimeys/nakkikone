@@ -4,9 +4,9 @@
   </thead>
   {{#each nakit}}
   <tr>
-    <td>{{ this.type }}</td>
-    <td>{{ prettyTimeFromSlot this.start ../party.date }}</td>
-    <td>{{ prettyTimeFromSlot this.end ../party.date }}</td>
+    <td>{{ this.info.title }}</td>
+    <td>{{ prettyTimeFromSlot this.start_time ../party.date }}</td>
+    <td>{{ prettyTimeFromSlot this.end_time ../party.date }}</td>
     <td><button class="deletor btn btn-danger btn-tiny" value="{{ this.cid }}">Delete</button></td>
   </tr>
   {{/each}}

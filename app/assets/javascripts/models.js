@@ -48,9 +48,8 @@ define([
 
     var NakkiType = bb.Model.extend({
 	defaults: {
-	    type: null,
-	    start: 0,
-	    end: 5
+	    start_time: 0,
+	    end_time: 5
 	},
 
 	//TODO remove after UI refactoring
@@ -61,10 +60,10 @@ define([
 	},
 
 	validate: function(attr, options) {
-	    if ((!attr['start'] && attr['start'] != 0) || !attr['end']) {
+	    if ((!attr['start_time'] && attr['start_time'] != 0) || !attr['end_time']) {
 		return "Range for nakkitype is invalid.";
 	    };
-	    if (attr['start'] >= attr['end']) {
+	    if (attr['start_time'] >= attr['end_time']) {
 		return "Range start can't be after ending.";
 	    };
 	    return null;
@@ -93,7 +92,7 @@ define([
 	    return null;
 	}
     });
-    
+
     var Party = bb.Model.extend({
 	defaults: {
 	    title: "Party Title",

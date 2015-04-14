@@ -46,7 +46,6 @@ define([
 	    var self = this;
 	    this.collection.fetch({
 		success: this.render,
-
 		error: function() {
 		    self.collection.reset();
 		}
@@ -54,12 +53,15 @@ define([
 	},
 
 	render: function(){
-	    this.$el.html(nakkilist({nakit:this.collection.toJSONWithClientID(), party: this.model.toJSON()}));
+	    this.$el.html(nakkilist({
+		party: this.model.toJSON(),
+		nakit: this.collection.toJSONWithClientID()
+	    }));
 	    return this;
 	},
 
 	create: function(){
-	    this.collection.add(new models.Nakkitype({type:'<define type>'}));
+	    this.collection.add(new models.Nakkitype());
 	},
 
 	edit: function(){
@@ -104,15 +106,16 @@ define([
 	parseData: function(data) {
 	    delete data.hour;
 	    delete data.minute;
-	    data.start = this.parseSlotFromTime(data.start, this.model.get('date'));
-	    data.end = this.parseSlotFromTime(data.end, this.model.get('date'));
+	    data.start_time = this.parseSlotFromTime(data.start_time, this.model.get('date'));
+	    data.end_time = this.parseSlotFromTime(data.end_time, this.model.get('date'));
 	    return data;
 	},
 
+	//FIXME not like this.... should use something like PUT?
 	saveCollection: function() {
 	    var self = this;
 	    //TODO here we would reset whole collection based on input of the edit table.
-	    $('#nakit form').each(function() {
+	    $('#nakki-timetable form').each(function() {
 		var arr = $(this).serializeArray();
 		var data = _(arr).reduce(function(acc, field) {
 		    acc[field.name] = field.value;
