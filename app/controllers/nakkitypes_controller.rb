@@ -23,7 +23,7 @@ class NakkitypesController < ApplicationController
 
   def new
     current_party = get_current_party
-    nakkitype = current_party.nakkitypes.create(:name => 'obsolete-attribute', :nakkitype_info_id => params[:nakkitype_info_id])
+    nakkitype = current_party.nakkitypes.create(:nakkitype_info_id => params[:nakkitype_info_id])
 
     if nakkitype.save
       reset_nakki_slots(nakkitype, params[:start_time], params[:end_time])
