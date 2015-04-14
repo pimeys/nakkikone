@@ -85,7 +85,8 @@ define([
 	vent.off(); //hard reset!
 
 	vent.on('changeParty', toggleSectionsOpen);
-	
+	vent.on('createdParty', toggleSectionsOpen);
+
 	notificationArea.createComponent({el: $('#admin-alert-area', rootel)}, vent);
 
 	parties.fetch({
