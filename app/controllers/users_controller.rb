@@ -28,9 +28,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def home
-  end
-
   def reset_password
     user = User.where(:email => params[:email]).first
     if user

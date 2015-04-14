@@ -21,25 +21,35 @@ define([
 	    this.render();
 	},
 
-	parseTitles: function(data) {
-	    return _.uniq(_.pluck(data, 'type')).sort();
+	groupTitlesToNakkitypes: function(data) {
+	    return _.chain(data)
+		.groupBy('nakkitype_id')
+		.map(_.first)
+		.pluck('type')
+		.value();
 	},
 
-	parseNakit: function(data) {
-	    return _.toArray(
-		_.sortBy(
-		    _.sortBy(
-			_.groupBy(data, 'slot'), 'type'), 
-		    function(item) { 
-			return parseInt(item[0].slot, 10);
-		    }));
+	groupNakitToSlots: function(data) {
+	    return _.chain(data)
+		.groupBy('slot')
+		.sortBy('nakkitype_id')
+		.value();
+	},
+
+	nakkiCellPositions: function(data) {
+	    return _.chain(data)
+		.groupBy('nakkitype_id')
+		.map(_.first)
+		.pluck('nakkitype_id')
+		.value();
 	},
 
 	render: function() {
-	    var collectionJSON = this.collection.toJSON();
+	    var data = this.collection.toJSON();
 	    this.$el.html(nakki_table({
-		titles: this.parseTitles(collectionJSON),
-		nakit: this.parseNakit(collectionJSON),
+		titles: this.groupTitlesToNakkitypes(data),
+		nakit: this.groupNakitToSlots(data),
+		nakkiCellPositions: this.nakkiCellPositions(data),
 		startTime: this.collection.partyDate().toJSON()
 	    }));
 	    return this;

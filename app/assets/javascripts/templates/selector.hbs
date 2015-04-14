@@ -1,8 +1,9 @@
 <form method="post">
   <div class="controls controls-row">
     <select name="parties" class="selector">
+      <option value="">select one to edit</option>
       {{#each parties}}
-      <option value="{{ this.cid }}" {{#if this.selected }}selected="true"{{/if}}>{{ this.title }}</option>
+      <option value="{{ this.cid }}">{{ this.title }}</option>
       {{/each}}
     </select>
     <div class="btn-group">

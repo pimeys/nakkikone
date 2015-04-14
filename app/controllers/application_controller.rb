@@ -3,6 +3,11 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   before_filter :require_login
   rescue_from ActiveRecord::RecordNotFound, User::Unauthorized, User::Unauthenticated, :with => :mapped_exceptions
+  skip_before_filter :require_login, :only => [:bootstrap]
+  
+  def bootstrap
+    # here we bootstrap the application so that we render static html page where the javacscript injection is present
+  end
 
   private
 

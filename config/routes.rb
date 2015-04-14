@@ -1,6 +1,6 @@
 RailStrap::Application.routes.draw do
 
-  root :to => "users#home" #TODO point to somewhere else
+  root :to => "application#bootstrap"
 
   get "sign_up" => "users#new", :as => "sign_up"
   put "yourself" => "users#update"

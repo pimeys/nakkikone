@@ -20,7 +20,7 @@ define([
 	    'change .selector' : 'select',
 	    'click .editor'    : 'edit',
 	    'submit'           : 'save',
-	    'click .cancel'    : 'render'
+	    'click .cancel'    : 'cancelEditAction'
 	},
 
 	initialize: function(){
@@ -49,6 +49,11 @@ define([
 	render: function(){
 	    this.$el.html(party_description({party: this.model.toJSON(), editable: true}));
 	    return this;
+	},
+
+	cancelEditAction: function() {
+	    this.render();
+	    return false;
 	},
 
 	select: function(partyId) {

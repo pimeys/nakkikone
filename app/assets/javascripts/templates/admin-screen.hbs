@@ -1,97 +1,113 @@
 <div class="row-fluid">
   <div class="span12">
     <div class="row-fluid"><div class="span12"></div></div>
-    <article id="admin" class="row-fluid portrait" >
+    <div class="row-fluid portrait">
       <div class="span1"></div>
-      <div class="span10">
-	<heading>
+
+      <article id="admin" class="span10">
+	<heading> <!-- FIXME restyle -->
 	  <h1>Nakkikone Administration</h1>
 	</heading>
-	<hr class="noprint" />
+
+	<hr class="noprint"/>
+	
 	<section class="span6 noprint">
 	  <heading>
-	    <h2 >Select Party</h2>
-	    <p ><small>Here you can select party which information you're interested in.</small></p>
+	    <h2>Select Party</h2>
+	    <p><small>Here you can select party which information you're interested in.</small></p>
 	  </heading>
 	  <div id="party-selector"></div>
 	</section>
+
 	<section class="span5 noprint">
 	  <h5>Notifications:</h5>
 	  <div id="admin-alert-area"></div>
 	</section>
+
 	<section id="admin-party-details" class="accordion span12">
 	  <div class="accordion-group">
 	    <heading class="accordion-heading noprint">
 	      <a class="accordion-toggle" data-toggle="collapse" data-parent="admin-party-details" href="#party-details"><h2>Edit Party Details</h2></a>
-	      <p class="descr"><i class="icon-edit"></i> Here you can edit timetables and info descriptions of selected party.</p>
+	      <p class="descr"><i class="icon-edit"></i>Here you can edit timetables and info descriptions of selected party.</p>
 	    </heading>
-	    <div id="party-details" class="accordion-body collapse in">
+	    <div id="party-details" class="accordion-body collapse">
 	      <div class="accordion-inner">
 		<div id="party" class=""></div>
-		<hr class="noprint" />
-		<h3 class="noprint">Nakki Table Schema</h3>
-		<p class="noprint">Here you can modify Nakki Table structure. Selected times must be full hours, (e.g. xx:00 -- yy:00) </p>
-		<p class="noprint"><strong>Remember: Modifying Nakki table schema will reset current reservations!</strong></p>
-		<div id="nakit" class="noprint"></div>
 	      </div>
 	    </div>
 	  </div>
 	</section>
+
 	<section id="admin-nakki-info-details" class="accordion span12">
 	  <div class="accordion-group">
 	    <heading class="accordion-heading noprint">
 	      <a class="accordion-toggle" data-toggle="collapse" data-parent="admin-nakki-info-details" href="#nakki-info-details"><h2>Edit Nakki Info Details</h2></a>
-	      <p class="descr"><i class="icon-edit"></i> Here you can edit and create new nakki types that can be selected into Nakki Table Schema.</p>
+	      <p class="descr"><i class="icon-edit"></i> Here you can edit and create new nakki types that can be selected into Nakki timetable.</p>
 	    </heading>
-	    <div id="nakki-info-details" class="accordion-body collapse in">
+	    <div id="nakki-info-details" class="accordion-body collapse">
 	      <div class="accordion-inner">
-		<div id="nakki-infos" class=""></div>
+		<div id="nakki-infos" class="noprint"></div>
 	      </div>
 	    </div>
 	  </div>
 	</section>
-	<hr class="noprint"/>
-	<section id="admin-participants" class="accordion span12">
-          <div class="accordion-group">
-	   <heading class="accordion-heading noprint">
-	    <a class="accordion-toggle" data-toggle="collapse" data-parent="admin-participants" href="#participants-details"><h2>Party Organizers information</h2></a>
-	    <p class="descr"><i class="icon-plus"></i> Listing all of the parcipitants and their information of selected party.</p>
-	   </heading>
-            <div id="participants-details" class="accordion-body collapse">
-              <div class="accordion-inner">
-	  <section class="participants">
-	    <heading>
-	      <h3>Parcipitants</h3>
-	      <p><small>Here is list of parcipitants that have taken tasks(nakki) in the party.</small></p>
+	
+	<section id="admin-nakki-timetable" class="accordion span12">
+	  <div class="accordion-group">
+	    <heading class="accordion-heading noprint">
+	      <a class="accordion-toggle" data-toggle="collapse" data-parent="admin-nakki-timetable" href="#nakki-timetable"><h2>Edit Nakki Timetable</h2></a>
+	      <p class="descr"><i class="icon-edit"></i> Here you can edit and create new nakki timetable for the selected party.</p>
 	    </heading>
-	    <div id="users"></div>
-	  </section>
-	  <section class="noprint">
-	    <heading>
-	      <h3>Constructors</h3>
-	      <p><small>List of responsible persons who move and setup party equipment in to place.</small></p>
-	    </heading>
-	    <div id="constructors"></div>
-	  </section>
-	  <section class="noprint">
-	    <heading>
-	      <h3>Taking Down And End Cleaning</h3>
-	      <p><small>These guys clean.</small></p>
-	    </heading>
-	    <div id="cleaners"></div>
-	  </section class="noprint">
-	  <section class="noprint">
-	    <heading>
-	      <h3>Notify Parcipitants</h3>
-	    </heading>
-	    <p><small>Below button opens pop-up to your default mail client for mailing all currently registered parcipitants. List of emails can be checked behind the link as well.</small></p>
-	    <div id="email-all"></div>
-	  </section>
-	  </div>
-	  </div>
+	    <div id="nakki-timetable" class="accordion-body collapse">
+	      <div class="accordion-inner">
+		<div id="nakki-timetable" class="noprint"></div>
+	      </div>
+	    </div>
 	  </div>
 	</section>
-      </div>
-    </article>
+
+	<section id="admin-participants" class="accordion span12">
+          <div class="accordion-group">
+	    <heading class="accordion-heading noprint">
+	      <a class="accordion-toggle" data-toggle="collapse" data-parent="admin-participants" href="#participants-details"><h2>Party Organizers information</h2></a>
+	      <p class="descr"><i class="icon-plus"></i> Listing all of the parcipitants and their information of selected party.</p>
+	    </heading>
+            <div id="participants-details" class="accordion-body collapse">
+              <div class="accordion-inner">
+		<section class="participants">
+		  <heading>
+		    <h3>Parcipitants</h3>
+		    <p><small>Here is list of parcipitants that have taken tasks(nakki) in the party.</small></p>
+		  </heading>
+		  <div id="users"></div>
+		</section>
+		<section class="noprint">
+		  <heading>
+		    <h3>Constructors</h3>
+		    <p><small>List of responsible persons who move and setup party equipment in to place.</small></p>
+		  </heading>
+		  <div id="constructors"></div>
+		</section>
+		<section class="noprint">
+		  <heading>
+		    <h3>Taking Down And End Cleaning</h3>
+		    <p><small>These guys clean.</small></p>
+		  </heading>
+		  <div id="cleaners"></div>
+		</section class="noprint">
+		<section class="noprint">
+		  <heading>
+		    <h3>Notify Parcipitants</h3>
+		  </heading>
+		  <p><small>Below button opens pop-up to your default mail client for mailing all currently registered parcipitants. List of emails can be checked behind the link as well.</small></p>
+		  <div id="email-all"></div>
+		</section>
+	      </div>
+	    </div>
+	  </div>
+	</section>
+	
+      </article>
+    </div>
   </div>
 </div>
