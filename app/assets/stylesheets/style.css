@@ -67,9 +67,9 @@ body {
 	text-shadow: 0px 1px 2px #FFF;
 }
 .selector {
-	width: 165px;
+	width: auto;
 }
-
+#nakkitype-info-selector{display:inline; position:relative; top:5px;}
 .disabled{
 	color: #EEE;
 }
@@ -83,6 +83,9 @@ footer {
 	text-align: right;
 	margin-top: 5%;
 }
+#admin-party-details {visibility:hidden;}
+#admin-nakki-timetable {visibility:hidden;}
+#admin-participants {visibility:hidden;}
 
 #auxJob-constructors .list-of-nicks {display:none;}
 #auxJob-cleaners .list-of-nicks {display:none;}
