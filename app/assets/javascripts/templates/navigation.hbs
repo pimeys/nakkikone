@@ -1,11 +1,13 @@
-<a href="/logout" class="btn pull-right">Log out</a>
-<div class="btn-group pull-right">
-  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Parties <span class="caret"></span></a>
-  <ul class="dropdown-menu">
-    {{#each parties}}
-    <li><a href="#party/id/{{ this.id }}">{{ this.title }}</a></li>
-    {{/each}}
-  </ul>
+<div class="btn-group">
+  <a href="/logout" class="btn pull-right">Log out</a>
+  {{#if isAdmin }}<a href="#admin" class="btn pull-right">Admin Sreen</a>{{/if}}
+  <a href="#edit-own-details" class="btn pull-right">{{ user.name }}</a>
+  <div class="btn-group pull-right">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Parties <span class="caret"></span></a>
+    <ul class="dropdown-menu">
+      {{#each parties}}
+      <li><a href="#party/id/{{ this.id }}">{{ this.title }}</a></li>
+      {{/each}}
+    </ul>
+  </div>
 </div>
-{{#if isAdmin }}<a href="#admin" class="btn pull-right">Admin Sreen</a>{{/if}}
-<a href="#edit-own-details" class="btn pull-right">{{ user.name }}</a>

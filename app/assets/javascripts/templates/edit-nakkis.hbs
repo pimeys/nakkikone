@@ -1,5 +1,6 @@
-<div class="row-fluid">
-  <div class="span3"><h4>Type</h4></div>
+<div class="accordion-inner">
+<div class="row-fluid" style="padding-left:2%;">
+  <div class="span3"><h4>Nakki Type</h4></div>
   <div class="span3"><h4>Start Time</h4></div>
   <div class="span3"><h4>End Time</h4></div>
 </div>
@@ -7,7 +8,7 @@
 <div class="row-fluid">
   <form>
     <input type="hidden" name="cid" value="{{ this.cid }}" />
-    <div class="span3">
+    <div class="span4">
       <select name="nakkitype_info_id" class="selector">
         {{#each ../nakkitypeInfos}}
 	<option value="{{ this.id }}" {{isSelected this.title ../this.type}}>{{ this.title }}</option>
@@ -30,11 +31,13 @@
       	  </span>
       </div>
     </div>
+  </form>
 </div>
-</form>
 {{/each}}
-<div class="row-fluid offset1">
-  <button class="creator btn btn-primary">Create New Type</button>
-  <button class="setter btn btn-primary">Update NakkitTable</button>
+<div class="row-fluid" style="margin-top: 50px;">
+  <button class="creator btn btn-primary">Add 1 (ONE) Nakki to Timetable</button>
+	And Then
+  <button class="setter btn btn-warning">Update Timetable!</button>
+	then add another!
 </div>
-
+</div>

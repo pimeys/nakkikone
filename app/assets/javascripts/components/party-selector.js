@@ -36,6 +36,10 @@ define([
 	    var partyId = this.$('form').serializeArray()[0].value;
 	    if (partyId) {
 		vent.trigger('changeParty', this.collection.get(partyId));
+	    	this.showpartyinfo();
+	    }
+	    else {
+	    	this.hidepartyinfo();
 	    }
 	},
 
@@ -48,6 +52,7 @@ define([
 		    self.model = model;
 		    vent.trigger('createdParty', model);
 		    self.render();
+		    self.showpartyinfo();
 		},
 		error: this.alert
 	    });
@@ -86,6 +91,16 @@ define([
 		text: "Your assignment request failed because: " + xhr.responseText
 	    };
 	    vent.trigger('alert', message);
+	},
+	hidepartyinfo: function() {
+		$('#admin-party-details').css('visibility', 'hidden');
+		$('#admin-nakki-timetable').css('visibility', 'hidden');
+		$('#admin-participants').css('visibility', 'hidden');
+	},
+	showpartyinfo: function() {
+		$('#admin-party-details').css('visibility', 'visible');
+		$('#admin-nakki-timetable').css('visibility', 'visible');
+		$('#admin-participants').css('visibility', 'visible');
 	}
     });
 
