@@ -32,7 +32,7 @@ define([
 	groupNakitToSlots: function(data) {
 	    return _.chain(data)
 		.groupBy('slot')
-		.sortBy('nakkitype_id')
+		.values()
 		.value();
 	},
 
