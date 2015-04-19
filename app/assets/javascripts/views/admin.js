@@ -84,8 +84,11 @@ define([
 	rootel.html(adminScreen);
 	vent.off(); //hard reset!
 
+	disablePartyEditionSections();
+
 	vent.on('changeParty', toggleSectionsOpen);
 	vent.on('createdParty', toggleSectionsOpen);
+	vent.on('noPartySelected', disablePartyEditionSections);
 
 	notificationArea.createComponent({el: $('#admin-alert-area', rootel)}, vent);
 
@@ -117,12 +120,25 @@ define([
 	}
     };
 
-    function toggleSectionsOpen() {
-	var accordionsToOpen = $('#party-details, #nakki-timetable');
-	accordionsToOpen.filter(isOpen).collapse('show');
+    function disablePartyEditionSections() {
+	var accordionsToClose = $('#party-details, #nakki-timetable, #participants-details');
+	var sectionsToDisable = $('#admin-party-details, #admin-nakki-timetable, #admin-participants');
+	sectionsToDisable.toggleClass('disabled', true);
+	accordionsToClose.filter(isOpen).collapse('hide');
+    }
 
-	function isOpen() {
-	    return !$(this).hasClass("in");
-	}
+    function toggleSectionsOpen() {
+	var accordionsToOpen = $('#party-details, #nakki-timetable, #participants-details');
+	var sectionsToEnable = $('#admin-party-details, #admin-nakki-timetable, #admin-participants');
+	sectionsToEnable.toggleClass('disabled', false);
+	accordionsToOpen.filter(isClosed).collapse('show');
+    }
+
+    function isClosed() {
+	return !$(this).hasClass("in");
+    }
+
+    function isOpen() {
+	return $(this).hasClass("in");
     }
 });
