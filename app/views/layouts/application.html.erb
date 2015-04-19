@@ -19,10 +19,12 @@
 
     <%= stylesheet_link_tag '_bootstrap.min.css' %>
     <%= stylesheet_link_tag 'bootstrap-responsive.min.css' %>
-    <%= stylesheet_link_tag 'style.css' %>
-    <%= stylesheet_link_tag 'print.css', :media=>"print" %>
     <%= stylesheet_link_tag 'datepicker.css' %>
+    <%= stylesheet_link_tag 'bootstrap-wysihtml5.css' %>
     <%= stylesheet_link_tag 'bootstrap-timepicker.css' %>
+
+    <%= stylesheet_link_tag 'print.css', :media=>"print" %>
+    <%= stylesheet_link_tag 'style.css' %>
 
     <%= requirejs_include_tag "application" %>
     <%= csrf_meta_tag %>

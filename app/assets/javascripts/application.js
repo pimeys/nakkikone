@@ -14,7 +14,10 @@ require.config({
 
 	bootstrapDatepicker: "bootstrap-datepicker/js/bootstrap-datepicker",
 	bootstrapTimepicker: "bootstrap-timepicker/js/bootstrap-timepicker",
-	bs: "libs/bootstrap.min"
+	bs: "libs/bootstrap.min",
+
+	bootstrapWysivyg: "bootstrap-wysihtml5/dist/bootstrap-wysihtml5-0.0.2",
+	wysihtml5: "wysihtml5/dist/wysihtml5-0.3.0"
     },
 
     shim: {
@@ -45,8 +48,13 @@ require.config({
 	    deps: ['jquery'],
 	    exports: 'bs'
 	},
-	
-	'languages' : ['moment']
+
+	'languages' : ['moment'],
+
+	'bootstrapWysivyg' : {
+	    deps: ['wysihtml5'],
+	    exports: 'bootstrapWysivyg'
+	}
     },
 
     hbs: {

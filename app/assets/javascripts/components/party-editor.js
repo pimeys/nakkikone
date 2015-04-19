@@ -9,9 +9,10 @@ define([
     'languages',
     'bootstrapDatepicker',
     'bootstrapTimepicker',
+    'bootstrapWysivyg',
     'hbs!templates/party-description',
     'hbs!templates/party-editor-form'
-], function($, _, bb, collections, models, moment, languages, bootstarpDP, bootstarpTP, party_description, party_edit) {
+], function($, _, bb, collections, models, moment, languages, bootstarpDP, bootstarpTP, bootstarpEditor, party_description, party_edit) {
 
     var vent;
 
@@ -72,6 +73,10 @@ define([
 		showMeridian: false,
 		showSeconds: false,
 		minuteStep: 30
+	    });
+	    $('textarea[name="description"]').wysihtml5({
+		color: false,
+		stylesheets: []
 	    });
 	},
 
