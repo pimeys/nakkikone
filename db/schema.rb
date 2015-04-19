@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150414173308) do
+ActiveRecord::Schema.define(:version => 20150419114202) do
 
   create_table "aux_nakkis", :force => true do |t|
     t.string  "nakkiname", :null => false
@@ -42,12 +42,13 @@ ActiveRecord::Schema.define(:version => 20150414173308) do
   add_index "nakkitypes", ["nakkitype_info_id"], :name => "index_nakkitypes_on_nakkitype_info_id"
 
   create_table "parties", :force => true do |t|
-    t.string   "title",       :null => false
+    t.string   "title",                              :null => false
     t.text     "description"
-    t.datetime "date",        :null => false
-    t.datetime "info_date",   :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "date",                               :null => false
+    t.datetime "info_date",                          :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "aux_jobs_enabled", :default => true, :null => false
   end
 
   create_table "users", :force => true do |t|
