@@ -49,7 +49,8 @@ define([
     var NakkiType = bb.Model.extend({
 	defaults: {
 	    start_time: 0,
-	    end_time: 5
+	    end_time: 5,
+	    info: {}
 	},
 
 	//TODO remove after UI refactoring

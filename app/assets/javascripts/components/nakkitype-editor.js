@@ -155,7 +155,7 @@ define([
 	notify: function(model, options) {
 	    var message = {
 		title: 'Success',
-		text: "Nakki " + model.get('type') + " successfully created/modified/removed."
+		text: "Nakki " + model.get('info').title + " successfully created/modified/removed."
 	    };
 	    vent.trigger('notify', message);
 	    vent.trigger('changeParty', this.model);
@@ -164,7 +164,7 @@ define([
 
 	alert: function(model, xhr, options) {
 	    var message = {
-		title: "Failure in nakkitype "+ model.get('type') + " (Something went wrong in server)!",
+		title: "Failure in nakkitype "+ model.get('info').title + " (Something went wrong in server)!",
 		text: "Your assignment request failed because: " + xhr.responseText
 	    };
 	    vent.trigger('alert', message);
