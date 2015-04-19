@@ -22,9 +22,8 @@ define([
 	    this.model.save(data, {url: "yourself",
 		wait:true,
 		success: function() {
-		    alert('Successfully changed your details');
+		    $('#user-action-dialog').modal('show');
 		},
-
 		error: this.alert
 	    });
 	    return false;

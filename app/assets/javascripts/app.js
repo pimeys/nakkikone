@@ -97,9 +97,11 @@ define([
 
     var sendResetMail = function(email) {
 	$.get("/reset_password?email=" + email, function(data) {
-	    alert("Email has sent to email address, go check your mails");
+	    $('#reset-password-email .modal-body').html("Email has sent to email address, go check your mails");
+	    $('#reset-password-email').modal('show');
 	}).fail(function(data) {
-	    alert("something went wrong, contact webmaster@entropy.fi");
+	    $('#reset-password-email .modal-body').html("Something went wrong, contact webmaster@entropy.fi");
+	    $('#reset-password-email').modal('show');
 	});
     };
 

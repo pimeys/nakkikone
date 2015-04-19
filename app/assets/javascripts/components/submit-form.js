@@ -77,8 +77,13 @@ define([
 	    this.model.save(data, {
 		wait:true, 
 		success: function() {
-		    alert('Succesfully created new user! Go on and login.');
-		    self.vent.trigger('user-created');
+		    $('#user-created-continue').click(function() {
+			self.vent.trigger('user-created');
+		    });
+		    $('#user-action-dialog').modal({
+			backdrop: "static"
+		    });
+		    return false;
 		},
 
 		error: this.alert
@@ -87,11 +92,6 @@ define([
 	},
 
 	notify: function(model, options) {
-	    var message = {
-		title: "Success!",
-		text: ""
-	    };
-	    this.vent.trigger('notify', message);
 	},
 
 	alert: function(model, xhr, options) {
@@ -100,6 +100,7 @@ define([
 		text: "Your request failed because: " + xhr.responseText
 	    };
 	    this.vent.trigger('alert', message);
+	    return false;
 	}
     });
 

@@ -39,8 +39,7 @@ define([
 		},
 		statusCode: {
 		    401: function() {
-			//todo use notify to signal wrong password...
-			alert("failed to login, try again or use forgot password.");
+			$('#user-action-dialog').modal('show');
 		    }
 		}
 	    });
