@@ -31,6 +31,17 @@
   </head>
   <body>
     <!--[if lt IE 7]><p class="chromeframe">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <div id="user-not-authenticated" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="authLabel" aria-hidden="true">
+      <div class="modal-header">
+	<h3 id="authLabel">Access denied</h3>
+      </div>
+      <div class="modal-body">
+	<p>Uups, you don't have privilegdes to here or your not authenticated yet, continue to login page.</p>
+      </div>
+      <div class="modal-footer">
+	<button id="redirect-to-login" class="btn" data-dismiss="modal" aria-hidden="true">Continue to login.</button>
+      </div>
+    </div>
     <div class="container-fluid">
       <div class="row-fluid">
 	<div class="span1"></div>

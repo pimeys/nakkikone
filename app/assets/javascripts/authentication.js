@@ -37,13 +37,21 @@ define([
 	statusCode: {
 	    401: function() {
 		followUpHash = followUpHash || window.location.hash;
-		alert('redirection to login');
-		window.location.hash = 'login';
+		$('#redirect-to-login').click(function() {
+		    window.location.hash = 'login';
+		});
+		$('#user-not-authenticated').modal({
+		    backdrop: "static"
+		}).modal('show');
 	    },
 
 	    403: function() {
-		alert('denied');
-		window.location.hash = 'denied';
+		$('#redirect-to-login').click(function() {
+		    window.location.hash = 'login';
+		});
+		$('#user-not-authenticated').modal({
+		    backdrop: "static"
+		}).modal('show');
 	    }
 	}
     });
