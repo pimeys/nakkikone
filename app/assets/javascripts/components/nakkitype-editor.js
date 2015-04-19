@@ -15,8 +15,6 @@ define([
 
     var vent;
 
-    var nakkitypeInfos;
-
     //TODO refactor to use maybe subviews for each models 
     var Nakki_Editor = bb.View.extend({
 	events: {
@@ -26,13 +24,13 @@ define([
 	    'click .deletor' : 'delete'
 	},
 
-	initialize: function(){
+	initialize: function(options) {
 	    _.bindAll(this);
+	    this.nakkitypeInfos = options.nakkitypeInfos;
 	    vent.on('changeParty', this.refresh);
 	    vent.on('createdParty', this.refresh);
 	    vent.on('detach', this.remove);
-	    this.listenTo(this.collection, 'add remove', this.edit);
-	    this.listenTo(this.collection, 'reset', this.render);
+	    this.listenTo(this.collection, 'add reset', this.render);
 	    this.render();
 	},
 
@@ -61,12 +59,13 @@ define([
 	},
 
 	create: function(){
-	    this.collection.add(new models.Nakkitype());
+	    var nakkitype_info_id = this.nakkitypeInfos.first().get("id");
+	    this.collection.create({ nakkitype_info_id: nakkitype_info_id }, { wait:true });
 	},
 
 	edit: function(){
 	    this.$el.html(nakkilist_edit({
-		nakkitypeInfos: nakkitypeInfos.toJSON(),
+		nakkitypeInfos: this.nakkitypeInfos.toJSON(),
 		nakkitypes: this.collection.toJSONWithClientID(),
 		party: this.model.toJSON() 
 	    }));
@@ -174,7 +173,6 @@ define([
     return {
 	createComponent: function(options, _vent) {
 	    vent = _vent;
-	    nakkitypeInfos = options.nakkitypeInfos;
 	    return new Nakki_Editor(options);
 	}
     };
