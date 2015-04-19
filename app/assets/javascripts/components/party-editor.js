@@ -100,7 +100,7 @@ define([
 	    parsed.description = data.description;
 	    parsed.date = parseDate(data.date, data.startTime);
 	    parsed.infoDate = parseDate(data.date, data.infoTime);
-
+	    parsed.auxJobsEnabled = data.auxJobsEnabled === "enabled" ? true : false;
 	    return parsed;
 	},
 
