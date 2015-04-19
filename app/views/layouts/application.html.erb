@@ -10,19 +10,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Nakki 2.5</title>
+    <title>Nakkikone 2.6</title>
     <meta name="description" content="Single page application to manage small party organizations">
 
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="http://entropy.fi/favicon.ico" />
-    <%= stylesheet_link_tag '__main.css' %>
+
     <%= stylesheet_link_tag '_bootstrap.min.css' %>
     <%= stylesheet_link_tag 'bootstrap-responsive.min.css' %>
-    <%= stylesheet_link_tag 'style.css' %>
-    <%= stylesheet_link_tag 'print.css', :media=>"print" %>
     <%= stylesheet_link_tag 'datepicker.css' %>
+    <%= stylesheet_link_tag 'bootstrap-wysihtml5.css' %>
     <%= stylesheet_link_tag 'bootstrap-timepicker.css' %>
+
+    <%= stylesheet_link_tag 'print.css', :media=>"print" %>
+    <%= stylesheet_link_tag 'style.css' %>
 
     <%= requirejs_include_tag "application" %>
     <%= csrf_meta_tag %>
@@ -35,7 +37,7 @@
 	<div class="span10">
 	  <div class="header">
 	    <span class="logo"></span>
-	    <h1 class="pull-left ">Nakkikone 2.5</h1>
+	    <h1 class="pull-left ">Nakkikone 2.6</h1>
 	    <span id="navigation" class="pull-right" style="display: none;">
 	    </span>
 	</div>
