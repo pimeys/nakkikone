@@ -10,6 +10,7 @@ class PartiesController < ApplicationController
     party = Party.find params[:id]
     if party.update_attributes( :title => params[:title],
                                 :description => params[:description],
+                                :aux_jobs_enabled => params[:auxJobsEnabled],
                                 :date => params[:date],
                                 :info_date => params[:infoDate])
       render :json => party
@@ -19,8 +20,9 @@ class PartiesController < ApplicationController
   end
 
   def new
-    party = Party.new( :title => params[:title], 
-                       :description => params[:description], 
+    party = Party.new( :title => params[:title],
+                       :description => params[:description],
+                       :aux_jobs_enabled => params[:auxJobsEnabled],
                        :date => params[:date],
                        :info_date => params[:infoDate])
     if party.save
