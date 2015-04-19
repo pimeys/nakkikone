@@ -16,12 +16,22 @@ define([
 	resource: 'aux_nakit'
     });
 
+    function mapToServerTypes(type) {
+	var mapping = {
+	    "cleaning" : "clean",
+	    "construction" : "const"
+	};
+	return mapping[type];
+    }
+
     // horrible piece of shit, please die.
     var AuxJobsSelect = bb.View.extend({
-	initialize: function() {
+	initialize: function(options) {
+	    this.currentUser = options.user;
 	    _.bindAll(this);
 	    this.listenTo(vent, 'assignPerson', this.submit);
 	    this.listenTo(vent, 'detach', this.detach);
+	    this.listenTo(this.collection, 'reset add destroy remove', this.render);
 	    this.render();
 	},
 
@@ -37,16 +47,18 @@ define([
 	},
 
 	submit: function(assigned) {
-	    var type = this.$('form').serializeArray()[0].value;
-	    if (type === "both") {
-		var _doFetch = _.after(2, this.doFetch);
-	    	this.createSingleUseModel().save({type: "clean"}, {wait:true, success: this.notifyAndFetch(_doFetch), error: this.alert});
-		this.createSingleUseModel().save({type: "const"}, {wait:true, success: this.notifyAndFetch(_doFetch), error: this.alert});
-	    } else if (type === "none") {
-		return false;
-	    } else {
-		this.createSingleUseModel().save({type: type}, {wait:true, success: this.notifyAndFetch(this.doFetch), error: this.alert});
-	    }
+	    var self = this;
+	    var selected = _(this.$('form').serializeArray()).pluck('value').map(mapToServerTypes);
+	    var refreshView = _.after(selected.length, this.doFetch);
+	    _.each(selected, function(type) {
+		self.createSingleUseModel().save(
+		    { type: type },
+		    { wait:true,
+		      success: self.notifyAndFetch(refreshView),
+		      error: self.alert
+		    }
+		);
+	    });
 	    return false;
 	},
 
@@ -78,8 +90,21 @@ define([
 	    vent.trigger('alert', message);
 	},
 
-	render: function(){
-	    this.$el.html(auxJobSelector());
+	render: function() {
+	    var user = this.currentUser;
+	    var auxialirySelections = this.collection
+		    .filter(function(model) {
+			return model.get("name") === user.get("nick");
+		    });
+	    this.$el.html(auxJobSelector({
+		notSelected: {
+		    construction: !auxialirySelections.some(function(model) {
+			return model.get("type") == "const";
+		    }),
+		    cleaning: !auxialirySelections.some(function(model) {
+			return model.get("type") == "clean";
+		    })
+		}}));
 	    return this;
 	}
     });

@@ -1,8 +1,14 @@
 <form method="post">
-  <select name="aux" class="selector">
-    <option value="none" selected="true">None / all ready taken</option>
-    <option value="const" >Building up</option>
-    <option value="clean" >Taking down</option>
-    <option value="both" >Both!</option>
-  </select>
+  {{#if notSelected.cleaning}}
+  <label for="cleaning"><input type="checkbox" id="cleaning" name="cleaning" value="cleaning"/>
+    Taking down</label>
+  {{else}}
+  <label class="reserved">You have volunteed for party cleaning.</label>
+  {{/if}}
+  {{#if notSelected.construction}}
+  <label for="construction"><input type="checkbox" id="construction" name="construction" value="construction">
+    Building up</input></label>
+  {{else}}
+  <label class="reserved">You have volunteed for party construction.</label>
+  {{/if}}
 </form>
