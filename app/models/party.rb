@@ -1,5 +1,5 @@
 class Party < ActiveRecord::Base
-  attr_accessible :title, :description, :date, :info_date
+  attr_accessible :title, :description, :date, :info_date, :aux_jobs_enabled
 
   has_many :aux_nakkis, :dependent => :delete_all
   has_many :nakkitypes, :dependent => :delete_all

@@ -33,6 +33,12 @@
     </div>
   </div>
   <div class="control-group">
+    <label class="control-label">Enable construction and building nakkis:</label>
+    <div class="controls">
+      <input type="checkbox" name="auxJobsEnabled" value="enabled" {{#if party.auxJobsEnabled }}checked{{/if}}>
+    </div>
+  </div>
+  <div class="control-group">
     <label class="control-label" >Description:</label> 
     <div class="controls">
       <textarea rows="8" class="span12" name="description" placeholder=".input-block-level" value="{{ party.description }}">{{ party.description }}</textarea>
