@@ -11,7 +11,7 @@
     <div class="span4">
       <select name="nakkitype_info_id" class="selector">
         {{#each ../nakkitypeInfos}}
-	<option value="{{ this.id }}" {{isSelected this.title ../this.type}}>{{ this.title }}</option>
+	<option value="{{ this.id }}" {{isSelected this.title ../this.info.title}}>{{ this.title }}</option>
 	{{/each}}
       <select>
     </div>
