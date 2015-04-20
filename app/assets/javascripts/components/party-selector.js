@@ -44,13 +44,12 @@ define([
 	create: function() {
 	    var self = this;
 	    var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
-	    this.collection.create({title: partyTitle}, {
+	    this.collection.create({ title: partyTitle, auxJobsEnabled: true }, {
 		wait: true,
 		success: function(model, options) {
 		    self.model = model;
 		    vent.trigger('createdParty', model);
 		    self.render();
-		    self.showpartyinfo();
 		},
 		error: this.alert
 	    });
