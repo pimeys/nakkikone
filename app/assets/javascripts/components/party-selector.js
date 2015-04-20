@@ -13,7 +13,7 @@ define([
     var Party_Selector = bb.View.extend({
 	events: {
 	    "change .selector" : "select",
-	    "click .creator"  : "create",
+	    "click #creator"  : "create",
 	    "click .deletor"  : "destroy"
 	},
 
@@ -43,8 +43,11 @@ define([
 
 	create: function() {
 	    var self = this;
-	    var partyTitle = prompt("Give name to the party (cannot be changed afterwards)","party");
-	    this.collection.create({ title: partyTitle, auxJobsEnabled: true }, {
+	    var partyTitle = this.$('#party-title-input').val();
+	    this.collection.create({
+		title: partyTitle,
+		auxJobsEnabled: true
+	    }, {
 		wait: true,
 		success: function(model, options) {
 		    self.model = model;
