@@ -58,9 +58,9 @@ require.config({
     },
 
     hbs: {
-	templateExtension: "hbs",
-	disableI18n: true,
-	helperPathCallback: function(name) {return 'templates/' + name;}
+        templateExtension: "hbs",
+  //      i18nDirectory: "template/i18n",
+	disableI18n: true
     }
 });
 

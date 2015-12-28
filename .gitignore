@@ -16,3 +16,4 @@
 *.swp
 /config/database.yml
 /config/email.yml
+/public/assets/

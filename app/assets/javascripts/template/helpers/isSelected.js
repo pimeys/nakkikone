@@ -1,4 +1,4 @@
-define('templates/isSelected',[
+define('template/helpers/isSelected',[
     'handlebars',
     'underscore'
 ], function ( Handlebars, _) {

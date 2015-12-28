@@ -62,6 +62,7 @@ module RailStrap
 
     # todo should this be in asset precompilation environment such as production...
     config.requirejs.logical_asset_filter += [/\.hbs$/]
+    config.assets.precompile += %w( _bootstrap.min.css bootstrap-responsive.min.css datepicker.css bootstrap-wysihtml5.css bootstrap-timepicker.css print.css style.css )
   
     config.generators do |g|
       g.test_framework :mini_test, :spec => true, :fixture => false

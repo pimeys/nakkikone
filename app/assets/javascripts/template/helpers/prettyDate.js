@@ -1,4 +1,4 @@
-define('templates/prettyDate', [
+define('template/helpers/prettyDate', [
     'handlebars',
     'moment',
     'languages'

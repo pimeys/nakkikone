@@ -1,6 +1,6 @@
-define('templates/prettyTimeFromSlot', [
+define('template/helpers/prettyTimeFromSlot', [
     'handlebars',
-    'templates/prettyTime'
+    'template/helpers/prettyTime'
 ], function (Handlebars, timeFormatter) {
     
     function prettyTimeFromSlot(slot, dateJSON){

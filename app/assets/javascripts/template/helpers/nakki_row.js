@@ -1,7 +1,7 @@
-define('templates/nakki_row', [
+define('template/helpers/nakki_row', [
     'handlebars',
     'underscore',
-    'templates/prettyTimeFromSlot'
+    'template/helpers/prettyTimeFromSlot'
 ], function ( Handlebars, _, timeFormatter) {
     function nakki_row(startTime, nakkiCellPositions) {
 	var rowTime = timeFormatter(_.first(this).slot, startTime);
