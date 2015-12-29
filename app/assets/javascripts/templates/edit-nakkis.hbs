@@ -1,0 +1,40 @@
+<div class="accordion-inner">
+<div class="row-fluid" style="padding-left:2%;">
+  <div class="span3"><h4>Nakki Type</h4></div>
+  <div class="span3"><h4>Start Time</h4></div>
+  <div class="span3"><h4>End Time</h4></div>
+</div>
+{{#each nakkitypes}}
+<div class="row-fluid">
+  <form>
+    <input type="hidden" name="cid" value="{{ this.cid }}" />
+    <div class="span4">
+      <select name="nakkitype_info_id" class="selector">
+        {{#each ../nakkitypeInfos}}
+	<option value="{{ this.id }}" {{isSelected this.title ../this.info.title}}>{{ this.title }}</option>
+	{{/each}}
+      <select>
+    </div>
+    <div class="span3">
+      <div class="input-append bootstrap-timepicker">
+	<input type="text" name="start_time" value="{{ prettyTimeFromSlot this.start_time ../party.date }}" class="input-mini time-picker">
+    	  <span class="add-on">
+    	    <i class="icon-time"></i>
+    	  </span>
+      </div>
+    </div>
+    <div class="span3">
+      <div class="input-append bootstrap-timepicker">
+        <input type="text" name="end_time" value="{{ prettyTimeFromSlot this.end_time ../party.date }}" class="input-mini time-picker" >
+      	  <span class="add-on">
+      	    <i class="icon-time"></i>
+      	  </span>
+      </div>
+    </div>
+  </form>
+</div>
+{{/each}}
+<div class="row-fluid" style="margin-top: 50px;">
+  <button class="setter btn btn-warning">Update Timetable</button>
+</div>
+</div>

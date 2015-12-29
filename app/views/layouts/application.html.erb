@@ -1,99 +1,73 @@
 <!DOCTYPE html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!-- Consider specifying the language of your content by adding the `lang` attribute to <html> -->
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-<head>
+<html lang="en">
+  <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+  <!-- Consider specifying the language of your content by adding the `lang` attribute to <html> -->
+  <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+  <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+  <!--[if IE 8]>    <html class="no-js lt-ie9"> <![endif]-->
+  <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>RailStrap v 0.1</title>
-    <meta name="description" content="">
+    <title>Nakkikone 2.7</title>
+    <meta name="description" content="Single page application to manage small party organizations">
 
     <!-- Mobile viewport optimized: h5bp.com/viewport -->
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="http://entropy.fi/favicon.ico" />
 
-    <%= stylesheet_link_tag '__main.css' %>
     <%= stylesheet_link_tag '_bootstrap.min.css' %>
     <%= stylesheet_link_tag 'bootstrap-responsive.min.css' %>
-    
-    <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
-    </style>
-    <%= javascript_include_tag 'modernizr-2.5.3.min.js' %>
+    <%= stylesheet_link_tag 'datepicker.css' %>
+    <%= stylesheet_link_tag 'bootstrap-wysihtml5.css' %>
+    <%= stylesheet_link_tag 'bootstrap-timepicker.css' %>
 
+    <%= stylesheet_link_tag 'print.css', :media=>"print" %>
+    <%= stylesheet_link_tag 'style.css' %>
+
+    <%= requirejs_include_tag "application" %>
     <%= csrf_meta_tag %>
-</head>
-<body>
+  </head>
+  <body>
     <!--[if lt IE 7]><p class="chromeframe">Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-
-          <%= link_to "RailStrap", root_path, :class => 'brand' %>
-
-          <div class="nav-collapse">
-            <ul class="nav">
-               <% if current_user %>
-              <li><%= link_to "Log out", log_out_path %></li>
-              <% else %>
-              <li><%= link_to "Sign up", sign_up_path %></li>
-              <li><%= link_to "Log in", log_in_path %></li>
-              <% end %>
-            </ul>
-          </div><!--/.nav-collapse -->
-        </div>
+    <div id="user-not-authenticated" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="authLabel" aria-hidden="true">
+      <div class="modal-header">
+	<h3 id="authLabel">Access denied</h3>
+      </div>
+      <div class="modal-body">
+	<p>Uups, you don't have privilegdes to here or your not authenticated yet, continue to login page.</p>
+      </div>
+      <div class="modal-footer">
+	<button id="redirect-to-login" class="btn" data-dismiss="modal" aria-hidden="true">Continue to login.</button>
       </div>
     </div>
-
-    <div class="container">
-
-      <div class="row">
-        <% flash.each do |name, msg| %>
-          <div class="alert">
-            <%= content_tag :div, msg, :id => "flash_#{name}" %>
-          </div>
-        <% end %>              
+    <div class="container-fluid">
+      <div class="row-fluid">
+	<div class="span1"></div>
+	<div class="span10">
+	  <div class="header">
+	    <span class="logo"></span>
+	    <h1 class="pull-left ">Nakkikone 2.7</h1>
+	    <span id="navigation" class="pull-right" style="display: none;">
+	    </span>
+	</div>
       </div>
-      
-      <%= yield %>
-
-      <hr>
-
-      <footer>
-        <p>&copy; Company 2012</p>
+    </div>
+    <div class="row-fluid">
+	<div class="span1 hidden-phone"></div>
+	<div id="content" class="span10">
+	</div>
+      <div class="span1"></div>
+    <div class="row-fluid">
+      <footer class="span12">
+	<p class="space">&copy; Entropy 2015</p>
+	<p><small>If you find a bug, please report it to <a href="mailto:webmaster@entropy.fi">webmaster</a> or <a href="https://github.com/EntropyRy/nakkikone/issues">to github issues</a>.</small></p>
       </footer>
-
-    </div> <!-- /container -->
-
-    <!-- Grab Google CDN's jQuery, with a protocol relative URL; fall back to local if offline -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/assets/jquery.min.js" type="text/javascript"><\/script>')</script>
-
-    <!-- scripts concatenated and minified via build script -->
-    <%= javascript_include_tag 'jquery_ujs.js' %>
-    <%= javascript_include_tag 'bootstrap.min.js' %>
-    <%= javascript_include_tag 'application.js' %>
-    <!-- end scripts -->
-
-    <!-- Asynchronous Google Analytics snippet. Change UA-XXXXX-X to be your site's ID.
-         mathiasbynens.be/notes/async-analytics-snippet -->
-    <script>
-        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-        s.parentNode.insertBefore(g,s)}(document,'script'));
-    </script>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
 </body>
 </html>

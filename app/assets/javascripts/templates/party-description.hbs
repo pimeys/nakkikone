@@ -1,0 +1,8 @@
+<section>
+  <heading>
+    <h1 name="title pull-left">{{ party.title }} @ {{ prettyDate party.date }}, {{ prettyTime party.date }}</h1>
+  </heading>
+  <p name="description">{{{ party.description }}}</p>
+  <p>There is Nakki-info at:<strong> <span>{{ prettyDate party.infoDate }}, {{ prettyTime party.infoDate}}</span>. You have to be there!</strong></p> 
+  {{#if editable}} <button class="editor btn btn-primary">Edit party details</button> {{/if}}
+</section>

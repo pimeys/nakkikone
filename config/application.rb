@@ -32,6 +32,7 @@ module RailStrap
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.active_record.include_root_in_json = false
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -53,12 +54,16 @@ module RailStrap
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
-    # Enable the asset pipeline
+    # Version of your assets, change this if you want to expire all your assets
+    config.assets.version = '2.3'
+ 
+    # Enable the asset pipeline (enabled by default)
     config.assets.enabled = true
 
-    # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
-
+    # todo should this be in asset precompilation environment such as production...
+    config.requirejs.logical_asset_filter += [/\.hbs$/]
+    config.assets.precompile += %w( _bootstrap.min.css bootstrap-responsive.min.css datepicker.css bootstrap-wysihtml5.css bootstrap-timepicker.css print.css style.css )
+  
     config.generators do |g|
       g.test_framework :mini_test, :spec => true, :fixture => false
     end

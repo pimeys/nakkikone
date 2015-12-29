@@ -1,0 +1,54 @@
+<div id="user-action-dialog" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <h3 id="myModalLabel">Created New User</h3>
+  </div>
+  <div class="modal-body">
+    <p>Succesfully created new user! Go on and login.</p>
+  </div>
+  <div class="modal-footer">
+    <button id="user-created-continue" class="btn" data-dismiss="modal" aria-hidden="true">Continue to login.</button>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="inputName">Nick:</label>
+  <div class="controls">
+    <input type="text" name="nick" placeholder="{{ user.nick }}" />
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label" for="inputName">Real name:</label>
+  <div class="controls">
+    <input type="text" name="name" placeholder="{{ user.name }}" />
+  </div>
+  <p>
+</div>
+<div class="control-group">
+  <label class="control-label" for="inputEmail">Email:</label>
+  <div class="controls">
+    <input type="text" name="email" placeholder="{{ user.email }}" />
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label" for="inputPhone">Phone:</label>
+  <div class="controls">
+    <input type="text" name="number" placeholder="{{ user.number }}" />
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label" for="inputPass">Password:</label>
+  <div class="controls">
+    <input type="password" name="password" />
+  </div>
+</div>
+<div class="control-group">
+  <label class="control-label" for="inputPassagain">Retype Password:</label>
+  <div class="controls">
+    <input type="password" name="password_confirmation" />
+  </div>
+</div>
+<div class="control-group">
+  <div class="controls">
+    <input type="submit" class="btn btn-primary" value="Sign In!"></input>
+  </div>
+</div>

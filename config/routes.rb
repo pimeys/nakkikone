@@ -1,13 +1,35 @@
 RailStrap::Application.routes.draw do
 
-  root :to => "users#home"
+  root :to => "application#bootstrap"
 
-  get "log_out" => "sessions#destroy", :as => "log_out"
-  get "log_in" => "sessions#new", :as => "log_in"
-  post "sessions" => "sessions#create"
   get "sign_up" => "users#new", :as => "sign_up"
-  
+  put "yourself" => "users#update"
+
+  get "reset_password" => "users#reset_password"
+
+  get "login" => "sessions#new"
+  post "login" => "sessions#create", :as => "login"
+ 
+  get "logout" => "sessions#destroy", :as => "logout"
+
   resources :users
+
+  resources :nakkitype_infos
+
+  resources :parties do
+    resources :parcipitants, :nakkitypes, :nakit, :aux_nakit
+
+    # listing nakki info descriptions
+    get "nakkitype_infos" => "nakkitype_infos#party_index"
+    
+    # auxiliary listing and delete
+    get "aux_parcipitants" => "parcipitants#aux_index"
+    delete "aux_parcipitants/:id" => "aux_nakit#destroy"
+
+    #services for regular users
+    get "aux_parcipitants_names" => "parcipitants#aux_index_only_names"
+    delete "cancel_all" => "parcipitants#cancel_all_from_current_user"
+  end
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

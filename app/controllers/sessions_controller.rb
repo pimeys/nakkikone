@@ -1,15 +1,21 @@
 class SessionsController < ApplicationController
-  skip_before_filter :require_login, :only => [:new, :create]
+  skip_before_filter :require_login, :only => [:create, :new]
+
   def new
+    if current_user
+      render :json => current_user
+    else
+      raise User::Unauthenticated
+    end
   end
-  
+
   def create
     user = User.authenticate(params[:email], params[:password])
     if user
       session[:user_id] = user.id
-      redirect_to root_url, :notice => "Logged in!"
+      render :json => user, :notice => "Logged in!"
     else
-      redirect_to root_url, :notice => "Invalid email or password"
+      raise User::Unauthenticated
     end
   end
   

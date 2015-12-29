@@ -1,0 +1,14 @@
+<form method="post">
+  {{#if notSelected.cleaning}}
+  <label for="cleaning"><input type="checkbox" id="cleaning" name="cleaning" value="cleaning"/>
+    Taking down</label>
+  {{else}}
+  <label class="reserved">You have volunteed for party cleaning.</label>
+  {{/if}}
+  {{#if notSelected.construction}}
+  <label for="construction"><input type="checkbox" id="construction" name="construction" value="construction">
+    Building up</input></label>
+  {{else}}
+  <label class="reserved">You have volunteed for party construction.</label>
+  {{/if}}
+</form>

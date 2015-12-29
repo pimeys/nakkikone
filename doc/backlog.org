@@ -1,0 +1,740 @@
+#+TITLE:     Backlog for NakkiKone
+#+AUTHOR:    Sami Airaksinen
+#+EMAIL:     samiaira@gmail.com
+#+DATE:      2012-12-21 Fri
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+
+This documentation is organizing initial backlog. After deployment
+github issues tools should be used for feature requests. This will be
+used as logging tool after that.
+
+* Framework stuff [3/4]					  :IMPLEMENT:
+** DONE update requirejs
+   CLOSED: [2013-02-24 Sun 19:45]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-02-24 Sun 19:45]
+   :END:
+   - currently comes from gem is 2.0.0 (0.9.0)
+   - needs only shim-configuration for jquery, bb and underscore.
+
+*** notes
+    - updated gem and handlebars plugin 
+** DONE update backbone
+   CLOSED: [2013-02-24 Sun 19:45]
+   :CLOCK:
+   CLOCK: [2013-02-24 Sun 17:41]--[2013-02-24 Sun 19:45] =>  2:04
+   CLOCK: [2013-02-24 Sun 16:46]--[2013-02-24 Sun 16:51] =>  0:05
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-02-24 Sun 19:45]
+   - State "STARTED"    from "WAITING"    [2013-02-24 Sun 17:41]
+   - State "STARTED"    from "TODO"       [2013-02-24 Sun 16:46]
+   :END:
+   - done in the same time as requirejs update
+
+   - [X] creating submodules to repos (bb and underscore)
+   - [X] linking and checking that no major breakdowns
+
+*** notes
+    - be careful with dependent library versions
+    - see ref https://github.com/SlexAxton/require-handlebars-plugin/issues/80 
+** DONE install handlebars plugin for require-js
+   CLOSED: [2013-02-21 Thu 23:06]
+   :CLOCK:
+   CLOCK: [2013-02-19 Tue 20:08]--[2013-02-19 Tue 22:51] =>  2:43
+   CLOCK: [2013-02-21 Thu 21:08]--[2013-02-21 Thu 23:10] =>  2:02
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-02-21 Thu 23:06]
+   - State "STARTED"    from "STARTED"    [2013-02-19 Tue 22:27]
+   - State "STARTED"    from "STARTED"    [2013-02-19 Tue 20:08]
+   - State "STARTED"    from "TODO"       [2013-02-12 Tue 20:46]
+   :END:
+
+   - [X] add libraries
+   - [X] change templates
+   - [X] debug changes
+
+*** notes							       :note:
+    - handlebars template helpers silently fails
+    - hbs compiles templates to javasript, is it needed to filter static html as well?
+** TODO install jasmine plugin
+* Backend stuff [11/12] 					  :IMPLEMENT:
+** DONE [#A] serialized user model don't have all attributes!!
+   CLOSED: [2013-03-02 Sat 19:06]
+   :CLOCK:
+   CLOCK: [2013-03-02 Sat 13:57]--[2013-03-02 Sat 19:06] =>  5:09
+   CLOCK: [2013-03-02 Sat 13:43]--[2013-03-02 Sat 13:46] =>  0:03
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-02 Sat 19:06]
+   - State "STARTED"    from "WAITING"    [2013-03-02 Sat 13:57]
+   - State "STARTED"    from "TODO"       [2013-03-02 Sat 13:43]
+   :END:
+   
+   - added activemodel serializers for each model
+   - refactored js code slightly
+
+** DONE [#A] create model for pre- and post-building nakkis
+   CLOSED: [2013-03-26 Tue 00:02]
+   :CLOCK:
+   CLOCK: [2013-03-25 Mon 21:26]--[2013-03-26 Tue 00:02] =>  2:36
+   CLOCK: [2013-03-05 Tue 20:16]--[2013-03-05 Tue 23:29] =>  3:13
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-26 Tue 00:02]
+   - State "STARTED"    from "WAITING"    [2013-03-25 Mon 21:26]
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:16]
+   :END:
+
+   - needs to fixed to one user per nakkitype per party
+   - now restricted via complex unique constrain 
+** DONE Remove duplicates from parcipiants response
+   CLOSED: [2013-03-31 Sun 18:21]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 18:15]--[2013-03-31 Sun 18:21] =>  0:06
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-31 Sun 18:21]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 18:15]
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:15]
+   :END:
+   
+   - parcipiants JSON response contains several same entities, need to
+     be filtered before passing to frontend
+   - added uniq filtering
+** DONE Map Record not found responses to 404 and empty bodies
+   CLOSED: [2013-03-25 Mon 22:31]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-03-25 Mon 22:31]
+   :END:
+   - e.g. remove stack traces
+** DONE Create dummy Data
+   CLOSED: [2013-03-31 Sun 13:41]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 13:00]--[2013-03-31 Sun 13:41] =>  0:41
+   CLOCK: [2013-03-31 Sun 11:44]--[2013-03-31 Sun 12:38] =>  0:54
+   CLOCK: [2013-03-30 Sat 16:29]--[2013-03-30 Sat 16:38] =>  0:09
+   CLOCK: [2013-03-29 Fri 13:18]--[2013-03-29 Fri 13:43] =>  0:25
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-31 Sun 13:41]
+   - State "STARTED"    from "WAITING"    [2013-03-31 Sun 13:00]
+   - State "STARTED"    from "WAITING"    [2013-03-31 Sun 11:44]
+   - State "STARTED"    from "WAITING"    [2013-03-30 Sat 16:29]
+   - State "STARTED"    from "TODO"       [2013-03-29 Fri 13:18]
+   :END:
+   - so that one can do visual development instantly.
+   - 2 parties, one empty and other one has test users which have been
+     assigned some tasks.
+** DONE Add nakki info time to party model
+   CLOSED: [2013-03-31 Sun 23:07]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 18:33]--[2013-03-31 Sun 20:25] =>  1:52
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-31 Sun 23:07]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 18:33]
+   :END:
+   - so that it can be selected during party creation 
+   - extra time field to define party info meeting
+   - constrain is that its before party start
+   - preferably couple hours before party starts.
+   - same date as parties, stored to own attribute
+** DONE Service for finding party based on title
+   CLOSED: [2013-04-04 Thu 23:14]
+   :CLOCK:
+   CLOCK: [2013-04-04 Thu 22:51]--[2013-04-04 Thu 23:14] =>  0:23
+   CLOCK: [2013-04-04 Thu 22:31]--[2013-04-04 Thu 22:34] =>  0:03
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 23:14]
+   - State "STARTED"    from "WAITING"    [2013-04-04 Thu 22:51]
+   - State "STARTED"    from "TODO"       [2013-04-04 Thu 22:31]
+   :END:
+   - simple extension to party/id pattern with optional query
+     parameter
+   - party title must be unique now
+** DONE model validations
+   CLOSED: [2013-04-03 Wed 01:06]
+   :CLOCK:
+   CLOCK: [2013-04-02 Tue 23:06]--[2013-04-03 Wed 01:06] =>  2:00
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-03 Wed 01:06]
+   - State "STARTED"    from "TODO"       [2013-04-02 Tue 23:06]
+   :END:
+   - needs to have proper validations
+     - nakkitype.start < nakkitype.end
+     - all model attributes should be validated
+*** notes
+    - inner validation class must be defined before actual usage
+** DONE user roles for user models
+   CLOSED: [2013-04-02 Tue 17:05]
+   :CLOCK:
+   CLOCK: [2013-04-02 Tue 16:47]--[2013-04-02 Tue 17:05] =>  0:18
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-02 Tue 17:05]
+   - State "STARTED"    from "TODO"       [2013-04-02 Tue 16:47]
+   :END:
+   - enumeration
+   - used first only for admin role
+     - create role column (one role per user, simplicity here)
+     - role should be enumerated (admin, user)
+     - model addition and validation
+** CANCELLED [#C] Check and redefine resource url patterns if needed
+   CLOSED: [2013-04-05 Fri 12:41]
+   :LOGBOOK:
+   - State "CANCELLED"  from "TODO"       [2013-04-05 Fri 12:41] \\
+     Was done during feature additions, and would be wasteful now.
+   :END:
+** DONE User Cancellation Service
+   CLOSED: [2013-04-07 Sun 14:31]
+   :CLOCK:
+   CLOCK: [2013-04-07 Sun 14:13]--[2013-04-07 Sun 14:31] =>  0:18
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 14:31]
+   - State "STARTED"    from "TODO"       [2013-04-07 Sun 14:13]
+   :END:
+   - removes user from all partys nakkis
+** TODO implement unit tests for server side code
+* UI stuff [21/22] 						  :IMPLEMENT:
+** DONE [#A] selector for pre and post building
+   CLOSED: [2013-03-19 Tue 21:48]
+   :CLOCK:
+   CLOCK: [2013-03-05 Tue 23:29]--[2013-03-06 Wed 00:30] =>  1:01
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-19 Tue 21:48]
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 23:29]
+   - State "STARTED"    from "TODO"       [2013-03-05 Tue 20:15]
+   :END:
+
+   - selector, but is going to be replaced with other kind of UI
+     design
+
+** DONE [#B] fix date parsing for party
+   CLOSED: [2013-03-21 Thu 22:16]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-03-21 Thu 22:16]
+   :END:
+** DONE [#B] replace proper time for slot column  
+   CLOSED: [2013-03-21 Thu 22:15]
+   :CLOCK:
+   CLOCK: [2013-03-21 Thu 21:43]--[2013-03-21 Thu 22:15] =>  0:32
+   CLOCK: [2013-03-21 Thu 20:59]--[2013-03-21 Thu 21:37] =>  0:38
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-21 Thu 22:15]
+   - State "STARTED"    from "WAITING"    [2013-03-21 Thu 21:43]
+   - State "STARTED"    from "TODO"       [2013-03-21 Thu 20:59]
+   :END:
+
+   - 1 hour increment from starting time
+
+** DONE [#B] redirection logic on 401 and 403 in BB
+   CLOSED: [2013-03-19 Tue 22:26]
+   :CLOCK:
+   CLOCK: [2013-03-19 Tue 21:54]--[2013-03-19 Tue 22:25] =>  0:31
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-19 Tue 22:26]
+   - State "STARTED"    from "TODO"       [2013-03-19 Tue 21:54]
+   :END:
+
+   - also redirection when signing up
+   - now all errors > 400 trigger redirection to login page.
+     
+** DONE hide logout button when logged out
+   CLOSED: [2013-03-19 Tue 21:33]
+   :CLOCK:
+   CLOCK: [2013-03-19 Tue 20:50]--[2013-03-19 Tue 21:33] =>  0:43
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-19 Tue 21:33]
+   - State "STARTED"    from "TODO"       [2013-03-19 Tue 20:50]
+   :END:
+   
+   - whole navigation bar is hidden until logged in.
+
+** DONE logout link, bb conventions
+   CLOSED: [2013-03-03 Sun 21:58]
+   :CLOCK:
+   CLOCK: [2013-03-03 Sun 20:32]--[2013-03-03 Sun 21:39] =>  1:07
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-03-03 Sun 21:58]
+   - State "STARTED"    from "TODO"       [2013-03-03 Sun 20:32]
+   :END:
+   - created simple view that renders logout link in place when logged user has been resolved
+** DONE clean up templates
+   CLOSED: [2013-02-24 Sun 21:14]
+   :CLOCK:
+   CLOCK: [2012-12-21 Fri 20:51]--[2012-12-21 Fri 21:17] =>  0:26
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-02-24 Sun 21:14]
+   - State "STARTED"    from "TODO"       [2012-12-21 Fri 20:51]
+   :END:
+** DONE fix uneven nakkitype population to nakkitable
+   CLOSED: [2013-03-24 Sun 22:45]
+   :CLOCK:
+   CLOCK: [2013-03-24 Sun 20:18]--[2013-03-24 Sun 22:45] =>  2:27
+   CLOCK: [2013-03-24 Sun 19:37]--[2013-03-24 Sun 19:50] =>  0:13
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-24 Sun 22:45]
+   - State "STARTED"    from "STARTED"    [2013-03-24 Sun 22:45]
+   - State "STARTED"    from "WAITING"    [2013-03-24 Sun 20:18]
+   - State "STARTED"    from "TODO"       [2013-03-24 Sun 19:37]
+   :END:
+
+   - fixed titles resolving from nakki collection
+   - figured out how arbitrary size nakkitypes are populated to table
+     so that cell column order is preserved.
+*** notes
+    - brakes if all nakkitypes start from slot 0>, needs at least one
+      from 0 slot. e.g. input validation needed.
+** DONE dynamic time presentation of nakki info
+   CLOSED: [2013-04-01 Mon 00:00]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 23:35]--[2013-04-01 Mon 00:00] =>  0:25
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-01 Mon 00:00]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 23:35]
+   :END:
+   - depends on addition of nakki info time to party model
+
+   - need to edit party-description template.
+** DONE date picker for party start date
+   CLOSED: [2013-03-31 Sun 23:05]
+   :CLOCK:
+   CLOCK: [2013-03-31 Sun 22:13]--[2013-03-31 Sun 23:05] =>  0:52
+   CLOCK: [2013-03-31 Sun 20:26]--[2013-03-31 Sun 21:48] =>  1:22
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-31 Sun 23:05]
+   - State "STARTED"    from "WAITING"    [2013-03-31 Sun 22:13]
+   - State "STARTED"    from "TODO"       [2013-03-31 Sun 20:26]
+   :END:
+   - added date and time pickers
+   - added party info date to party model
+   - Now date and time pickers are populated from party information
+   - added prettyTime printing
+   - party_viewer save data parsing completed
+** DONE time pickers for party start and end times
+   CLOSED: [2013-04-01 Mon 01:36]
+   :CLOCK:
+   CLOCK: [2013-04-01 Mon 00:15]--[2013-04-01 Mon 01:36] =>  1:21
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-01 Mon 01:36]
+   - State "STARTED"    from "TODO"       [2013-04-01 Mon 00:15]
+   :END:
+   - time pickers, but maps to slots behind the scenes
+   - needs to handle changing of the day
+     1. 22:00-05:00 => 7 slots
+** DONE Remove user from party nakkis
+   CLOSED: [2013-04-01 Mon 18:17]
+   :CLOCK:
+   CLOCK: [2013-04-01 Mon 18:07]--[2013-04-01 Mon 18:17] =>  0:10
+   CLOCK: [2013-04-01 Mon 15:09]--[2013-04-01 Mon 15:42] =>  0:33
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-01 Mon 18:17]
+   - State "STARTED"    from "WAITING"    [2013-04-01 Mon 18:07]
+   - State "STARTED"    from "TODO"       [2013-04-01 Mon 15:09]
+   :END:
+   - needs button to list where admin can unassign nakkis from user
+** DONE Hide admin screen button from non-admin users
+   CLOSED: [2013-04-02 Tue 19:02]
+   :CLOCK:
+   CLOCK: [2013-04-02 Tue 18:46]--[2013-04-02 Tue 19:02] =>  0:16
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-02 Tue 19:02]
+   - State "STARTED"    from "TODO"       [2013-04-02 Tue 18:46]
+   :END:
+** DONE [#A] model validations
+   CLOSED: [2013-04-04 Thu 01:06]
+   :CLOCK:
+   CLOCK: [2013-04-03 Wed 22:41]--[2013-04-04 Thu 01:06] =>  2:25
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 01:06]
+   - State "STARTED"    from "TODO"       [2013-04-03 Wed 22:41]
+   :END:
+   - example nakkitype slot parsing fails because of invalid input
+     - earlier time than start time
+** DONE redefine route patterns
+   CLOSED: [2013-04-04 Thu 23:38]
+   :CLOCK:
+   CLOCK: [2013-04-04 Thu 23:22]--[2013-04-04 Thu 23:38] =>  0:16
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 23:38]
+   - State "STARTED"    from "TODO"       [2013-04-04 Thu 23:22]
+   :END:
+   - if party could be fetched by its title it needs new url into backend
+   - depends on query service
+** DONE Add confirmation to party Delete action 
+   CLOSED: [2013-04-04 Thu 17:15]
+   :CLOCK:
+   CLOCK: [2013-04-04 Thu 17:07]--[2013-04-04 Thu 17:15] =>  0:08
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 17:15]
+   - State "STARTED"    from "TODO"       [2013-04-04 Thu 17:07]
+   :END:
+   - delete confirmation and associations fixed
+** DONE Change alerts to bootstrap notification boxes
+   CLOSED: [2013-04-05 Fri 17:58]
+   :CLOCK:
+   CLOCK: [2013-04-05 Fri 17:33]--[2013-04-05 Fri 17:58] =>  0:25
+   CLOCK: [2013-04-05 Fri 16:38]--[2013-04-05 Fri 17:23] =>  0:45
+   CLOCK: [2013-04-05 Fri 12:56]--[2013-04-05 Fri 13:59] =>  1:03
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-05 Fri 17:58]
+   - State "STARTED"    from "WAITING"    [2013-04-05 Fri 17:33]
+   - State "STARTED"    from "WAITING"    [2013-04-05 Fri 16:38]
+   - State "STARTED"    from "TODO"       [2013-04-05 Fri 12:56]
+   :END:
+   - all alerts should be bootstrap notify/alert indications
+   - messaging is done via vent to common area in each page
+   - needs own view for that
+** DONE Time formatting
+   CLOSED: [2013-04-06 Sat 01:31]
+   :CLOCK:
+   CLOCK: [2013-04-05 Fri 23:27]--[2013-04-06 Sat 01:31] =>  2:04
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-06 Sat 01:31]
+   - State "STARTED"    from "TODO"       [2013-04-05 Fri 23:27]
+   :END:
+   - to show simpler time stamp
+     - display format for time HH:mm
+     - display format for dates dd.mm.yyyy
+     - make sure that input conversions work
+*** notes
+    - muthafucking moment and languages, pain in the ass, minified
+      doesn't work in current setup
+    - all moments are local setted to use fi...
+** DONE Redirection After login
+   CLOSED: [2013-04-07 Sun 13:59]
+   :CLOCK:
+   CLOCK: [2013-04-07 Sun 13:12]--[2013-04-07 Sun 13:59] =>  0:47
+   CLOCK: [2013-04-06 Sat 15:29]--[2013-04-06 Sat 17:00] =>  1:31
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 13:59]
+   - State "STARTED"    from "STARTED"    [2013-04-07 Sun 13:12]
+   - State "STARTED"    from "TODO"       [2013-04-06 Sat 15:29]
+   :END:
+   - should be able to go into url after login
+   - as redirection is handled in UI, it should quite straightforward
+     to store url in ?goto= parameter.
+** DONE Nakki reservation cancellation
+   CLOSED: [2013-04-07 Sun 15:18]
+   :CLOCK:
+   CLOCK: [2013-04-07 Sun 14:35]--[2013-04-07 Sun 15:18] =>  0:43
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 15:18]
+   - State "STARTED"    from "WAITING"    [2013-04-07 Sun 15:00]
+   - State "STARTED"    from "TODO"       [2013-04-07 Sun 14:47]
+   :END:
+   - cancellation button for user
+   - removes all nakki assigments from him/her
+   - temporary solution until UX is redesigned
+     - now user can cancel itself its reservations
+** DONE The party button to list of parties
+   CLOSED: [2013-04-07 Sun 15:47]
+   :CLOCK:
+   CLOCK: [2013-04-07 Sun 15:19]--[2013-04-07 Sun 15:47] =>  0:28
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-07 Sun 15:47]
+   - State "STARTED"    from "TODO"       [2013-04-07 Sun 15:19]
+   :END:
+   - the party is replaced with parties drop down buttongroup
+** TODO create jasmine tests for backbone code
+* Deployment [1/2]
+** DONE Capistrano to nakkikone
+   CLOSED: [2013-09-15 Sun 22:42]
+   :CLOCK:
+   CLOCK: [2013-09-15 Sun 22:13]--[2013-09-15 Sun 22:25] =>  0:12
+   CLOCK: [2013-09-15 Sun 21:25]--[2013-09-15 Sun 21:55] =>  0:30
+   CLOCK: [2013-09-04 Wed 21:19]--[2013-09-04 Wed 22:21] =>  1:02
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-09-15 Sun 22:42]
+   - State "STARTED"    from "WAITING"    [2013-09-15 Sun 22:13]
+   - State "STARTED"    from "WAITING"    [2013-09-15 Sun 21:53]
+   - State "STARTED"    from "TODO"       [2013-09-04 Wed 22:19]
+   :END:
+   :PROPERTIES:
+   :ID:       659fa20a-c186-4cba-b463-9e3efa2a677f
+   :END:
+   product deployment with it. Current Way is hack...
+
+   - needs to decide from where the deployment is done, in domain itself or ...
+   - backups copies from production db
+   - [X] verified that works.
+
+** TODO Update Capistrano usage
+   - lets use cat production deploy!
+* Improvement ideas [5/9] 					     :DESIGN:
+** DONE Default Nakkitypes
+   CLOSED: [2013-04-06 Sat 11:37]
+   :CLOCK:
+   CLOCK: [2013-04-06 Sat 10:51]--[2013-04-06 Sat 11:37] =>  0:46
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-06 Sat 11:37]
+   - State "STARTED"    from "TODO"       [2013-04-06 Sat 10:51]
+   :END:
+   - During party creation default template of nakkitypes would be
+     applied
+** DONE Adding nickname for users
+   CLOSED: [2013-04-05 Fri 12:13]
+   :CLOCK:
+   CLOCK: [2013-04-05 Fri 11:57]--[2013-04-05 Fri 12:13] =>  0:16
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-05 Fri 12:13]
+   - State "STARTED"    from "TODO"       [2013-04-05 Fri 11:57]
+   :END:
+   - showing that in public side
+** DONE Mail to all participants Button
+   CLOSED: [2013-04-06 Sat 15:24]
+   :CLOCK:
+   CLOCK: [2013-04-06 Sat 14:04]--[2013-04-06 Sat 15:24] =>  1:20
+   CLOCK: [2013-04-06 Sat 13:02]--[2013-04-06 Sat 13:15] =>  0:13
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-06 Sat 15:24]
+   - State "STARTED"    from "WAITING"    [2013-04-06 Sat 14:04]
+   - State "STARTED"    from "TODO"       [2013-04-06 Sat 13:02]
+   :END:
+   - simple link to mailto: and all emails of current party
+   - maybe also include webmaster or some other mailing list?
+** DONE Adding cancellation possibility of nakkis
+   CLOSED: [2013-05-16 Thu 19:44]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-05-16 Thu 19:44]
+   :END:
+   - UI that allows user to remove its own nakki reservations
+** TODO Changing reservation of nakki to single click UI
+   - pressing nakki will reserve it to user
+   - depends needs cancellation feature
+** TODO Improve party creation flow
+   :CLOCK:
+   CLOCK: [2013-04-01 Mon 00:12]--[2013-04-01 Mon 00:13] =>  0:01
+   :END:
+   :LOGBOOK:
+   - State "STARTED"    from "TODO"       [2013-04-01 Mon 00:12]
+   :END:
+   1. Title, time, (start and endtime) and description (providing template)
+   2. define nakki types (columns)
+   3. confirm.
+   4. After which admin can modify party properties
+      - nakki columns edits will destroy existing reservations?
+      - time edits as well?
+** TODO [#C] Document backend design and functionality
+** TODO User Management
+*** WAITING Modify own details
+    :CLOCK:
+    CLOCK: [2013-05-16 Thu 19:44]--[2013-05-16 Thu 20:14] =>  0:30
+    :END:
+    :LOGBOOK:
+    - State "STARTED"    from "TODO"       [2013-05-16 Thu 19:44]
+    :END:
+    
+    - opened from navigation button
+    - reuses sign up form for it
+    - needs service for updating current user data
+*** TODO Screen to administrate nakkikone users
+**** TODO reset password
+**** TODO remove user
+**** TODO edit details
+**** TODO user can itself access itself
+** Create error handling module
+   - provides tools to notify users about backend errors
+   - also part of the redirection logic could go here
+** Two levels of nakkis
+   - special nakki assignment for organizers?
+** Create separate authentication module
+** DONE refactor nakkitype view to be more manageable
+   CLOSED: [2013-10-23 Wed 21:33]
+   :LOGBOOK:
+   - State "DONE"       from "TODO"       [2013-10-23 Wed 21:33]
+   :END:
+   - nakkitypes.add to .create (more sync with backend)
+   - collect validation errors from backend
+* Development time defects [3/3] 			      :IMPLEMENT:BUG:
+** DONE after login and reload page, assigned user is empty
+   CLOSED: [2013-02-28 Thu 22:29]
+   :CLOCK:
+   CLOCK: [2013-02-28 Thu 21:08]--[2013-02-28 Thu 22:29] =>  1:21
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "WAITING"    [2013-02-28 Thu 22:29]
+   - State "STARTED"    from ""           [2013-02-28 Thu 21:08]
+   :END:
+   - work if you do session based login in browsing root url
+   - happens because login is done with ajax.get and publicscreen gets
+     initalized before it sets the value to it.
+*** notes
+    - authentication module inits before app does
+    - lazy eval of current user until public view is initialized
+    - removed 'logged in' event from session cookie relogin
+** DONE fix exess posts when reserving aux_nakkis
+   CLOSED: [2013-03-27 Wed 00:12]
+   :CLOCK:
+   CLOCK: [2013-03-26 Tue 21:30]--[2013-03-27 Wed 00:12] =>  2:42
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-03-27 Wed 00:12]
+   - State "STARTED"    from "TODO"       [2013-03-27 Wed 00:09]
+   :END:
+   - something to do with poor save implementation in auxjob...
+
+   - turned out to be trickier, old views were triggered via vent bindings
+   - cleaned module api
+   - vents are reseted in each initializations
+
+** DONE [#A] Removing nakkitype fails
+   CLOSED: [2013-04-04 Thu 01:15]
+   :CLOCK:
+   CLOCK: [2013-04-04 Thu 01:09]--[2013-04-04 Thu 01:15] =>  0:06
+   :END:
+   :LOGBOOK:
+   - State "DONE"       from "STARTED"    [2013-04-04 Thu 01:15]
+   - State "STARTED"    from "TODO"       [2013-04-04 Thu 01:09]
+   :END:
+* Issues
+** requirejs-rails configuration too simple
+   
+   My configuration requirements aren't matched with the
+   requirejs-rails basic configuration, see issue [[https://github.com/jwhitley/requirejs-rails/issues/85][#85]] for more
+   details. 
+   
+   #+BEGIN_SRC ruby :tangle ../config/requirejs.yml
+     paths:
+       text: "libs/text"
+       underscore: "underscore/underscore"
+       backbone: "backbone/backbone"
+       moment: "moment/min/moment.min"
+       languages: "moment/min/langs"
+     
+       handlebars : "require-handlebars-plugin/Handlebars"
+       hbs : "require-handlebars-plugin/hbs"
+       i18nprecompile : "require-handlebars-plugin/hbs/i18nprecompile"
+       json2 : "require-handlebars-plugin/hbs/json2"
+     
+       bootstrapDatepicker: "bootstrap-datepicker/js/bootstrap-datepicker"
+       bootstrapTimepicker: "bootstrap-timepicker/js/bootstrap-timepicker"
+       bs: "libs/bootstrap.min"
+     
+     shim:
+       'underscore':
+       exports: '_'
+     
+       'backbone':
+       deps: ['underscore', 'jquery']
+       exports: 'Backbone'
+     
+       'bootstrapDatepicker':
+       deps: ['jquery']
+       exports: 'bootstrapDatepicker'
+     
+       'bootstrapTimepicker':
+       deps: ['jquery']
+       exports: 'bootstrapTimepicker'
+     
+       'bs' :
+       deps: ['jquery']
+       exports: 'bs'
+     
+       'languages' : ['moment']
+     
+     modules:
+       - name: 'application'
+   #+END_SRC
+*** Relevance
+    Problematic here is that this issue has been untouched over 8 month ATM.
+** Asset precompilation
+   
+   =requirejs-rails= doesn't work in this aspect. With that simple
+   =requirejs.yml= and requirejs-rails version =0.9.0= eventually
+   fails to:
+   
+   #+BEGIN_EXAMPLE
+   bundle exec rake assets:precompile RAILS_ENV=production --trace
+   ** Invoke assets:precompile (first_time)
+   ** Invoke requirejs:precompile:external (first_time)
+   ** Invoke requirejs:test_node (first_time)
+   ** Execute requirejs:test_node
+   ** Execute requirejs:precompile:external
+   /home/user-home/.rvm/rubies/ruby-1.9.3-p194/bin/ruby /home/user-home/.rvm/gems/ruby-1.9.3-p194@global/bin/rake requirejs:precompile:all RAILS_ENV=production RAILS_GROUPS=assets --trace
+   ** Invoke requirejs:precompile:all (first_time)
+   ** Invoke requirejs:precompile:prepare_source (first_time)
+   ** Invoke requirejs:setup (first_time)
+   ** Invoke assets:environment (first_time)
+   ** Invoke requirejs:precompile:disable_js_compressor (first_time)
+   ** Execute requirejs:precompile:disable_js_compressor
+   ** Execute assets:environment
+   ** Invoke environment (first_time)
+   ** Execute environment
+   ** Execute requirejs:setup
+   ** Invoke requirejs:clean (first_time)
+   ** Invoke requirejs:setup 
+   ** Execute requirejs:clean
+   ** Execute requirejs:precompile:prepare_source
+   ** Invoke requirejs:precompile:generate_rjs_driver (first_time)
+   ** Invoke requirejs:setup 
+   ** Execute requirejs:precompile:generate_rjs_driver
+   ** Invoke requirejs:precompile:run_rjs (first_time)
+   ** Invoke requirejs:setup 
+   ** Invoke requirejs:test_node (first_time)
+   ** Execute requirejs:test_node
+   ** Execute requirejs:precompile:run_rjs
+   
+   node.js:201
+   throw e; // process.nextTick error, or 'error' event on first tick
+   ^
+   Error: TypeError: Cannot read property 'exports' of null
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1440:34
+   
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:14166:23
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:15358:30
+   at Object.execCb (/home/user-home.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1773:33)
+   at Object.check (/home/user-home.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1083:51)
+   at Object.enable (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1324:22)
+   at Object.init (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:982:26)
+   at Object.require (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1579:28)
+   at /home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:1857:24
+   at Function.optimize (/home/user-home/.rvm/gems/ruby-1.9.3-p194/gems/requirejs-rails-0.9.0/bin/r.js:15368:13)
+   at /home/user-home/repos/nakkikone/tmp/rjs_driver.js:61:15
+   rake aborted!
+   Asset compilation with node failed.
+   #+END_EXAMPLE
+   
+   With =0.9.1= fails same way as in issue [[https://github.com/jwhitley/requirejs-rails/issues/101][#101]].
+
+*** Relevance
+    Thinking future plans, this might not be relevant enough to be fixed.

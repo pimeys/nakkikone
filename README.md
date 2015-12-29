@@ -35,3 +35,7 @@ http://travis-ci.org/#!/pimeys/nakkikone
 Testien tila:
 
 [![Testien tila](https://secure.travis-ci.org/pimeys/nakkikone.png?branch=master)](http://travis-ci.org/pimeys/nakkikone)
+
+## Deployaaminen
+
+Nakkikoneen deploymaamiseen on kaytossa capistrano. Konfiguroi `entropy-host` ssh-alias että deployment koneelta on yhteys hostille ja aja rootissa `cap deploy` deployaaksesi uusin `master`in versio liveksi. 

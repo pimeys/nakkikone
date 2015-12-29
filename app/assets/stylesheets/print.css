@@ -1,0 +1,29 @@
+@page land {size: landscape;}
+.landscape {page: land;}
+@page port {size: portrait;}
+.portrait {page: port;}
+#accordion2 { display: none;}
+#party-description section p {display:none;}
+#navigation {display:none;}
+#public section heading h2 {display:none;}
+#input {display:none;}
+#alert-area {display:none;}
+#jobselector heading {display: none;}
+#notifications {display: none;}
+.disabled {display:none;}
+.table-striped tbody tr td input {display:none;}
+.table-striped tbody tr td h5 {margin:0 8px 0 0;}
+.table-striped tbody tr td {border-bottom:1px solid #000; padding: 0 5px 2px 5px; margin: 0 5px 0 0; }
+.take {display:none;}
+.help {display:none;}
+#auxJob-contsructors .list-of-nicks {display:block;}
+#auxJob-cleaners .list-of-nicks {display:block;}
+#auxJob-contsructors h4 {font-size: 20px;}
+#auxJob-cleaners h4 {font-size: 20px;}
+#auxJob-selector {display:none;}
+.space {font-size: 14px; margin:0px;}
+footer {text-align: right;}
+footer p {margin:0px;}
+.noprint {display:none;}
+#party p {display:none;}
+.editor {display:none;}

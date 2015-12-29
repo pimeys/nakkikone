@@ -1,0 +1,53 @@
+<form id="edit_party" class="form-horizontal span12">
+  <div class="control-group">
+    <label class="control-label">Title:</label>
+    <div class="controls">
+      <input type="text" name="title" value="{{ party.title }}" readOnly="true" class="input-large"/>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label">Date:</label>
+    <div class="controls">
+      <div class="date input-append datepicker">
+	<input type="text" name="date" value="{{ prettyDate party.date }}" readOnly="true" class="input-medium">
+	  <span class="add-on"><i class="icon-th"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label">Party Info Time:</label>
+    <div class="controls">
+      <div class="bootstrap-timepicker input-append">
+	<input type="text" name="infoTime" value="{{ prettyTime party.infoDate }}" class="input-mini timepicker" >
+	  <span class="add-on"><i class="icon-time"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label">Starting Time:</label> 
+    <div class="controls">
+      <div class="bootstrap-timepicker input-append">
+	<input type="text" name="startTime" value="{{ prettyTime party.date }}" class="input-mini timepicker" >
+	  <span class="add-on"><i class="icon-time"></i></span>
+      </div>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label">Enable construction and building nakkis:</label>
+    <div class="controls">
+      <input type="checkbox" name="auxJobsEnabled" value="enabled" {{#if party.auxJobsEnabled }}checked{{/if}}>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" >Description:</label> 
+    <div class="controls">
+      <textarea rows="8" class="span12" name="description" placeholder=".input-block-level" value="{{ party.description }}">{{ party.description }}</textarea>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" value="Save Changes" class="btn btn-primary"></input>
+      <button class="btn btn-danger cancel">Cancel</button>
+    </div>
+  </div>
+</form>

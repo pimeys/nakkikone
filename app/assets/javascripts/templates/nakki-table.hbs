@@ -1,0 +1,15 @@
+<form id="assignedNakkis">
+  <table class="table table-striped">
+    <tr>
+      <td><h5>Start Time</h5></td>
+      {{#each titles}}
+      <td><h5>{{ this }}</h5></td>
+      {{/each}}
+    </tr>
+    {{#each nakit}}
+    <tr>
+      {{nakki_row ../startTime ../nakkiCellPositions}}
+    </tr>
+    {{/each}}
+  </table>
+</form>

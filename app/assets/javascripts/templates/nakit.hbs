@@ -1,0 +1,22 @@
+<div class="accordion-inner">
+  <div><strong>NOTICE: Editing time ranges resets the current reservations.</strong></div>
+  <table class="table table-striped">
+    <thead>
+      <tr><th>Nakki Type</th><th>Start Time</th><th>End Time</th></tr>
+    </thead>
+    {{#each nakit}}
+    <tr>
+      <td>{{ this.info.title }}</td>
+      <td>{{ prettyTimeFromSlot this.start_time ../party.date }}</td>
+      <td>{{ prettyTimeFromSlot this.end_time ../party.date }}</td>
+      <td><button class="deletor btn btn-danger btn-tiny" value="{{ this.cid }}">Delete</button></td>
+    </tr>
+    {{/each}}
+    <tr>
+      <td><button class="editor btn btn-primary">Edit Nakki Timatable</button></td>
+      <td></td>
+      <td></td>
+      <td><button class="creator btn btn-primary">Create New Nakki</button></td>
+    </tr>
+  </table>
+</div>
