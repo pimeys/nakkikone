@@ -6,8 +6,8 @@ require.config({
         backbone: "backbone/backbone",
 	moment: "moment/min/moment.min",
 	languages: "moment/min/langs",
-	
-	handlebars : "require-handlebars-plugin/Handlebars",
+
+	handlebars : "require-handlebars-plugin/hbs",
         hbs : "require-handlebars-plugin/hbs",
         i18nprecompile : "require-handlebars-plugin/hbs/i18nprecompile",
         json2 : "require-handlebars-plugin/hbs/json2",
@@ -55,12 +55,6 @@ require.config({
 	    deps: ['wysihtml5'],
 	    exports: 'bootstrapWysivyg'
 	}
-    },
-
-    hbs: {
-        templateExtension: "hbs",
-  //      i18nDirectory: "template/i18n",
-	disableI18n: true
     }
 });
 

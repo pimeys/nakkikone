@@ -1,5 +1,5 @@
-define('template/helpers/isSelected',[
-    'handlebars',
+define('templates/helpers/isSelected',[
+    'hbs/handlebars',
     'underscore'
 ], function ( Handlebars, _) {
     function isSelected(a, b) {

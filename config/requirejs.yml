@@ -3,7 +3,7 @@ paths:
   backbone: "backbone/backbone"
   moment: "moment/min/moment.min"
   languages: "moment/min/langs"
-  handlebars: "require-handlebars-plugin/Handlebars"
+  handlebars: "require-handlebars-plugin/hbs"
   hbs: "require-handlebars-plugin/hbs"
   i18nprecompile: "require-handlebars-plugin/hbs/i18nprecompile"
   json2: "require-handlebars-plugin/hbs/json2"
@@ -38,8 +38,3 @@ shim:
   bootstrapWysivyg:
     deps: ['wysihtml5']
     exports: 'bootstrapWysivyg'
-
-hbs:
-  templateExtension: "hbs"
-  disableI18n: true
-##  i18nDirectory: "template/i18n"

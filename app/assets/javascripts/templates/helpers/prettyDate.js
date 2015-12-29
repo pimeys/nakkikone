@@ -1,5 +1,5 @@
-define('template/helpers/prettyDate', [
-    'handlebars',
+define('templates/helpers/prettyDate', [
+    'hbs/handlebars',
     'moment',
     'languages'
 ], function (Handlebars, moment) {

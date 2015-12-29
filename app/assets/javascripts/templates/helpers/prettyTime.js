@@ -1,4 +1,4 @@
-define('template/helpers/prettyTime', ['handlebars'], function (Handlebars) {
+define('templates/helpers/prettyTime', ['hbs/handlebars'], function (Handlebars) {
     
     function prettyTime(dateJSON){
 	var date = new Date(dateJSON);
